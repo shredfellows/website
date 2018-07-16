@@ -1,14 +1,38 @@
 import React, { Component } from 'react';
+
 import {Link} from 'react-router-dom';
+
 import Workspace from '../workspace/workspace.js';
+import Sidebar from '../sidebar/sidebar.js';
+
+import * as api from '../../lib/api.js';
+
 
 class Home extends Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      topics:{}
+    }
+  }
+
+  async componentWillMount(){
+    let payload = {
+      model: 'github'
+    }
+    let topics = await api.get(payload);
+    this.setState({topics});
+  }
+
   render() {
     return (
+      <React.Fragment>
+       
       <div className="Home">
 
-        <h1>@HOME</h1>
+
+        <Sidebar topics={this.state.topics}/>
 
         <Workspace />
 
@@ -20,6 +44,9 @@ class Home extends Component {
         </ul> */}
 
       </div>
+
+      </React.Fragment>
+
     );
   }
 }
