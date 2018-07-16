@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import Workspace from '../workspace/workspace.js';
 
 class Home extends Component {
 
@@ -9,11 +10,14 @@ class Home extends Component {
 
         <h1>@HOME</h1>
 
-        <ul>
+        <Workspace />
+
+        
+        {/* <ul>
           <li><Link to='/one'>one</Link></li>
           <li><Link to='/two'>two</Link></li>
           <li><Link to='/tre'>three</Link></li>
-        </ul>
+        </ul> */}
 
       </div>
     );
