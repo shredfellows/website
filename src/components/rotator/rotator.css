@@ -1,0 +1,48 @@
+.rotator {
+  display: flex;
+  flex-direction: column;
+}
+
+.rotator.card {
+  order: 0;
+}
+
+.rotator nav {
+  order: 1;
+}
+
+.rotator nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  padding: 0;
+}
+
+.rotator nav li {
+  cursor: pointer;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background: #efefef;
+}
+
+.rotator nav li:hover {
+  background: #444;
+}
+
+.rotator .card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.thing {
+  border: 1px solid black;
+  background: #bc36ad;
+  height: 300px;
+  width: 500px;
+}

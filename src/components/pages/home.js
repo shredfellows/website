@@ -38,7 +38,7 @@ class Home extends Component {
 
     let assignment = await api.get(payload);
     this.setState({assignment});
-    
+
   }
 
   render() {
@@ -47,7 +47,7 @@ class Home extends Component {
       <React.Fragment>
       <div className="Home">
 
-
+        <a href="https://shred-fellows-server.herokuapp.com/oauth">Login with Google</a>
         <Sidebar topics={topics} getAssign={this.getAssignment}/>
 
         <Workspace assignment={this.state.assignment}/>
