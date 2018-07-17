@@ -4,6 +4,6 @@ import './repl.css';
 export default class Repl extends React.Component {
     render() {
         return (
-            <div className="repl">repl</div>
+            <div className="repl"></div>
         )
 }};

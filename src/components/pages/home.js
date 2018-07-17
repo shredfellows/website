@@ -48,7 +48,7 @@ class Home extends Component {
 
         <Sidebar topics={topics} getAss={this.getAssignment}/>
 
-        <Workspace />
+        <Workspace assignment={this.state.assignment}/>
 
         
         {/* <ul>
