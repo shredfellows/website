@@ -35,8 +35,10 @@ class Home extends Component {
     let payload = {
       model: `github/${topic}.${ass}`
     }
+
     let assignment = await api.get(payload);
     this.setState({assignment});
+    
   }
 
   render() {
@@ -46,7 +48,7 @@ class Home extends Component {
       <div className="Home">
 
 
-        <Sidebar topics={topics} getAss={this.getAssignment}/>
+        <Sidebar topics={topics} getAssign={this.getAssignment}/>
 
         <Workspace assignment={this.state.assignment}/>
 
