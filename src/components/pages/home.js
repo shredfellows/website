@@ -46,7 +46,7 @@ class Home extends Component {
       <div className="Home">
 
 
-        <Sidebar topics={topics} getAss={this.getAssignment}/>
+        <Sidebar topics={topics} getAssign={this.getAssignment}/>
 
         <Workspace assignment={this.state.assignment}/>
 

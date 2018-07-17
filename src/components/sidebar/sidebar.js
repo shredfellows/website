@@ -21,7 +21,7 @@ export default class Sidebar extends React.Component {
                 
                     <ul>
                         {Object.keys(this.props.topics[el]).map((subEl, j) => (
-                            <li key={uuid()}><a onClick={() => this.props.getAss(el, subEl)}>{subEl}</a></li>
+                            <li key={uuid()}><a onClick={() => this.props.getAssign(el, subEl)}>{subEl}</a></li>
                         ))}
                     </ul>
                 
