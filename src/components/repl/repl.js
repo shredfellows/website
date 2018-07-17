@@ -8,10 +8,10 @@ export default class Repl extends React.Component {
         this.state={code:''}
         this.updateState=this.updateState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     updateState(e){
-        e.preventDefault;
         console.log(e.target);
         // let input= e.target.value;
         // this.setState({code:input});
@@ -28,6 +28,7 @@ export default class Repl extends React.Component {
     }
     onChange(newValue, e) {
         console.log('onChange', newValue);
+        this.setState({code:newValue});
     }
 
     render() {
@@ -38,21 +39,21 @@ export default class Repl extends React.Component {
 
         return (
             <div className="repl" >
-                {/* <form>
-                    <textarea name="repl_env" id="repl"  placeholder="repl environment"></textarea>
+                <form>
+                    <MonacoEditor
+                        width="800"
+                        height="600"
+                        language="javascript"
+                        theme="vs-dark"
+                        value={code}
+                        options={options}
+                        onChange={this.onChange}
+                        editorDidMount={this.editorDidMount}
+                    />
                     <input type="submit" id="runCode" onClick={this.handleSubmit} placeholder="Run Code"/>
                     
-                </form> */}
-                <MonacoEditor
-                    width="800"
-                    height="600"
-                    language="javascript"
-                    theme="vs-dark"
-                    value={code}
-                    options={options}
-                    onChange={this.onChange}
-                    editorDidMount={this.editorDidMount}
-                    />
+                </form>
+                
             </div>
         )
 }};
