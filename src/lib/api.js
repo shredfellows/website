@@ -1,4 +1,4 @@
-// import superagent from 'superagent';
+import superagent from 'superagent';
 import * as utils from './utils.js';
 
 const dev = false;
@@ -10,4 +10,16 @@ export const get = async payload => {
     let data = await utils.fetchData(url);
     return data;
     // console.log('ding!', Object.values(data));
+}
+
+export const post = async payload => {
+    let {endpoint, body} = payload;
+    let url = base + '/' + endpoint;
+    let code = {code:body}
+
+    let data = await superagent.post(url)
+        .set('Content-Type','application/json')
+        .send(JSON.stringify(code));
+   
+    return data.body;
 }

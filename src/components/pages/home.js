@@ -35,8 +35,10 @@ class Home extends Component {
     let payload = {
       model: `github/${topic}.${ass}`
     }
+
     let assignment = await api.get(payload);
     this.setState({assignment});
+    
   }
 
   render() {
