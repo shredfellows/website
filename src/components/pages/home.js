@@ -46,8 +46,7 @@ class Home extends Component {
     return (
       <React.Fragment>
       <div className="Home">
-
-        <a href="https://shred-fellows-server.herokuapp.com/oauth">Login with Google</a>
+      
         <Sidebar topics={topics} getAssign={this.getAssignment}/>
 
         <Workspace assignment={this.state.assignment}/>
