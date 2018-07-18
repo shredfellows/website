@@ -2,8 +2,10 @@ import React from 'react';
 import './repl.css';
 import MonacoEditor from 'react-monaco-editor';
 import superagent from 'superagent';
+import { connect } from 'react-redux';
+import * as actions from './store/actions/auth.js';
 
-export default class Repl extends React.Component {
+export class Repl extends React.Component {
     constructor(props){
         super(props)
         this.state={code:''}
@@ -14,6 +16,7 @@ export default class Repl extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         this.props.runCode(this.state.code);
+        this.props.submitCode(this.props.id, this.state.code);
     }
 
     editorDidMount(editor, monaco) {
@@ -24,6 +27,7 @@ export default class Repl extends React.Component {
     }
 
     async componentWillMount(prevProps, prevState) {
+
         let url = this.props.challenges;
        
         let code;
@@ -33,6 +37,11 @@ export default class Repl extends React.Component {
             code = '/*' + content + '*/';
         } 
         this.setState({code});
+        this.props.submitCode(this.props.id, code); //Do this in the big wrapper where we get assignments
+    }
+
+    componentWillUpdate(){
+
     }
 
     render() {
@@ -45,6 +54,8 @@ export default class Repl extends React.Component {
             <div className="repl" >
                 <form>
                     <MonacoEditor
+                        width="800"
+                        height="600"
                         language="javascript"
                         theme="vs-dark"
                         value={code}
@@ -59,3 +70,14 @@ export default class Repl extends React.Component {
             </div>
         )
 }};
+
+//code already exists in state. I do want to overwrite it if it exists in the store, but does it need a different name. I think it does. And then write a function to check the store and overwrite if it's there
+const mapStateToProps = state => ({
+    code: state.code,
+  });
+  
+  const mapDispatchToprops = (dispatch, getState) => ({
+    submitCode: payload => dispatch(actions.addCode(payload)),
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToprops)(Repl);
