@@ -1,4 +1,4 @@
-export const switchUser = payload => {
+export const addCode = payload => {
   return {
     type: "ADD_CODE",
     payload: payload
