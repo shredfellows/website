@@ -2,7 +2,7 @@ import './readme.css';
 
 import React from 'react';
 import superagent from 'superagent';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 
 export default class Readme extends React.Component {
 
@@ -25,6 +25,7 @@ export default class Readme extends React.Component {
         return (
             <div className="readme">
                 <ReactMarkdown source={this.state.content} />
+              
             </div>
         )
     }
