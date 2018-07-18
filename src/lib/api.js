@@ -1,7 +1,7 @@
 import superagent from 'superagent';
 import * as utils from './utils.js';
 
-const dev = false;
+const dev = true;
 
 let base = dev ? 'http://localhost:3000/api/v1' : 'https://shred-fellows-server.herokuapp.com/api/v1';
 
