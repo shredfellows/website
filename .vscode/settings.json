@@ -7,6 +7,6 @@
   "editor.tabSize": 2,
   "todo-tree.ripgrep": "/private/var/folders/03/j51n_tfd2rv_g99rcjxcglpr0000gn/T/AppTranslocation/5B4B8099-BB8D-4781-9467-DC5E986FDC1C/d/Visual Studio Code.app/Contents/Resources/app/node_modules/vscode-ripgrep/bin/rg",
   "eslint.autoFixOnSave": true,
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 3,
   "workbench.statusBar.visible": true
 }
