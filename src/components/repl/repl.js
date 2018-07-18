@@ -6,7 +6,7 @@ import superagent from 'superagent';
 import cookies from 'react-cookies'
 import { connect } from 'react-redux';
 
-import * as actions from './store/actions/auth.js';
+import * as actions from '../../store/actions/code.js'
 
 export class Repl extends React.Component {
     constructor(props){
