@@ -1,6 +1,7 @@
 import React from 'react';
 import './repl.css';
 import MonacoEditor from 'react-monaco-editor';
+import superagent from 'superagent';
 
 export default class Repl extends React.Component {
     constructor(props){
@@ -28,6 +29,19 @@ export default class Repl extends React.Component {
     }
     onChange(newValue, e) {
         this.setState({code:newValue});
+    }
+
+    async componentWillMount(prevProps, prevState) {
+        let url = this.props.challenges;
+        console.log({url})
+        let code;
+        if (url && url.length) {
+            let data = await superagent.get(url);
+            let content = atob(data.body.content);
+            console.log({content});
+            code = '/*' + content + '*/';
+        } 
+        this.setState({code});
     }
 
     render() {

@@ -58,9 +58,7 @@ export default class Workspace extends React.Component {
                     )}
                 </Rotator>
                 )}
-                 
                 <Readme readmeDoc={this.props.assignment.readme}/>
-               
                 <Output output={this.state.output} />
             
             </div>
