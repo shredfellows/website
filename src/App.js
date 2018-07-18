@@ -1,48 +1,35 @@
 import React, { Component } from 'react';
-
-//elements
 import Header from "./components/header/header.js";
-import Footer from "./components/footer/footer.js";
-
-//pages
+import { Provider } from 'react-redux';
 import Home from "./components/pages/home.js";
-// import One from "./Pages/One.js";
-// import Two from "./Pages/Two.js";
-// import Thr from "./Pages/Tre.js";
+import { BrowserRouter} from 'react-router-dom';
 
-import { BrowserRouter, Route } from 'react-router-dom';
-
-// import './App.css';
+import createStore from './store/';
+const store = createStore();
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={loading:true}
+    this.loadingStatus=this.loadingStatus.bind(this);
+  }
+
+  loadingStatus(status){
+    this.setState({loading:status});
+  }
 
   render() {
     return (
-      <React.Fragment>
-
-        <Header />
-
-          <BrowserRouter>
-            <React.Fragment>
-               
-                <main>
-
-                  <Route exact path="/" component={Home} />
-
-                  {/* <Route exact path="/one" component={One} />
-          
-                  <Route path="/two" component={Two}/>
-                  
-                  <Route exact path="/tre" component={Thr}/> */}
-                  
-                </main>
-         
-            </React.Fragment>
-          </BrowserRouter>
-
-        <Footer />
-
-      </React.Fragment>
+      <Provider store={store}>
+        <React.Fragment>
+        <Header loading={this.loadingStatus} />
+        <BrowserRouter>
+          <main>
+            <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
+          </main>
+        </BrowserRouter>
+        </React.Fragment>
+      </Provider>
     );
   }
 }

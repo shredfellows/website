@@ -8,13 +8,11 @@ export default class Readme extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            content: ''
-        }
+        this.state = {content: ''}
     }
 
-    async componentDidUpdate(prevProps, prevState) {
+    //Changed from componentWillUpdate after spinner was setup
+    async componentWillMount(prevProps, prevState) {
         let url = this.props.readmeDoc;
         if (url && url.length) {
             let data = await superagent.get(url);
@@ -29,4 +27,5 @@ export default class Readme extends React.Component {
                 <ReactMarkdown source={this.state.content} />
             </div>
         )
-}};
+    }
+};
