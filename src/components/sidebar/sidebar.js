@@ -13,6 +13,7 @@ export default class Sidebar extends React.Component {
 
         return (
             <div className="sidebar">
+            <h2>Topics</h2>
             <ul>
             {
 
