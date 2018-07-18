@@ -7,6 +7,8 @@ export default class Rotator extends React.Component {
   constructor(props) {
     super(props);
     // Build a linked list out of the children of this component
+    let children = this.props.children;
+    console.log({children});
     let list = List.fromArray(this.props.children);
 
     // this.state.current will always be the node in the link list that
@@ -61,15 +63,17 @@ export default class Rotator extends React.Component {
       pips.push(<li data-idx={i++} onClick={this.select} />);
       current = current.next;
     }
-
+    let currentValue = this.state.current && this.state.current.value;
+    console.log({currentValue});
     return (
+      
       <div className="rotator deck">
         <nav>
           <ul>{pips}</ul>
         </nav>
         <div className="card">
           <button onClick={this.previous}>P</button>
-          {this.state.current.value}
+          {currentValue}
           <button onClick={this.next}>N</button>
         </div>
       </div>
