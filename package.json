@@ -19,6 +19,9 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -30,6 +33,7 @@
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "20.0.4",
     "monaco-editor": "^0.13.1",
     "monaco-editor-webpack-plugin": "^1.4.0",
@@ -61,14 +65,16 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "postinstall": "npm run build"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
-      "<rootDir>/config/polyfills.js"
+      "<rootDir>/config/polyfills.js",
+      "./__tests__/jest-setup.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
@@ -82,10 +88,12 @@
       "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",
+      "jest-setup.js"
     ],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web"
+      "^react-native$": "react-native-web",
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
       "web.js",
