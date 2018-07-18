@@ -11,50 +11,8 @@ require('dotenv').config();
 class Header extends Component {
   constructor(props){
     super(props);
-
-      this.state={loggedin: false}
-
-      this.login=this.login.bind(this);
-      this.signup=this.signup.bind(this);
-    }
-
-
-    // formatLogin() {
-
-    //   const ENV = {};
-
-    //   ENV.isProduction = window.location.protocol === 'https:';
-    //   ENV.productionApiUrl = 'https://shred-fellows-server.herokuapp.com';
-    //   ENV.developmentApiUrl = 'http://localhost:3000';
-    //   ENV.apiURL = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
-      
-    //   let githubURL = "https://github.com/login/oauth/authorize";
-
-    //   let options = {
-    //     client_id: '252d0f262488210326f6',
-    //     scope: 'user,user:email',
-    //     redirect_uri: `${ENV.apiURL}/oauth`,
-    //   }
-
-    //   let QueryString = Object.keys(options).map((key, i) => {
-    //     return `${key}=` + encodeURIComponent(options[key]);
-    //   }).join("&");
-
-    //   let authURL = `${githubURL}?${QueryString}`;
-    //   ('#oauth').append(`<a href="${authURL}">Login With Google</a>`);
-    //   // res.redirect('https://github.com/login/oauth/authorize?client_id=252d0f262488210326f6&scope=user,user:email&redirect_uri=http://localhost:3000/oauth');
-    // }
-
-    login(){
-
-    }
-
-    signup(){
-
-    }
-  
-
-
+    this.state={loggedin: false}
+  }
 
   render() {
     const ENV = {};
@@ -81,12 +39,11 @@ class Header extends Component {
     
     return (
       <header className="header">
-          <FontAwesomeIcon icon={faBars}/>
-          <img alt="shred fellows logo" src={sflogo}/>
+        <FontAwesomeIcon icon={faBars}/>
+        <img alt="shred fellows logo" src={sflogo}/>
         <a href={authURL}>LOGIN OR SIGNUP</a>
-          <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
-          <button onClick={this.login}>Log In</button>
-         
+        <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
+        <button onClick={this.login}>Log In</button>
       </header>
     );
   }

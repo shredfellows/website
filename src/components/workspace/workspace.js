@@ -8,6 +8,7 @@ import Output from '../output/output.js';
 import Rotator from '../rotator/rotator.js'
 import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
+import uuid from 'uuid';
 
 export default class Workspace extends React.Component {
     constructor(props) {
@@ -57,7 +58,7 @@ export default class Workspace extends React.Component {
                     {renderIf(this.props.assignment && this.props.assignment.challenges, 
                     <Rotator>
                         {challenges.map((challenge, i) =>
-                            <Repl key={i} challenges={challenge} runCode={this.runCode} />
+                            <Repl key={uuid()} id={uuid()} challenges={challenge} runCode={this.runCode} />
                         )}
                     </Rotator>
                     )}
