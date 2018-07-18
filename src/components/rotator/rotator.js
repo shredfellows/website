@@ -1,14 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+// import * as actions from './store/actions/auth.js';
 
 import './rotator.css';
 import List from '../../lib/linked-list.js';
+import uuid from 'uuid';
 
-export default class Rotator extends React.Component {
+export class Rotator extends React.Component {
   constructor(props) {
     super(props);
     // Build a linked list out of the children of this component
-    let children = this.props.children;
-    console.log({children});
+ 
     let list = List.fromArray(this.props.children);
 
     // this.state.current will always be the node in the link list that
@@ -50,7 +52,7 @@ export default class Rotator extends React.Component {
     Select a specific node in the linked list
   */
   select(e) {
-    let idx = parseInt(e.target.dataset.idx);
+    let idx = parseInt(e.target.dataset.idx, 10);
     let current = this.state.list.findNth(idx);
     this.setState({ current });
   }
@@ -60,11 +62,11 @@ export default class Rotator extends React.Component {
     let i = 0;
     let current = this.state.list.root;
     while (current) {
-      pips.push(<li data-idx={i++} onClick={this.select} />);
+      pips.push(<li key={uuid()} data-idx={i++} onClick={this.select} />);
       current = current.next;
     }
     let currentValue = this.state.current && this.state.current.value;
-    console.log({currentValue});
+   
     return (
       
       <div className="rotator deck">
@@ -80,3 +82,13 @@ export default class Rotator extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  // auth: state.auth,
+});
+
+const mapDispatchToprops = (dispatch, getState) => ({
+  // switch: payload => dispatch(actions.switchUser(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToprops)(Rotator);

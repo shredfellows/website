@@ -22,20 +22,25 @@ export default class Workspace extends React.Component {
             body:input
         }
         let solution = await api.post(payload);
-        console.log(solution);
+        console.log({solution});
         let consoleLogs = '';
+        let errors = '';
         if (solution['console.log']) {
             for (let i = 0; i < solution['console.log'].length; i++) {
                 consoleLogs = consoleLogs + solution['console.log'][i] + `\r`;
             }
         }
-        let output = consoleLogs + `\r` + '< ' + solution['return'];
-        console.log({output});
+        if (solution['error']) {
+            errors += solution['error']['ename'] + ': '+ solution['error']['evalue'] + `\r`;
+            let traceback = '\nat ' + solution['error']['traceback'][0] + '\n'
+            for (let i = 1; i < solution['error']['traceback'].length; i++) {
+                traceback = traceback + solution['error']['traceback'][i] + '\n';
+            }
+            console.log({traceback})
+            errors += traceback;
+        }
+        let output = consoleLogs + '\r' + errors + '\r< ' + solution['return'];
         this.setState({output});
-    }
-
-    componentDidUpdate(){
-        console.log('__WORKSTATE__',this.state.output)
     }
 
     render() {
@@ -44,8 +49,6 @@ export default class Workspace extends React.Component {
             challenges = Object.values(this.props.assignment.challenges);
         }
         catch(e){};
-
-        console.log({challenges});
 
         return (
             <div className="workspace">
@@ -63,7 +66,6 @@ export default class Workspace extends React.Component {
                     <Readme readmeDoc={this.props.assignment.readme}/>
                     <Output output={this.state.output} />
                 </div>
-            
             </div>
         )
 }};
