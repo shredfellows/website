@@ -5,7 +5,9 @@ import Video from '../video/video.js';
 import Repl from '../repl/repl.js';
 import Readme from '../readme/readme.js';
 import Output from '../output/output.js';
+import Rotator from '../rotator/rotator.js'
 import * as api from '../../lib/api.js';
+import { renderIf } from '../../lib/utils';
 
 export default class Workspace extends React.Component {
     constructor(props) {
@@ -37,12 +39,28 @@ export default class Workspace extends React.Component {
     }
 
     render() {
+        let challenges = [];
+        try{
+            challenges = Object.values(this.props.assignment.challenges);
+        }
+        catch(e){};
+
+        console.log({challenges});
+
         return (
             <div className="workspace">
             
                 <Video videoUrl={this.props.assignment.video}/>
-                <Repl challenges={this.props.assignment.challenges} runCode={this.runCode}/>
+                {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                <Rotator>
+                    {challenges.map((challenge, i) =>
+                        <Repl key={i} challenges={challenge} runCode={this.runCode} />
+                    )}
+                </Rotator>
+                )}
+                 
                 <Readme readmeDoc={this.props.assignment.readme}/>
+               
                 <Output output={this.state.output} />
             
             </div>

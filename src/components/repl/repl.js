@@ -27,7 +27,6 @@ export default class Repl extends React.Component {
         editor.focus();
     }
     onChange(newValue, e) {
-        console.log('onChange', newValue);
         this.setState({code:newValue});
     }
 

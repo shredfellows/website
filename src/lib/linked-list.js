@@ -1,4 +1,4 @@
-'use strict';
+
 
 class Node {
   constructor(value) {
@@ -68,23 +68,7 @@ export default class DoublyLinkedList {
     current.next = node;
   }
 
-  remove(value) {
-    if (this.isEmpty()) {
-      return null;
-    } else if (this.root.value === value) {
-      return this.removeHead();
-    } else {
-      let result = null;
-      let current = this.root;
-      while (current.next) {
-        if (current.next.value === value) {
-          result = removeNextNode(current);
-        }
-        current = current.next;
-      }
-      return result;
-    }
-  }
+
 
   removeHead() {
     let result = this.root;
