@@ -3,6 +3,8 @@
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,.5);
     color: #cfcfcf;
     padding: 1em;
+    position: relative;
+    z-index: 100;
 }
 .header > svg, .header > img {
     display: inline-block;
@@ -15,4 +17,8 @@
 .header img {
     margin-left: 1em;
     width: 200px;
+}
+.header .gh-logo {
+    text-align: right; 
+    width: 1.5em;
 }

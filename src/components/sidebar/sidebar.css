@@ -1,3 +1,29 @@
-.sidebar{
-    border: solid 3px yellowgreen;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.sidebar {
+    background: #202020;
+    color: #fcfcfc;
+    font-family: 'Roboto', sans-serif;
+    height: 110%;
+    left: -500px;
+    padding: 5em 1em 1em 1em;
+    position: absolute;
+    top: 0;
+    width: 300px;
+    z-index: 99;
+
+    transition: all .3s ease;
+}
+.open-from-left {
+    left: 0;
+    transition: all .3s ease;
+}
+
+.sidebar > h2 {
+    color: #6CAEDD;
+}
+.sidebar > ul {
+    list-style-type: none;
+    padding: 0;
+    padding-left: 1em;
 }
