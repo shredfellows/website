@@ -142,7 +142,6 @@ export default class DoublyLinkedList {
   }
 
   findNthFromLast(n) {
-    var i;
     let result = this.root;
     let offset = this.root;
 

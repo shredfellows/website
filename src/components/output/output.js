@@ -4,6 +4,8 @@ import './output.css';
 export default class Output extends React.Component {
     render() {
         return (
-            <pre className="readme">{this.props.output}</pre>
+            <div className="outputWrapper">
+            <pre className="output">{this.props.output}</pre>
+            </div>
         )
 }};
