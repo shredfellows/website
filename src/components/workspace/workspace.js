@@ -52,18 +52,20 @@ export default class Workspace extends React.Component {
 
         return (
             <div className="workspace">
-            
-                <Video videoUrl={this.props.assignment.video}/>
-                {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                <div className="row"> 
+                    <Video videoUrl={this.props.assignment.video}/>
+                    {renderIf(this.props.assignment && this.props.assignment.challenges, 
                     <Rotator>
                         {challenges.map((challenge, i) =>
-                           <Repl key={i} challenges={challenge} runCode={this.runCode} />
-                     )}
+                            <Repl key={i} challenges={challenge} runCode={this.runCode} />
+                        )}
                     </Rotator>
-                )}
-                <Readme readmeDoc={this.props.assignment.readme}/>
-                <Output output={this.state.output} />
-            
+                    )}
+                </div>
+                <div className="row">
+                    <Readme readmeDoc={this.props.assignment.readme}/>
+                    <Output output={this.state.output} />
+                </div>
             </div>
         )
 }};

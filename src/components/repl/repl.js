@@ -45,8 +45,6 @@ export default class Repl extends React.Component {
             <div className="repl" >
                 <form>
                     <MonacoEditor
-                        width="800"
-                        height="600"
                         language="javascript"
                         theme="vs-dark"
                         value={code}
