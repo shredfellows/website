@@ -1,7 +1,9 @@
-import React from 'react';
 import './repl.css';
+
+import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import superagent from 'superagent';
+import cookies from 'react-cookies'
 
 export default class Repl extends React.Component {
     constructor(props){
@@ -25,10 +27,12 @@ export default class Repl extends React.Component {
 
     async componentWillMount(prevProps, prevState) {
         let url = this.props.challenges;
+        let cookie = cookies.load('GHT');
        
         let code;
         if (url && url.length) {
-            let data = await superagent.get(url);
+            let data = await superagent.get(url)
+                .set('Authorization', `Bearer ${cookie}`);
             let content = atob(data.body.content);
             code = '/*' + content + '*/';
         } 
