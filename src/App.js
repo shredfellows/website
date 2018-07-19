@@ -23,14 +23,7 @@ class App extends Component {
   }
 
   //TODO: Change cookie splitting for token to be more robust (i.e., handle other cookies)
-  async componentWillMount(){
-    if(document.cookie && document.cookie.match(/token/i)){
-      let token = document.cookie.split('Token=')[1];
-      let user = await api.login(token);
-      console.log(user);
-      this.setState({user});
-    }
-  }
+  
 
   render() {
     return (
@@ -39,7 +32,7 @@ class App extends Component {
         <Header loading={this.loadingStatus} />
         <BrowserRouter>
           <main>
-            <Home loading={this.loadingStatus} user={this.state.user} loadingStatus={this.state.loading}/>  
+            <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
           </main>
         </BrowserRouter>
         </React.Fragment>

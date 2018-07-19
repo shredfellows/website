@@ -5,7 +5,8 @@ import * as api from '../../lib/api.js';
 import { RingLoader } from 'react-spinners';
 import './home.css';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/users.js'
+import * as actions from '../../store/actions/users.js';
+import cookies from 'react-cookies';
 
 export class Home extends Component {
 
@@ -25,20 +26,31 @@ export class Home extends Component {
     let topics = await api.get(payload);
     this.setState({topics});
     this.props.loading(false);
+
+    let token = cookies.load('Token'); 
+    if(token){
+      
+      let profile = await api.login(token);
+      console.log({profile});
+      this.props.addUser(profile);
+    }
   }
+
+  
 
   async getAssignment(topic, ass){
-    this.props.loading(true);
-    let payload = {
-      model: `github/${topic}.${ass}`
-    }
-    let assignment = await api.get(payload);
-    this.setState({assignment});
-    this.props.loading(false);
-  }
 
-  componentWillReceiveProps(){
-    this.props.addUser(this.props.user);
+    //We need to consider what to use as a unique identifier for the assignment. Should we store the whole this.state.assignment in the profile mongo model?
+    if(!this.props.user.assignment.includes(`${topic}/${ass}`)){
+      this.props.loading(true);
+      let gitPayload = {
+        model: `github/${topic}.${ass}`
+      }
+      let assignment = await api.get(gitPayload);
+      this.setState({assignment});
+      this.props.loading(false);
+  }
+    
   }
 
   render() {
@@ -64,8 +76,12 @@ export class Home extends Component {
 }
 }
 
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
 const mapDispatchToprops = (dispatch, getState) => ({
   addUser: payload => dispatch(actions.addUser(payload)),
 });
 
-export default connect(null,mapDispatchToprops)(Home);
+export default connect(null, mapDispatchToprops)(Home);
