@@ -6,7 +6,8 @@ import cookies from 'react-cookies'
 import { connect } from 'react-redux';
 
 import * as api from '../../lib/api.js';
-import * as codeActions from '../../store/actions/code.js'
+import * as codeActions from '../../store/actions/code.js';
+import * as userActions from '../../store/actions/users.js';
 
 export class Repl extends React.Component {
     constructor(props){
@@ -40,16 +41,29 @@ export class Repl extends React.Component {
     }
 
     saveCodeToDB = async () => {
-        // payload = {endpoint, body} api/v1/code/assignmentid/challengename
+        let body = {};
+        let regex = new RegExp(this.props.assignment.assignmentName, 'gi');
+
+        Object.keys(this.props.challenges)
+            .filter(challenge => challenge.match(regex))
+            .forEach(challengeKey => {
+                body[challengeKey] = this.props.challenges[challengeKey];
+            });
+
         let challengeName = this.props.id.split('/')[2];
-        let codeInput = this.props.challenges[this.props.id];
         let endpoint = `code/${this.props.assignment._id}/${challengeName}`;
-        let body = {
-            [challengeName] : codeInput, 
-        };
-        let payload = {endpoint, body};
-        let data  = await api.put(payload);
-        console.log({data});
+    
+        let codeData = {endpoint, body};
+        let data  = await api.put(codeData);
+        
+        let payload = {
+            assignmentName: this.props.assignment.assignmentName,
+            code: data.input,
+        }
+    
+        this.props.addCodeToUser(payload);
+
+
     }
 
     async componentWillMount(prevProps, prevState) {
@@ -80,19 +94,25 @@ export class Repl extends React.Component {
             this.setState({code: codeExists});
 
             let payload = {};
-            payload[this.props.id] = this.state.code;
+            payload[this.props.id] = codeExists;
             this.props.submitCode(payload);
         }
     }
 
     challengeCodeExists = () => {
-        // Check if code for each challenge exists, otherwise its going to go to github and get the code content
+        
         let assignmentName = this.props.id.split('/').splice(0,2).join('/');
-        let challengeName = this.props.id.split('/')[2];
+        let challengeName = this.props.id;
         let codeExists = this.props.user.assignments.filter(singleAssgn => {
-            return (singleAssgn.assignmentName === assignmentName) &&  (singleAssgn.code && singleAssgn.code.length) && (singleAssgn.code[challengeName]);
+            return (singleAssgn.assignmentName === assignmentName) &&  (singleAssgn.code && singleAssgn.code[challengeName]);
         });
-        return !!codeExists.length ? codeExists.code[challengeName] : false;
+
+        return !!codeExists.length ? codeExists[0].code[challengeName] : false;
+    }
+
+    saveCode = async (e) => {
+        e.preventDefault();
+        this.saveCodeToDB();
     }
 
     render() {
@@ -115,6 +135,7 @@ export class Repl extends React.Component {
                         editorDidMount={this.editorDidMount}
                     />
                     <input type="submit" id="runCode" onClick={this.handleSubmit} placeholder="Run Code"/>
+                    <button onClick={this.saveCode}>Save Code</button>
                     
                 </form>
                 
@@ -131,6 +152,8 @@ const mapStateToProps = state => ({
   
   const mapDispatchToprops = (dispatch, getState) => ({
     submitCode: payload => dispatch(codeActions.addCode(payload)),
+    addCodeToUser: payload => dispatch(userActions.addCodeToUser(payload)),
+
   });
   
   export default connect(mapStateToProps, mapDispatchToprops)(Repl);

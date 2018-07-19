@@ -11,3 +11,10 @@ export const addAssignment = payload => {
     payload: payload
   };
 }
+
+export const addCodeToUser = payload => {
+  return {
+    type: 'ADD_CODE_TO_USER',
+    payload: payload
+  };
+}
