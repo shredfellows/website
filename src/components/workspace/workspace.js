@@ -1,6 +1,5 @@
 import React from 'react';
 import './workspace.css';
-
 import Video from '../video/video.js';
 import Repl from '../repl/repl.js';
 import Readme from '../readme/readme.js';
@@ -9,12 +8,15 @@ import Rotator from '../rotator/rotator.js'
 import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
 import uuid from 'uuid';
+import { connect } from 'react-redux';
+// import * as actions from '../../store/actions/code.js'
 
-export default class Workspace extends React.Component {
+export class Workspace extends React.Component {
     constructor(props) {
         super(props);
         this.state={output:''}
         this.runCode=this.runCode.bind(this);
+        this.submitAssignment=this.submitAssignment.bind(this);
     }
 
     async runCode(input){
@@ -44,6 +46,10 @@ export default class Workspace extends React.Component {
         this.setState({output});
     }
 
+    submitAssignment(user,data){
+        console.log(user,data);
+    }
+
     render() {
         let challenges = [];
         try{
@@ -67,6 +73,18 @@ export default class Workspace extends React.Component {
                     <Readme readmeDoc={this.props.assignment.readme}/>
                     <Output output={this.state.output} />
                 </div>
+                <button onClick={()=>this.submitAssignment(this.props.users,this.props.challenges)}>Submit Assignment</button>
             </div>
         )
 }};
+
+const mapStateToProps = state => ({
+    challenges: state.challenges,
+    users: state.user,
+  });
+  
+//   const mapDispatchToprops = (dispatch, getState) => ({
+//     saveAssignment: payload => dispatch(actions.saveAssignment(payload)),
+//   });
+  
+  export default connect(mapStateToProps, null)(Workspace);

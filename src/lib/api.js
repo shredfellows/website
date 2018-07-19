@@ -26,7 +26,6 @@ export const post = async payload => {
 
 export const login = async payload => {
     let token = payload;
-    console.log({token});
     // let url = base.replace(/api\/v1\//,'')+'/login';
     let url = base.split('/api/v1')[0]+'/login';
     let data = await superagent.get(url)

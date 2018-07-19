@@ -4,8 +4,10 @@ import Sidebar from '../sidebar/sidebar.js';
 import * as api from '../../lib/api.js';
 import { RingLoader } from 'react-spinners';
 import './home.css';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/users.js'
 
-class Home extends Component {
+export class Home extends Component {
 
   constructor(props){
     super(props);
@@ -35,7 +37,9 @@ class Home extends Component {
     this.props.loading(false);
   }
 
-  
+  componentWillReceiveProps(){
+    this.props.addUser(this.props.user);
+  }
 
   render() {
     let topics = this.state.topics || {};
@@ -60,4 +64,8 @@ class Home extends Component {
 }
 }
 
-export default Home;
+const mapDispatchToprops = (dispatch, getState) => ({
+  addUser: payload => dispatch(actions.addUser(payload)),
+});
+
+export default connect(null,mapDispatchToprops)(Home);

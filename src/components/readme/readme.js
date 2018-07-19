@@ -1,12 +1,10 @@
 import './readme.css';
-
 import React from 'react';
 import superagent from 'superagent';
 import ReactMarkdown from 'react-markdown';
 import cookies from 'react-cookies'
 
 export default class Readme extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {content: ''}

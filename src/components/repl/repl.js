@@ -1,11 +1,9 @@
 import './repl.css';
-
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import superagent from 'superagent';
 import cookies from 'react-cookies'
 import { connect } from 'react-redux';
-
 import * as actions from '../../store/actions/code.js'
 
 export class Repl extends React.Component {
@@ -27,6 +25,7 @@ export class Repl extends React.Component {
     editorDidMount(editor, monaco) {
         editor.focus();
     }
+
     onChange(newValue, e) {
         this.setState({code:newValue});
         let payload = {};

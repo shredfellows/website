@@ -11,7 +11,10 @@ const store = createStore();
 class App extends Component {
   constructor(props){
     super(props)
-    this.state={loading:true}
+    this.state={
+      loading:true,
+      user:{},
+    }
     this.loadingStatus=this.loadingStatus.bind(this);
   }
 
@@ -19,14 +22,14 @@ class App extends Component {
     this.setState({loading:status});
   }
 
+  //TODO: Change cookie splitting for token to be more robust (i.e., handle other cookies)
   async componentWillMount(){
     if(document.cookie && document.cookie.match(/token/i)){
       let token = document.cookie.split('Token=')[1];
-      // let token = document.cookie.replace(/token\=/i,'');
       let user = await api.login(token);
       console.log(user);
+      this.setState({user});
     }
-    
   }
 
   render() {
@@ -36,7 +39,7 @@ class App extends Component {
         <Header loading={this.loadingStatus} />
         <BrowserRouter>
           <main>
-            <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
+            <Home loading={this.loadingStatus} user={this.state.user} loadingStatus={this.state.loading}/>  
           </main>
         </BrowserRouter>
         </React.Fragment>

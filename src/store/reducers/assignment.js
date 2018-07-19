@@ -4,7 +4,7 @@ export default (state = initialState, action) => {
   let { type, payload } = action;
 
   switch (type) {
-    case 'ADD_CODE':
+    case 'SUBMIT_ASSIGNMENT':
       return Object.assign({}, state, payload);
       
     default:
