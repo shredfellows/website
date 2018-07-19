@@ -9,6 +9,9 @@ export default (state = initialState, action) => {
       // let token = users[payload] ? users[payload].token : users.default.token;
       // console.log('Token', token);
       // let userData = decode(token);
+      console.log({state});
+      console.log({payload});
+      
       
       return Object.assign({}, state, payload);
     default:

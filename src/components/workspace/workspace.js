@@ -58,7 +58,7 @@ export default class Workspace extends React.Component {
                     {renderIf(this.props.assignment && this.props.assignment.challenges, 
                     <Rotator>
                         {challenges.map((challenge, i) =>
-                            <Repl key={uuid()} id={uuid()} challenges={challenge} runCode={this.runCode} />
+                            <Repl key={uuid()} id={uuid()} challengeLinks={challenge} runCode={this.runCode} />
                         )}
                     </Rotator>
                     )}

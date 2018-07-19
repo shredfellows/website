@@ -11,7 +11,7 @@ import * as actions from '../../store/actions/code.js'
 export class Repl extends React.Component {
     constructor(props){
         super(props)
-        this.state={code:''}
+        this.state={code:this.props.challenges[this.props.id]}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
@@ -19,7 +19,9 @@ export class Repl extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         this.props.runCode(this.state.code);
-        this.props.submitCode(this.props.id, this.state.code);
+        let payload = {};
+        payload[this.props.id]=this.state.code;
+        this.props.submitCode(payload);
     }
 
     editorDidMount(editor, monaco) {
@@ -27,26 +29,28 @@ export class Repl extends React.Component {
     }
     onChange(newValue, e) {
         this.setState({code:newValue});
+        let payload = {};
+        payload[this.props.id]=this.state.code;
+        this.props.submitCode(payload);
     }
 
     async componentWillMount(prevProps, prevState) {
-
-        let url = this.props.challenges;
+        let url = this.props.challengeLinks;
+        console.log({url})
         let cookie = cookies.load('GHT');
        
         let code;
-        if (url && url.length) {
+        if (url && url.length && !this.props.challenges[this.props.id]) {
             let data = await superagent.get(url)
                 .set('Authorization', `Bearer ${cookie}`);
             let content = atob(data.body.content);
             code = '/*' + content + '*/';
-        } 
+        console.log({code});
         this.setState({code});
-        this.props.submitCode(this.props.id, code); //Do this in the big wrapper where we get assignments
-    }
-
-    componentWillUpdate(){
-
+        let payload = {};
+        payload[this.props.id]=this.state.code;
+        this.props.submitCode(payload);
+        } //Do this in the big wrapper where we get assignments
     }
 
     render() {
@@ -78,7 +82,7 @@ export class Repl extends React.Component {
 
 //code already exists in state. I do want to overwrite it if it exists in the store, but does it need a different name. I think it does. And then write a function to check the store and overwrite if it's there
 const mapStateToProps = state => ({
-    code: state.code,
+    challenges: state.challenges,
   });
   
   const mapDispatchToprops = (dispatch, getState) => ({

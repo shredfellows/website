@@ -35,6 +35,8 @@ class Home extends Component {
     this.props.loading(false);
   }
 
+  
+
   render() {
     let topics = this.state.topics || {};
     if(this.props.loadingStatus===true){
