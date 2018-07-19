@@ -1,40 +1,115 @@
 import React, { Component } from 'react';
+import { RingLoader } from 'react-spinners';
+import { connect } from 'react-redux';
+import cookies from 'react-cookies';
+
 import Workspace from '../workspace/workspace.js';
 import Sidebar from '../sidebar/sidebar.js';
+
 import * as api from '../../lib/api.js';
-import { RingLoader } from 'react-spinners';
+import * as actions from '../../store/actions/users.js';
+import * as assignmentActions from '../../store/actions/assignment.js';
+
 import './home.css';
 
-class Home extends Component {
+/**
+ * Component to fetch the assignments and build the home page.  State is set to 
+ * empty objects for the topics and assignments.
+ */
+
+export class Home extends Component {
 
   constructor(props){
     super(props);
     this.state = {
       topics:{},
-      assignment:{}
+      assignment:{},
+      singleTopic: {},
     }
     this.getAssignment = this.getAssignment.bind(this);
+    this.assignmentExists = this.assignmentExists.bind(this);
+    this.saveAssignment = this.saveAssignment.bind(this);
   }
 
-  async componentWillMount(){
+/**
+ * Get the list of topics from github
+ * @param: github token
+ */
+  async componentWillMount() {
+    
     let payload = {
       model: 'github'
     }
+
     let topics = await api.get(payload);
     this.setState({topics});
     this.props.loading(false);
-  }
 
-  async getAssignment(topic, ass){
-    this.props.loading(true);
-    let payload = {
-      model: `github/${topic}.${ass}`
+    let token = cookies.load('Token'); 
+    
+    if (token) {
+      let profile = await api.login(token);
+      this.props.addUser(profile);
     }
-    let assignment = await api.get(payload);
-    this.setState({assignment});
-    this.props.loading(false);
   }
 
+/**
+ * Get the list of assignments for each topic from github.  Creates a new 
+ * assignment if one does not already exist.
+ * @param: github token
+ */
+
+  async getAssignment(topic, assgn){
+      
+    this.props.loading(true);
+      
+    let gitPayload = {
+      model: `github/${topic}.${assgn}`
+    }
+    
+    let assignment = await api.get(gitPayload);
+
+    this.setState({singleTopic: topic});
+    this.setState({assignment});
+
+    let assgnExists = this.assignmentExists();
+
+    if (assgnExists) {
+      this.props.setCurrentAssignment(assgnExists);
+    } else {
+      let newAssignment = await this.saveAssignment();
+      this.props.addAssignment(newAssignment);
+      this.props.setCurrentAssignment(newAssignment);
+    }
+
+    this.props.loading(false);
+    
+  }
+
+/**
+ * Save the assignment to the user's profile.
+ */
+  async saveAssignment() {
+    let endpoint = 'assignment';
+    let body = {
+      assignmentName: `${this.state.singleTopic}/${this.state.assignment.name}`,
+      profileId: `${this.props.user._id}`,
+    }
+    let payload = {endpoint, body};
+    let data = await api.post(payload);
+    return data;
+  }
+
+  assignmentExists() {
+    let assgnExists = this.props.user.assignments.filter(singleAssgn => {
+      return singleAssgn.assignmentName === `${this.state.singleTopic}/${this.state.assignment.name}`;
+    });
+    return !!assgnExists.length ? assgnExists[0] : false;
+  }
+
+/**
+ * Render the page with a spinner until the page loads.
+ */
   render() {
     let topics = this.state.topics || {};
     if(this.props.loadingStatus===true){
@@ -49,7 +124,7 @@ class Home extends Component {
       <React.Fragment>
       <div className="Home">
         <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
-        <Workspace assignment={this.state.assignment}/>
+        <Workspace singleTopic={this.state.singleTopic} assignment={this.state.assignment}/>
       </div>
       </React.Fragment>
 
@@ -58,4 +133,15 @@ class Home extends Component {
 }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  user: state.user,
+  assignment: state.assignment,
+});
+
+const mapDispatchToprops = (dispatch, getState) => ({
+  addUser: payload => dispatch(actions.addUser(payload)),
+  addAssignment: payload => dispatch(actions.addAssignment(payload)),
+  setCurrentAssignment: payload => dispatch(assignmentActions.setCurrentAssignment(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToprops)(Home);
