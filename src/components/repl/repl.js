@@ -9,6 +9,9 @@ import * as api from '../../lib/api.js';
 import * as codeActions from '../../store/actions/code.js';
 import * as userActions from '../../store/actions/users.js';
 
+/**
+ * Component to render the Repl and submit the user's code to the database.
+ */
 export class Repl extends React.Component {
     constructor(props){
         super(props)
@@ -143,7 +146,7 @@ export class Repl extends React.Component {
         )
 }};
 
-//code already exists in state. I do want to overwrite it if it exists in the store, but does it need a different name. I think it does. And then write a function to check the store and overwrite if it's there
+
 const mapStateToProps = state => ({
     challenges: state.challenges,
     user: state.user,

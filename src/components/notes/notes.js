@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import superagent from 'superagent';
 
 import * as utils from '../../lib/utils.js';
 import * as api from '../../lib/api.js';
@@ -8,9 +9,12 @@ import * as userActions from '../../store/actions/users.js';
 import './notes.css';
 
 
-import superagent from 'superagent';
-
+/**
+ * Notes component to allow the user to take notes.  On the state is set to blank. 
+ * The note is saved in the database for later retrevial.
+ */
 class Notes extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = { notes: '' }
@@ -35,7 +39,6 @@ class Notes extends React.Component {
    let assignName = this.props.assignment.assignmentName;
    let action = { assignName, notes };
    this.props.addNoteToUser(action);
-
   }
 
   onChange(e) {
