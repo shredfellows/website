@@ -8,6 +8,7 @@ import Sidebar from '../sidebar/sidebar.js';
 
 import * as api from '../../lib/api.js';
 import * as actions from '../../store/actions/users.js';
+import * as assignmentActions from '../../store/actions/assignment.js';
 
 import './home.css';
 
@@ -25,11 +26,11 @@ export class Home extends Component {
     this.saveAssignment = this.saveAssignment.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log("HOME__STATE__", this.state);
-  }
+  // componentDidUpdate() {
+  //   console.log("HOME__STATE__", this.state);
+  // }
 
-  async componentWillMount(){
+  async componentWillMount() {
     
     let payload = {
       model: 'github'
@@ -61,13 +62,13 @@ export class Home extends Component {
     this.setState({assignment});
 
     let assgnExists = this.assignmentExists();
-    console.log({assgnExists});
 
     if (assgnExists) {
-      // do nothing
+      this.props.setCurrentAssignment(assgnExists);
     } else {
       let newAssignment = await this.saveAssignment();
       this.props.addAssignment(newAssignment);
+      this.props.setCurrentAssignment(newAssignment);
     }
 
     this.props.loading(false);
@@ -88,7 +89,7 @@ export class Home extends Component {
     let assgnExists = this.props.user.assignments.filter(singleAssgn => {
       return singleAssgn.assignmentName === `${this.state.singleTopic}/${this.state.assignment.name}`;
     });
-    return !!assgnExists.length;
+    return !!assgnExists.length ? assgnExists[0] : false;
   }
 
   render() {
@@ -116,11 +117,13 @@ export class Home extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
+  assignment: state.assignment,
 });
 
 const mapDispatchToprops = (dispatch, getState) => ({
   addUser: payload => dispatch(actions.addUser(payload)),
   addAssignment: payload => dispatch(actions.addAssignment(payload)),
+  setCurrentAssignment: payload => dispatch(assignmentActions.setCurrentAssignment(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToprops)(Home);

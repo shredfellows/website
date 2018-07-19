@@ -50,6 +50,33 @@ export const post = async payload => {
     return data.body;
     }
 }
+export const put = async payload => {
+
+    console.log({ payload });
+    let { endpoint, body } = payload;
+    let url = base + '/' + endpoint;
+
+    let token = cookies.load('Token');
+    
+    if (token) {
+        let data = await superagent.put(url)
+            .set('Authorization', `Bearer ${token}`)
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify(body));
+
+        return data.body;
+    }
+    else {
+        //This isn't generic enough!!
+        let code = { code: body }
+
+        let data = await superagent.post(url)
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify(code));
+
+        return data.body;
+    }
+}
 
 export const login = async payload => {
     let token = payload;

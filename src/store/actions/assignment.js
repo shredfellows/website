@@ -1,6 +1,6 @@
-export const submitAssignment = payload => {
+export const setCurrentAssignment = payload => {
   return {
-    type: "ADD_ASSIGNMENT",
+    type: "SET_ASSIGNMENT",
     payload: payload
   };
 };
