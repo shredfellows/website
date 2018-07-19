@@ -12,7 +12,7 @@
     let githubURL = "https://github.com/login/oauth/authorize";
 
     let options = {
-      client_id: ' 4476386c411872159ea9',
+      client_id: '4476386c411872159ea9',
       scope: 'user,user:email',
       redirect_uri: `${ENV.apiURL}/oauth`,
     }
