@@ -7,7 +7,7 @@
 //     ENV.isProduction = window.location.protocol === 'https:';
 //     ENV.productionApiUrl = 'https://shred-fellows-server.herokuapp.com';
 //     ENV.developmentApiUrl = 'http://localhost:3000';
-    ENV.apiURL = 'http://api.shredfellows.ccs.net/';
+    ENV.apiURL = 'http://api.shredfellows.ccs.net';
 
     let githubURL = "https://github.com/login/oauth/authorize";
 
