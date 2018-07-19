@@ -4,10 +4,13 @@ import superagent from 'superagent';
 import ReactMarkdown from 'react-markdown';
 import cookies from 'react-cookies'
 
+import Notes from '../notes/notes.js';
+
 /**
  * Component to fetch the Readme and render it onto the page.  Content is 
  *  inatlized to blank.
  */
+
 export default class Readme extends React.Component {
     constructor(props) {
         super(props);
@@ -33,10 +36,14 @@ export default class Readme extends React.Component {
  */
     render() {
         return (
+            <React.Fragment>
             <div className="readme">
-                <ReactMarkdown source={this.state.content} />
-              
+                <ReactMarkdown source={this.state.content} />              
             </div>
+            <div className="notes">
+                <Notes/>
+            </div>
+            </React.Fragment>
         )
     }
 };
