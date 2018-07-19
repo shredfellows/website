@@ -2,7 +2,7 @@ import superagent from 'superagent';
 import cookies from 'react-cookies';
 import * as utils from './utils.js';
 
-const dev = true;
+const dev = false;
 
 let base = dev ? 'http://localhost:3000/api/v1' : 'https://shred-fellows-server.herokuapp.com/api/v1';
 
