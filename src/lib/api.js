@@ -40,7 +40,7 @@ export const post = async payload => {
         return data.body;
     }
     else{
-    //This isn't generic enough!!
+    
     let code = {code:body}
 
     let data = await superagent.post(url)
@@ -67,7 +67,7 @@ export const put = async payload => {
         return data.body;
     }
     else {
-        //This isn't generic enough!!
+
         let code = { code: body }
 
         let data = await superagent.post(url)
@@ -80,7 +80,6 @@ export const put = async payload => {
 
 export const login = async payload => {
     let token = payload;
-    // let url = base.replace(/api\/v1\//,'')+'/login';
     let url = base.split('/api/v1')[0]+'/login';
     let data = await superagent.get(url)
         .set('Authorization', `Bearer ${token}`);

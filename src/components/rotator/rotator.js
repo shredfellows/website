@@ -6,8 +6,10 @@ import './rotator.css';
 import List from '../../lib/linked-list.js';
 import uuid from 'uuid';
 
-/**
- * Component to create and render the rotator for the challenges.  The rotator is * comprised of a double linked list of the children of the component.  State *will always be the node in the linked list that is active.
+/** Component to create and render the rotator for the challenges.  The rotator is
+ *  comprised of a double linked list of the children of the component.  State 
+ *  will always be the node in the linked list that is active.
+ * @module Rotator
  */
 export class Rotator extends React.Component {
   constructor(props) {

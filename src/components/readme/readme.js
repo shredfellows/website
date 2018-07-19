@@ -4,9 +4,9 @@ import superagent from 'superagent';
 import ReactMarkdown from 'react-markdown';
 import cookies from 'react-cookies'
 
-/**
- * Component to fetch the Readme and render it onto the page.  Content is 
- *  inatlized to blank.
+/** Component to fetch the Readme for the assignments and render it onto the page. 
+ *  Content is inatlized to blank.
+ * @module Readme
  */
 export default class Readme extends React.Component {
     constructor(props) {

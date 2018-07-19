@@ -9,8 +9,9 @@ import {authURL} from '../../lib/githubLogin.js';
 
 require('dotenv').config();
 
-/**
- * Header component and function to render.  The header includes the shredfellows *logo and a link to github for authenticaiton.  State is set to a logged in *status of false.
+/** Component to render the header.  The header includes the shredfellows 
+ * logo and a link to github for authenticaiton.  State is set to a logged in *status of false.
+ * @module Header
  */
 class Header extends Component {
   constructor(props){

@@ -5,9 +5,9 @@ import './notes.css';
 import superagent from 'superagent';
 
 
-/**
- * Notes component to allow the user to take notes.  On the state is set to blank. 
- * The note is saved in the database for later retrevial.
+/** Notes component to allow the user to take notes.  On the state is set to 
+ * blank. The note is saved in the database for later retrevial.
+ * @module Notes
  */
 export default class Notes extends React.Component {
   constructor(props) {
