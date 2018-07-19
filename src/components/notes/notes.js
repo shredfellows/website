@@ -4,6 +4,11 @@ import './notes.css';
 
 import superagent from 'superagent';
 
+
+/**
+ * Notes component to allow the user to take notes.  On the state is set to blank. 
+ * The note is saved in the database for later retrevial.
+ */
 export default class Notes extends React.Component {
   constructor(props) {
     super(props)
@@ -15,10 +20,6 @@ export default class Notes extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.props);
-
-    console.log('submit', this.state.notes);
-    //  this.props.submitNotes(this.state.notes);
   }
 
   onChange(e) {

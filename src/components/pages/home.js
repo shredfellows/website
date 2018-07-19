@@ -12,6 +12,11 @@ import * as assignmentActions from '../../store/actions/assignment.js';
 
 import './home.css';
 
+/**
+ * Component to fetch the assignments and build the home page.  State is set to 
+ * empty objects for the topics and assignments.
+ */
+
 export class Home extends Component {
 
   constructor(props){
@@ -26,10 +31,10 @@ export class Home extends Component {
     this.saveAssignment = this.saveAssignment.bind(this);
   }
 
-  // componentDidUpdate() {
-  //   console.log("HOME__STATE__", this.state);
-  // }
-
+/**
+ * Get the list of topics from github
+ * @param: github token
+ */
   async componentWillMount() {
     
     let payload = {
@@ -47,6 +52,12 @@ export class Home extends Component {
       this.props.addUser(profile);
     }
   }
+
+/**
+ * Get the list of assignments for each topic from github.  Creates a new 
+ * assignment if one does not already exist.
+ * @param: github token
+ */
 
   async getAssignment(topic, assgn){
       
@@ -74,6 +85,10 @@ export class Home extends Component {
     this.props.loading(false);
     
   }
+
+/**
+ * Save the assignment to the user's profile.
+ */
   async saveAssignment() {
     let endpoint = 'assignment';
     let body = {
@@ -92,6 +107,9 @@ export class Home extends Component {
     return !!assgnExists.length ? assgnExists[0] : false;
   }
 
+/**
+ * Render the page with a spinner until the page loads.
+ */
   render() {
     let topics = this.state.topics || {};
     if(this.props.loadingStatus===true){

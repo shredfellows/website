@@ -1,5 +1,7 @@
     
-    
+    /**
+     * Enviroment variables required for github authorization.
+     */
     const ENV = {};
 
     ENV.isProduction = window.location.protocol === 'https:';

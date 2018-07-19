@@ -1,6 +1,10 @@
 import React from 'react';
 import './video.css';
 
+
+/**
+ * Component to render the video.
+ */
 export default class Video extends React.Component {
  
     render() {
