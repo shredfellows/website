@@ -42,7 +42,9 @@ export class Repl extends React.Component {
         payload[this.props.id]=this.state.code;
         this.props.submitCode(payload);
     }
-
+/**
+ * Save the code to the database.
+ */
     saveCodeToDB = async () => {
         let body = {};
         let regex = new RegExp(this.props.assignment.assignmentName, 'gi');
@@ -68,7 +70,10 @@ export class Repl extends React.Component {
 
 
     }
-
+/**
+ * Fetch the code challenges from github using cookies.
+ * @param - Github token (GHT)
+ */
     async componentWillMount(prevProps, prevState) {
         
         let url = this.props.challengeLinks;
@@ -117,7 +122,9 @@ export class Repl extends React.Component {
         e.preventDefault();
         this.saveCodeToDB();
     }
-
+/**
+ * Render the code incormation and the monaco code editor to the page.
+ */
     render() {
         const code = this.state.code;
         const options = {

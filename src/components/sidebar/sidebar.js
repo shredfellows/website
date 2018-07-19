@@ -2,6 +2,9 @@ import React from 'react';
 import './sidebar.css';
 import uuid from 'uuid';
 
+/**
+ * Component for the menu of topics and assignments.
+ */
 export default class Sidebar extends React.Component {
 
     render() {
