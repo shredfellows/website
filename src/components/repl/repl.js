@@ -1,52 +1,118 @@
 import './repl.css';
-
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import superagent from 'superagent';
 import cookies from 'react-cookies'
 import { connect } from 'react-redux';
 
-import * as actions from '../../store/actions/code.js'
+import * as api from '../../lib/api.js';
+import * as codeActions from '../../store/actions/code.js';
+import * as userActions from '../../store/actions/users.js';
 
 export class Repl extends React.Component {
     constructor(props){
         super(props)
-        this.state={code:''}
+        this.state={code:this.props.challenges[this.props.id]}
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+    }
+
+    componentDidUpdate() {
+        console.log("REPL__STATE__", this.state);
     }
 
     handleSubmit(e){
         e.preventDefault();
         this.props.runCode(this.state.code);
-        this.props.submitCode(this.props.id, this.state.code);
+        let payload = {};
+        payload[this.props.id]=this.state.code;
+        this.props.submitCode(payload);
     }
 
     editorDidMount(editor, monaco) {
         editor.focus();
     }
+
     onChange(newValue, e) {
         this.setState({code:newValue});
+        let payload = {};
+        payload[this.props.id]=this.state.code;
+        this.props.submitCode(payload);
+    }
+
+    saveCodeToDB = async () => {
+        let body = {};
+        let regex = new RegExp(this.props.assignment.assignmentName, 'gi');
+
+        Object.keys(this.props.challenges)
+            .filter(challenge => challenge.match(regex))
+            .forEach(challengeKey => {
+                body[challengeKey] = this.props.challenges[challengeKey];
+            });
+
+        let challengeName = this.props.id.split('/')[2];
+        let endpoint = `code/${this.props.assignment._id}/${challengeName}`;
+    
+        let codeData = {endpoint, body};
+        let data  = await api.put(codeData);
+        
+        let payload = {
+            assignmentName: this.props.assignment.assignmentName,
+            code: data.input,
+        }
+    
+        this.props.addCodeToUser(payload);
+
+
     }
 
     async componentWillMount(prevProps, prevState) {
-
-        let url = this.props.challenges;
+        
+        let url = this.props.challengeLinks;
         let cookie = cookies.load('GHT');
-       
         let code;
-        if (url && url.length) {
+
+        let codeExists = this.challengeCodeExists();
+
+        if (url && url.length && !this.props.challenges[this.props.id] && !codeExists && !codeExists.length) {
+            
             let data = await superagent.get(url)
                 .set('Authorization', `Bearer ${cookie}`);
+            
             let content = atob(data.body.content);
             code = '/*' + content + '*/';
-        } 
-        this.setState({code});
-        this.props.submitCode(this.props.id, code); //Do this in the big wrapper where we get assignments
+    
+            this.setState({code});
+
+            let payload = {};
+            payload[this.props.id]=this.state.code;
+            this.props.submitCode(payload);
+
+            this.saveCodeToDB();
+
+        } else if (codeExists && codeExists.length) {
+            this.setState({code: codeExists});
+
+            let payload = {};
+            payload[this.props.id] = codeExists;
+            this.props.submitCode(payload);
+        }
     }
 
-    componentWillUpdate(){
+    challengeCodeExists = () => {
+        
+        let assignmentName = this.props.id.split('/').splice(0,2).join('/');
+        let challengeName = this.props.id;
+        let codeExists = this.props.user.assignments.filter(singleAssgn => {
+            return (singleAssgn.assignmentName === assignmentName) &&  (singleAssgn.code && singleAssgn.code[challengeName]);
+        });
 
+        return !!codeExists.length ? codeExists[0].code[challengeName] : false;
+    }
+
+    saveCode = async (e) => {
+        e.preventDefault();
+        this.saveCodeToDB();
     }
 
     render() {
@@ -69,6 +135,7 @@ export class Repl extends React.Component {
                         editorDidMount={this.editorDidMount}
                     />
                     <input type="submit" id="runCode" onClick={this.handleSubmit} placeholder="Run Code"/>
+                    <button onClick={this.saveCode}>Save Code</button>
                     
                 </form>
                 
@@ -78,11 +145,15 @@ export class Repl extends React.Component {
 
 //code already exists in state. I do want to overwrite it if it exists in the store, but does it need a different name. I think it does. And then write a function to check the store and overwrite if it's there
 const mapStateToProps = state => ({
-    code: state.code,
+    challenges: state.challenges,
+    user: state.user,
+    assignment: state.assignment,
   });
   
   const mapDispatchToprops = (dispatch, getState) => ({
-    submitCode: payload => dispatch(actions.addCode(payload)),
+    submitCode: payload => dispatch(codeActions.addCode(payload)),
+    addCodeToUser: payload => dispatch(userActions.addCodeToUser(payload)),
+
   });
   
   export default connect(mapStateToProps, mapDispatchToprops)(Repl);

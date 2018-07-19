@@ -18,7 +18,7 @@ export class Rotator extends React.Component {
     // that bit of state will render that node in the rotator.
     let current = list.root;
     this.state = { list, current };
-
+ 
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.select = this.select.bind(this);
