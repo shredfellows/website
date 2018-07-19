@@ -20,14 +20,17 @@ export class Workspace extends React.Component {
     }
 
     async runCode(input){
+        
         let payload={
             endpoint:'code',
             body:input
         }
+
         let solution = await api.post(payload);
-        console.log({solution});
+
         let consoleLogs = '';
         let errors = '';
+
         if (solution['console.log']) {
             for (let i = 0; i < solution['console.log'].length; i++) {
                 consoleLogs = consoleLogs + solution['console.log'][i] + `\r`;
@@ -39,7 +42,7 @@ export class Workspace extends React.Component {
             for (let i = 1; i < solution['error']['traceback'].length; i++) {
                 traceback = traceback + solution['error']['traceback'][i] + '\n';
             }
-            console.log({traceback})
+            
             errors += traceback;
         }
         let output = consoleLogs + '\r' + errors + '\r< ' + solution['return'];
@@ -52,10 +55,14 @@ export class Workspace extends React.Component {
 
     render() {
         let challenges = [];
-        try{
+        let challengesKeys = [];
+        try {
             challenges = Object.values(this.props.assignment.challenges);
+            challengesKeys = Object.keys(this.props.assignment.challenges);
         }
-        catch(e){};
+        catch(e){
+            console.log(e)
+        };
 
         return (
             <div className="workspace">
@@ -64,7 +71,7 @@ export class Workspace extends React.Component {
                     {renderIf(this.props.assignment && this.props.assignment.challenges, 
                     <Rotator>
                         {challenges.map((challenge, i) =>
-                            <Repl key={uuid()} id={uuid()} challengeLinks={challenge} runCode={this.runCode} />
+                            <Repl key={uuid()} id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} challengeLinks={challenge} runCode={this.runCode} />
                         )}
                     </Rotator>
                     )}

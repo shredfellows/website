@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { RingLoader } from 'react-spinners';
+import { connect } from 'react-redux';
+import cookies from 'react-cookies';
+
 import Workspace from '../workspace/workspace.js';
 import Sidebar from '../sidebar/sidebar.js';
+
 import * as api from '../../lib/api.js';
-import { RingLoader } from 'react-spinners';
-import './home.css';
-import { connect } from 'react-redux';
 import * as actions from '../../store/actions/users.js';
-import cookies from 'react-cookies';
+
+import './home.css';
 
 export class Home extends Component {
 
@@ -14,43 +17,78 @@ export class Home extends Component {
     super(props);
     this.state = {
       topics:{},
-      assignment:{}
+      assignment:{},
+      singleTopic: {},
     }
     this.getAssignment = this.getAssignment.bind(this);
+    this.assignmentExists = this.assignmentExists.bind(this);
+    this.saveAssignment = this.saveAssignment.bind(this);
+  }
+
+  componentDidUpdate() {
+    console.log("HOME__STATE__", this.state);
   }
 
   async componentWillMount(){
+    
     let payload = {
       model: 'github'
     }
+
     let topics = await api.get(payload);
     this.setState({topics});
     this.props.loading(false);
 
     let token = cookies.load('Token'); 
-    if(token){
-      
+    
+    if (token) {
       let profile = await api.login(token);
-      console.log({profile});
       this.props.addUser(profile);
     }
   }
 
-  
-
-  async getAssignment(topic, ass){
-
-    //We need to consider what to use as a unique identifier for the assignment. Should we store the whole this.state.assignment in the profile mongo model?
-    if(!this.props.user.assignment.includes(`${topic}/${ass}`)){
-      this.props.loading(true);
-      let gitPayload = {
-        model: `github/${topic}.${ass}`
-      }
-      let assignment = await api.get(gitPayload);
-      this.setState({assignment});
-      this.props.loading(false);
-  }
+  async getAssignment(topic, assgn){
+      
+    this.props.loading(true);
+      
+    let gitPayload = {
+      model: `github/${topic}.${assgn}`
+    }
     
+    let assignment = await api.get(gitPayload);
+
+    this.setState({singleTopic: topic});
+    this.setState({assignment});
+
+    let assgnExists = this.assignmentExists();
+    console.log({assgnExists});
+
+    if (assgnExists) {
+      // do nothing
+    } else {
+      let newAssignment = await this.saveAssignment();
+      this.props.addAssignment(newAssignment);
+    }
+
+    this.props.loading(false);
+    
+  }
+  async saveAssignment() {
+    let endpoint = 'assignment';
+    let body = {
+      assignmentName: `${this.state.singleTopic}/${this.state.assignment.name}`,
+      profileId: `${this.props.user._id}`,
+    }
+    let payload = {endpoint, body};
+    let data = await api.post(payload);
+    return data;
+  }
+
+  assignmentExists() {
+    let assgnExists = this.props.user.assignments.filter(singleAssgn => {
+      return singleAssgn.assignmentName === `${this.state.singleTopic}/${this.state.assignment.name}`;
+    });
+    return !!assgnExists.length;
   }
 
   render() {
@@ -67,7 +105,7 @@ export class Home extends Component {
       <React.Fragment>
       <div className="Home">
         <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
-        <Workspace assignment={this.state.assignment}/>
+        <Workspace singleTopic={this.state.singleTopic} assignment={this.state.assignment}/>
       </div>
       </React.Fragment>
 
@@ -82,6 +120,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToprops = (dispatch, getState) => ({
   addUser: payload => dispatch(actions.addUser(payload)),
+  addAssignment: payload => dispatch(actions.addAssignment(payload)),
 });
 
-export default connect(null, mapDispatchToprops)(Home);
+export default connect(mapStateToProps, mapDispatchToprops)(Home);

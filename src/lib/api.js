@@ -1,4 +1,5 @@
 import superagent from 'superagent';
+import cookies from 'react-cookies';
 import * as utils from './utils.js';
 
 const dev = true;
@@ -8,12 +9,14 @@ let base = dev ? 'http://localhost:3000/api/v1' : 'https://shred-fellows-server.
 export const get = async payload => {
     
     let url = base + '/' + Object.values(payload).join('/');
+    let token = cookies.load('Token');
+
     console.log({payload});
-    if(payload.model==='github'){
+    if (payload.model==='github') {
         let data = await utils.fetchData(url);
         return data;
     }
-    else if(document.cookie && document.cookie.match(/token/i)){
+    else if (token) {
         let token = document.cookie.split('Token=')[1];
         let data = await superagent.get(url)
         .set('Authorization', `Bearer ${token}`);
@@ -27,12 +30,12 @@ export const post = async payload => {
     let {endpoint, body} = payload;
     let url = base + '/' + endpoint;
 
-    if(document.cookie && document.cookie.match(/token/i)){
-        let token = document.cookie.split('Token=')[1];
+    let token = cookies.load('Token');
+    if (token) {
         let data = await superagent.post(url)
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type','application/json')
-        .send(body);
+        .send(JSON.stringify(body));
 
         return data.body;
     }
