@@ -1,5 +1,7 @@
 let initialState = {};
 
+// TODO: REFACTOR THESE AND DO THEM THE RIGHT WAY
+
 export default (state = initialState, action) => {
   let { type, payload } = action;
 
@@ -17,7 +19,13 @@ export default (state = initialState, action) => {
       let {assignmentName, code} = payload;
       let assignment = state.assignments.filter(single => single.assignmentName === assignmentName)[0];
       assignment.code = code;
-      return Object.assign({}, state, assignment.code)
+      return Object.assign({}, state, assignment.code);
+    
+    case 'ADD_NOTE_TO_USER':
+      let { assignName, notes } = payload;
+      let singleAssignment = state.assignments.filter(single => single.assignmentName === assignName)[0];
+      singleAssignment.notes = notes;
+      return Object.assign({}, state, singleAssignment);
       
     default:
       return state;

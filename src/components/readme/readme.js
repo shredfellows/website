@@ -4,6 +4,8 @@ import superagent from 'superagent';
 import ReactMarkdown from 'react-markdown';
 import cookies from 'react-cookies'
 
+import Notes from '../notes/notes.js';
+
 export default class Readme extends React.Component {
     constructor(props) {
         super(props);
@@ -24,10 +26,14 @@ export default class Readme extends React.Component {
 
     render() {
         return (
+            <React.Fragment>
             <div className="readme">
-                <ReactMarkdown source={this.state.content} />
-              
+                <ReactMarkdown source={this.state.content} />              
             </div>
+            <div className="notes">
+                <Notes/>
+            </div>
+            </React.Fragment>
         )
     }
 };

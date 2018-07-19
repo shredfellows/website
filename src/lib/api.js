@@ -32,22 +32,25 @@ export const post = async payload => {
 
     let token = cookies.load('Token');
     if (token) {
-        let data = await superagent.post(url)
-        .set('Authorization', `Bearer ${token}`)
-        .set('Content-Type','application/json')
-        .send(JSON.stringify(body));
+        if (endpoint === 'code') {
+            let code = { code: body }
 
-        return data.body;
-    }
-    else{
-    //This isn't generic enough!!
-    let code = {code:body}
+            let data = await superagent.post(url)
+                .set('Content-Type', 'application/json')
+                .send(JSON.stringify(code));
+            
+            return data.body;
+            
+        } else {
 
-    let data = await superagent.post(url)
-        .set('Content-Type','application/json')
-        .send(JSON.stringify(code));
+            let data = await superagent.post(url)
+            .set('Authorization', `Bearer ${token}`)
+            .set('Content-Type','application/json')
+            .send(JSON.stringify(body));
     
-    return data.body;
+            return data.body;
+
+        }
     }
 }
 export const put = async payload => {

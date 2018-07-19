@@ -100,7 +100,7 @@ export class Repl extends React.Component {
     }
 
     challengeCodeExists = () => {
-        
+
         let assignmentName = this.props.id.split('/').splice(0,2).join('/');
         let challengeName = this.props.id;
         let codeExists = this.props.user.assignments.filter(singleAssgn => {
@@ -126,7 +126,7 @@ export class Repl extends React.Component {
                 <form>
                     <MonacoEditor
                         width="800"
-                        height="600"
+                        height="100"
                         language="javascript"
                         theme="vs-dark"
                         value={code}

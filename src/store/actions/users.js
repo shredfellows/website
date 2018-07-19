@@ -18,3 +18,10 @@ export const addCodeToUser = payload => {
     payload: payload
   };
 }
+
+export const addNoteToUser = payload => {
+  return {
+    type: 'ADD_NOTE_TO_USER',
+    payload: payload
+  };
+}
