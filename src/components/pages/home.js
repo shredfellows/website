@@ -177,7 +177,7 @@ export class Home extends Component {
           <div className="Home">
           <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
           <div className="welcomeBack">Welcome Back, {name}!</div>
-          <img src={this.props.user.profileImage} alt="Profile" />
+          <img className="userImage" src={this.props.user.profileImage} alt="Profile" />
           </div>
         </React.Fragment>
       )
