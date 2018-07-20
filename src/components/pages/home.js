@@ -46,7 +46,7 @@ export class Home extends Component {
     this.props.loading(false);
 
     let token = cookies.load('Token'); 
-    
+      console.log('TOKEN FROM LINE 48 of HOME', token);
     if (token) {
       let profile = await api.login(token);
       this.props.addUser(profile);
@@ -101,10 +101,10 @@ export class Home extends Component {
   }
 
   assignmentExists() {
-    let assgnExists = this.props.user.assignments.filter(singleAssgn => {
+    let assgnExists = this.props.user && this.props.user.assignments && this.props.user.assignments.filter(singleAssgn => {
       return singleAssgn.assignmentName === `${this.state.singleTopic}/${this.state.assignment.name}`;
     });
-    return !!assgnExists.length ? assgnExists[0] : false;
+    return !!(assgnExists && assgnExists.length) ? assgnExists[0] : false;
   }
 
 /**
