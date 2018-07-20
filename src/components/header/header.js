@@ -18,16 +18,29 @@ class Header extends Component {
     this.state={loggedin: false}
   }
 
-  hamburgerOnClick = () => {
-    let el  = document.getElementsByClassName('sidebar')[0];
-    el.focus();
+  componentDidMount() {
+    document.body.addEventListener('click', this.handleBurgerClick);
+  }
+
+  handleBurgerClick = (e) => {
+    let hamburgerMenu = document.getElementById('hamburger');
+    let workspaceOverlay = document.getElementById('workspace-overlay');
+    let sidebar = document.getElementById('sidebar');
+
+    if (e.target === hamburgerMenu) {
+      sidebar.classList.add('open-from-left');
+      workspaceOverlay.classList.add('cover-screen');
+    } else if (e.target === workspaceOverlay){
+      sidebar.classList.remove('open-from-left');
+      workspaceOverlay.classList.remove('cover-screen');
+    }
   }
 
   render() {
     
     return (
       <header className="header">
-        <FontAwesomeIcon onClick={this.hamburgerOnClick} icon={faBars}/>
+        <FontAwesomeIcon id="hamburger" icon={faBars}/>
         <img alt="shred fellows logo" src={sflogo}/>
         <a href={authURL}>
         <img className="gh-logo" alt="github octocat logo" src={ghlogo} />

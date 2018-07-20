@@ -1,3 +1,6 @@
+#rotator {
+  order: 2;
+}
 .rotator {
   display: flex;
   flex-direction: column;
@@ -9,6 +12,7 @@
 
 .rotator nav {
   order: 1;
+  padding: .2em;
 }
 
 .rotator nav ul {
@@ -37,6 +41,7 @@
 .rotator .card {
   display: flex;
   flex-direction: row;
+  height: 100%;
   justify-content: space-between;
 }
 
@@ -48,5 +53,19 @@
 }
 .rotator.deck {
   width: 100%;
-  height: 500px;
+  height: 100%;
+}
+.rotator .card > button {
+  background: #CC3625;
+  color: white;
+  box-shadow: -8px 6px 13px -7px rgba(0,0,0,0.5);
+  font-size: 1.2em;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+
+  transition: all .1s ease;
+}
+.rotator .card > button:focus:active {
+  transform: scale(.95);
 }

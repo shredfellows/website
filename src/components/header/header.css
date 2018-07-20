@@ -1,7 +1,7 @@
 .header {
     background-color: #111;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,.5);
-    color: #cfcfcf;
+    color: #f5f5f5;
     padding: 1em;
     position: relative;
     z-index: 100;
@@ -19,7 +19,7 @@
     width: 200px;
 }
 .header a {
-    color: #fcfcfc;
+    color: #f5f5f5;
     float: right;
     font-family: 'Roboto', sans-serif;
     font-size: .8em;

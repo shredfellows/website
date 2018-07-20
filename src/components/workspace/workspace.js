@@ -66,18 +66,23 @@ export class Workspace extends React.Component {
 
         return (
             <div className="workspace">
-                <div className="row"> 
+                <div id="workspace-overlay"></div>
+                <div className="content video"> 
                     <Video videoUrl={this.props.assignment.video}/>
-                    {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                </div>
+                {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                <div className="content"> 
                     <Rotator>
                         {challenges.map((challenge, i) =>
                             <Repl key={uuid()} id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} challengeLinks={challenge} runCode={this.runCode} />
                         )}
                     </Rotator>
-                    )}
                 </div>
-                <div className="row">
+                )}
+                <div className="content readme">
                     <Readme readmeDoc={this.props.assignment.readme}/>
+                </div>
+                <div className="content output">
                     <Output output={this.state.output} />
                 </div>
                 <button onClick={()=>this.submitAssignment(this.props.users,this.props.challenges)}>Submit Assignment</button>

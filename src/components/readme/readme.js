@@ -37,11 +37,13 @@ export default class Readme extends React.Component {
     render() {
         return (
             <React.Fragment>
-            <div className="readme">
-                <ReactMarkdown source={this.state.content} />              
-            </div>
-            <div className="notes">
-                <Notes/>
+            <div id="readme">   
+                <div className="readme">
+                    <ReactMarkdown source={this.state.content} />              
+                </div>
+                <div className="notes">
+                    <Notes/>
+                </div>
             </div>
             </React.Fragment>
         )

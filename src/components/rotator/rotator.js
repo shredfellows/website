@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLessThan} from '@fortawesome/free-solid-svg-icons';
+import {faGreaterThan} from '@fortawesome/free-solid-svg-icons';
 
 
 import './rotator.css';
@@ -50,21 +53,25 @@ export class Rotator extends React.Component {
     let i = 0;
     let current = this.state.list.root;
     while (current) {
-      pips.push(<li key={uuid()} data-idx={i++} onClick={this.select} />);
+      pips.push(<li key={uuid()} data-idx={i++} onClick={this.select}></li>);
       current = current.next;
     }
     let currentValue = this.state.current && this.state.current.value;
    
     return (
       
-      <div className="rotator deck">
+      <div id="rotator" className="rotator deck">
         <nav>
           <ul>{pips}</ul>
         </nav>
         <div className="card">
-          <button onClick={this.previous}>P</button>
+          <button onClick={this.previous}>
+            <FontAwesomeIcon icon={faLessThan}/>
+          </button>
           {currentValue}
-          <button onClick={this.next}>N</button>
+          <button onClick={this.next}>
+            <FontAwesomeIcon icon={faGreaterThan}/>
+          </button>
         </div>
       </div>
     );
