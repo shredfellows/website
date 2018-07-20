@@ -9,14 +9,18 @@ import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
+import cookies from 'react-cookies';
+import copy from 'copy-to-clipboard';
 // import * as actions from '../../store/actions/code.js'
+
 
 export class Workspace extends React.Component {
     constructor(props) {
         super(props);
-        this.state={output:''}
+        this.state={output:'', urlToCopy: ''}
         this.runCode=this.runCode.bind(this);
-        this.submitAssignment=this.submitAssignment.bind(this);
+        this.generateLink=this.generateLink.bind(this);
     }
 
     async runCode(input){
@@ -49,8 +53,16 @@ export class Workspace extends React.Component {
         this.setState({output});
     }
 
-    submitAssignment(user,data){
-        console.log(user,data);
+    generateLink(){
+        let topic = this.props.users.assignments[0].assignmentName.split('/')[0];
+        let assign = this.props.users.assignments[0].assignmentName.split('/')[1];
+        let user = cookies.load('Token');
+        let secret = 'johnisbald'; 
+        let token = jwt.sign({topic: topic, assignment: assign, user: user}, secret);
+        let urlToCopy = `http://shredfellows.ccs.net/?submission=${token}`
+        this.setState({urlToCopy});
+        return copy(urlToCopy);
+
     }
 
     render() {
@@ -80,7 +92,10 @@ export class Workspace extends React.Component {
                     <Readme readmeDoc={this.props.assignment.readme}/>
                     <Output output={this.state.output} />
                 </div>
-                <button onClick={()=>this.submitAssignment(this.props.users,this.props.challenges)}>Submit Assignment</button>
+                {renderIf(this.state.urlToCopy.length, 
+                    <span>Here's your submission url: <br />{this.state.urlToCopy}</span>
+                )}
+                <button onClick={()=>this.generateLink()}>Copy Submission Link</button>
             </div>
         )
 }};

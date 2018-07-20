@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { RingLoader } from 'react-spinners';
 import { connect } from 'react-redux';
 import cookies from 'react-cookies';
-
+import jwt from 'jsonwebtoken';
 import Workspace from '../workspace/workspace.js';
 import Sidebar from '../sidebar/sidebar.js';
 
@@ -25,11 +25,29 @@ export class Home extends Component {
       topics:{},
       assignment:{},
       singleTopic: {},
+      view:{}
     }
     this.getAssignment = this.getAssignment.bind(this);
     this.assignmentExists = this.assignmentExists.bind(this);
     this.saveAssignment = this.saveAssignment.bind(this);
   }
+
+  // componentDidMount(){
+  //   if(this.state.view==='submission'){
+      
+  //     let query = window.location.search;
+  //     let unparsedToken = query.replace(/\?|\=/g,' ').split(' ')[2];
+  //     console.log({unparsedToken});
+  //     let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
+  //     let {assignment, topic, user} = parsedToken;
+  //     console.log('ready to click tab');
+  //     // setTimeout(this.getAssignment(topic, assignment), 5000);
+      
+  //     //this.getAssignment(topic, assignment)
+  //   }
+  // }
+
+
 
 /**
  * Get the list of topics from github
@@ -37,6 +55,21 @@ export class Home extends Component {
  */
   async componentWillMount() {
     
+    let query = window.location.search;
+    let view = query.replace(/\?|\=/g,' ').split(' ')[1];
+    if(view==='submission'){
+      this.setState({view:'submission'});
+      let unparsedToken = query.replace(/\?|\=/g,' ').split(' ')[2];
+     
+      let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
+      let {topic, assignment, user} = parsedToken;
+      let token = cookies.load('Token'); 
+      if(token){
+        cookies.remove('Token');
+      }
+      cookies.save('Token',user);
+
+    }
     let payload = {
       model: 'github'
     }
@@ -51,6 +84,14 @@ export class Home extends Component {
       let profile = await api.login(token);
       this.props.addUser(profile);
     }
+    if(this.state.view==='submission'){
+      let unparsedToken = query.replace(/\?|\=/g,' ').split(' ')[2];
+      
+      let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
+      let {topic, assignment, user} = parsedToken;
+      
+      this.getAssignment(topic, assignment)
+    }
   }
 
 /**
@@ -60,7 +101,7 @@ export class Home extends Component {
  */
 
   async getAssignment(topic, assgn){
-      
+    console.log('PARAMATERS', topic, assgn);
     this.props.loading(true);
       
     let gitPayload = {
@@ -71,7 +112,7 @@ export class Home extends Component {
 
     this.setState({singleTopic: topic});
     this.setState({assignment});
-
+    console.log('ASSIGNEMTN IN HOME', this.state.assignment);
     let assgnExists = this.assignmentExists();
 
     if (assgnExists) {

@@ -22,4 +22,7 @@
     }).join("&");
 
     export const authURL = `${githubURL}?${QueryString}`;
+
       // res.redirect('https://github.com/login/oauth/authorize?client_id=252d0f262488210326f6&scope=user,user:email&redirect_uri=http://localhost:3000/oauth');
+
+  

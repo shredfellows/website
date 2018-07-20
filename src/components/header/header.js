@@ -26,7 +26,6 @@ class Header extends Component {
         <img alt="shred fellows logo" src={sflogo}/>
         <a href={authURL}>LOGIN OR SIGNUP</a>
         <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
-        <button onClick={this.login}>Log In</button>
       </header>
     );
   }
