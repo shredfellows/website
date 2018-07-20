@@ -18,7 +18,20 @@
     margin-left: 1em;
     width: 200px;
 }
+.header a {
+    color: #fcfcfc;
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    font-size: .8em;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    width: 75px;
+}
 .header .gh-logo {
-    text-align: right; 
-    width: 1.5em;
+    height: 2.5em;
+    display: block;
+    width: auto;
+    margin: 0 auto;
+    margin-bottom: .2em;
 }

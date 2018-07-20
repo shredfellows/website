@@ -18,15 +18,21 @@ class Header extends Component {
     this.state={loggedin: false}
   }
 
+  hamburgerOnClick = () => {
+    let el  = document.getElementsByClassName('sidebar')[0];
+    el.focus();
+  }
+
   render() {
     
     return (
       <header className="header">
-        <FontAwesomeIcon icon={faBars}/>
+        <FontAwesomeIcon onClick={this.hamburgerOnClick} icon={faBars}/>
         <img alt="shred fellows logo" src={sflogo}/>
-        <a href={authURL}>LOGIN OR SIGNUP</a>
+        <a href={authURL}>
         <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
-        <button onClick={this.login}>Log In</button>
+          Login
+          </a>
       </header>
     );
   }

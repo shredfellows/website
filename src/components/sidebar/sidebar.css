@@ -5,8 +5,8 @@
     color: #fcfcfc;
     font-family: 'Roboto', sans-serif;
     height: 110%;
-    left: -280px;
-    opacity: 0.5;
+    left: -400px;
+    opacity: 1;
     padding: 5em 1em 1em 1em;
     position: absolute;
     top: 0;
@@ -16,11 +16,11 @@
     transition: all .3s ease;
 }
 
-.sidebar:hover {
+/* .sidebar:hover {
     left: 0;
     transition: all .3s ease;
     opacity:1;
-}
+} */
 
 .sidebar > h2 {
     color: #6CAEDD;
@@ -29,4 +29,8 @@
     list-style-type: none;
     padding: 0;
     padding-left: 1em;
+}
+.sidebar:focus {
+    left: 0;
+    transition: all .3s ease;
 }
