@@ -175,6 +175,7 @@ export class Home extends Component {
       return(
         <React.Fragment>
           <div className="Home">
+            <div id="workspace-overlay"></div>
           <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
           <div className="welcomeBack">Welcome Back, {name}!</div>
           <img className="userImage" src={this.props.user.profileImage} alt="Profile" />
@@ -185,7 +186,7 @@ export class Home extends Component {
     else if (this.props.loggedIn){
       return(
         <React.Fragment>
-        <div className="Home">
+        <div>
           <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
           <Workspace singleTopic={this.state.singleTopic} assignment={this.state.assignment}/>
         </div>

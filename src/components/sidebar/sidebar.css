@@ -35,6 +35,7 @@
     list-style-type: none;
     padding: 0;
     padding-left: 1em;
+    text-transform:  capitalize;
 }
 .sidebar > ul > li {
     font-size: 1.3em;
@@ -45,6 +46,7 @@
     list-style-type: none;
     margin: .5em 0;
     padding-left: .8em;
+    text-transform:  capitalize;
 }
 .sidebar > ul > li > ul > li {
     margin: .3em 0;

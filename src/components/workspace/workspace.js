@@ -25,9 +25,19 @@ import { renderIf } from '../../lib/utils';
 export class Workspace extends React.Component {
     constructor(props) {
         super(props);
-        this.state={output:'', urlToCopy: ''}
+        this.state={
+            output:'', 
+            urlToCopy: '',
+            student: false,
+        }
+        
         this.runCode=this.runCode.bind(this);
         this.generateLink=this.generateLink.bind(this);
+    }
+
+    componentDidMount() {
+        let student = (window.location.search) ? true : false;
+        this.setState({ student });
     }
 
     async runCode(input){
@@ -60,16 +70,21 @@ export class Workspace extends React.Component {
         this.setState({output});
     }
 
-    generateLink(){
-        let topic = this.props.users.assignments[0].assignmentName.split('/')[0];
-        let assign = this.props.users.assignments[0].assignmentName.split('/')[1];
+    generateLink(e){
+        let topic = this.props.storeAssignment.assignmentName.split('/')[0];
+        let assign = this.props.storeAssignment.assignmentName.split('/')[1];
+        console.log("TOPIC/ASSIGN", topic, assign);
         let user = cookies.load('Token');
         let secret = 'johnisbald'; 
         let token = jwt.sign({topic: topic, assignment: assign, user: user}, secret);
         let urlToCopy = `http://shredfellows.ccs.net/?submission=${token}`
         this.setState({urlToCopy});
-        return copy(urlToCopy);
+    }
 
+    copyLink = (e) => {
+        e.preventDefault();
+        let urlToCopy = this.state.urlToCopy;
+        return copy(urlToCopy);
     }
 
     render() {
@@ -105,10 +120,18 @@ export class Workspace extends React.Component {
                 <div className="content output">
                     <Output output={this.state.output} />
                 </div>
-                {renderIf(this.state.urlToCopy.length, 
-                    <span>Here's your submission url: <br />{this.state.urlToCopy}</span>
+                {renderIf(this.state.urlToCopy.length,
+                    <form id="submission-url">
+                        Here's your submission url:<br />
+                        <input type="text" value={this.state.urlToCopy}></input>
+                        <button onClick={(e) => this.copyLink(e)}>Copy</button>
+                    </form>
                 )}
-                <button onClick={()=>this.generateLink()}>Copy Submission Link</button>
+                {
+                    renderIf((this.state.student && !this.state.urlToCopy.length),
+                        <button onClick={()=>this.generateLink()}>Copy Submission Link</button>
+                    )
+                }
             </div>
         )
 }};
@@ -116,6 +139,7 @@ export class Workspace extends React.Component {
 const mapStateToProps = state => ({
     challenges: state.challenges,
     users: state.user,
+    storeAssignment: state.assignment,
   });
   
 //   const mapDispatchToprops = (dispatch, getState) => ({

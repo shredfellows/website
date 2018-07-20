@@ -2,9 +2,9 @@ import superagent from 'superagent';
 import cookies from 'react-cookies';
 import * as utils from './utils.js';
 
-const dev = false;
+const production = !!window.location.host.match(/ccs/);;
 
-let base = dev ? 'http://localhost:3000/api/v1' : 'http://api.shredfellows.ccs.net/api/v1';
+let base = production ? 'http://api.shredfellows.ccs.net/api/v1': 'http://localhost:3000/api/v1';
 
 export const get = async payload => {
     
