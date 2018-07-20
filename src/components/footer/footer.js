@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-/** Component to render the footer element.
- * @module Footer
+/** 
+ * Component to render the footer element.
  */
 class Footer extends Component {
 

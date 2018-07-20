@@ -1,6 +1,6 @@
 
-/** Constructor to create node for doubly linked list.
- * @module Node
+/** 
+ * Constructor to create node for doubly linked list.
  */
 class Node {
   constructor(value) {
@@ -8,8 +8,8 @@ class Node {
     this.next = null;
   }
 }
-/** Constructor to create the double linked list for the rotator.
- * @module LinkedList
+/** 
+ * Constructor to create the double linked list for the rotator.
  */
 export default class DoublyLinkedList {
   constructor() {

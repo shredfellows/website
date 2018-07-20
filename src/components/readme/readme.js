@@ -4,9 +4,9 @@ import superagent from 'superagent';
 import ReactMarkdown from 'react-markdown';
 import cookies from 'react-cookies'
 
-/** Component to fetch the Readme for the assignments and render it onto the page. 
- *  Content is inatlized to blank.
- * @module Readme
+/** 
+ * Component to fetch the Readme for the assignments and render it onto the page. 
+ * State is initalized to blank content.
  */
 export default class Readme extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ export default class Readme extends React.Component {
     }
 
 /**
- *  Go to github and fetch the Readme.
+ * Go to github and fetch the Readme.
  * @param: github token (GHT)
  */
     async componentWillMount(prevProps, prevState) {

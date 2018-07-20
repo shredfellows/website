@@ -9,10 +9,11 @@ import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
-// import * as actions from '../../store/actions/code.js'
 
-/** Component to run code in the coderunner and render it to the page.
- * @module Workspace
+
+/** 
+ * Component to run code in the coderunner to check for errors.  Renders it to the 
+ * page.
  */
 export class Workspace extends React.Component {
     constructor(props) {

@@ -9,8 +9,8 @@ import * as api from '../../lib/api.js';
 import * as codeActions from '../../store/actions/code.js';
 import * as userActions from '../../store/actions/users.js';
 
-/** Component to render the repl and submit the user's code to the database.
- * @module Repl
+/** 
+ * Component to render the repl and submit the user's code to the database.
  */
 export class Repl extends React.Component {
     constructor(props){
@@ -123,7 +123,7 @@ export class Repl extends React.Component {
         this.saveCodeToDB();
     }
 /**
- * Render the code incormation and the monaco code editor to the page.
+ * Render the code box onto the page.  Monaco is the editor used.
  */
     render() {
         const code = this.state.code;
