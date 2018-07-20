@@ -12,7 +12,7 @@ import * as userActions from '../../store/actions/users.js';
 /** 
  * Component to render the repl and submit the user's code to the database.
  */
-export class Repl extends React.Component {
+class Repl extends React.Component {
     constructor(props){
         super(props)
         this.state={code:this.props.challenges[this.props.id]}
@@ -34,6 +34,7 @@ export class Repl extends React.Component {
 
     editorDidMount(editor, monaco) {
         editor.focus();
+        editor.layout();
     }
 
     onChange(newValue, e) {
@@ -108,7 +109,7 @@ export class Repl extends React.Component {
     }
 
     challengeCodeExists = () => {
-        
+
         let assignmentName = this.props.id.split('/').splice(0,2).join('/');
         let challengeName = this.props.id;
         let codeExists = this.props.user.assignments.filter(singleAssgn => {
@@ -128,24 +129,23 @@ export class Repl extends React.Component {
     render() {
         const code = this.state.code;
         const options = {
-            selectOnLineNumbers: true
+            selectOnLineNumbers: true,
+            automaticLayout: true,
         };
 
         return (
             <div className="repl" >
                 <form>
                     <MonacoEditor
-                        width="800"
-                        height="600"
                         language="javascript"
-                        theme="vs-dark"
+                        theme=""
                         value={code}
                         options={options}
                         onChange={this.onChange}
                         editorDidMount={this.editorDidMount}
                     />
-                    <input type="submit" id="runCode" onClick={this.handleSubmit} placeholder="Run Code"/>
                     <button onClick={this.saveCode}>Save Code</button>
+                    <button id="runCode" onClick={this.handleSubmit}>Run Code</button>
                     
                 </form>
                 

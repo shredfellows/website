@@ -2,9 +2,9 @@ import superagent from 'superagent';
 import cookies from 'react-cookies';
 import * as utils from './utils.js';
 
-const dev = true;
+const production = !!window.location.host.match(/ccs/);;
 
-let base = dev ? 'http://localhost:3000/api/v1' : 'https://shred-fellows-server.herokuapp.com/api/v1';
+let base = production ? 'http://api.shredfellows.ccs.net/api/v1': 'http://localhost:3000/api/v1';
 
 export const get = async payload => {
     
@@ -32,22 +32,25 @@ export const post = async payload => {
 
     let token = cookies.load('Token');
     if (token) {
-        let data = await superagent.post(url)
-        .set('Authorization', `Bearer ${token}`)
-        .set('Content-Type','application/json')
-        .send(JSON.stringify(body));
+        if (endpoint === 'code') {
+            let code = { code: body }
 
-        return data.body;
-    }
-    else{
-    
-    let code = {code:body}
+            let data = await superagent.post(url)
+                .set('Content-Type', 'application/json')
+                .send(JSON.stringify(code));
+            
+            return data.body;
+            
+        } else {
 
-    let data = await superagent.post(url)
-        .set('Content-Type','application/json')
-        .send(JSON.stringify(code));
+            let data = await superagent.post(url)
+            .set('Authorization', `Bearer ${token}`)
+            .set('Content-Type','application/json')
+            .send(JSON.stringify(body));
     
-    return data.body;
+            return data.body;
+
+        }
     }
 }
 export const put = async payload => {
