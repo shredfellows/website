@@ -14,11 +14,12 @@
 .Home {
     padding-top:150px;
     margin:0 auto;
+    background: #f5f5f5;
 }
 
 .welcomeBack {
     text-align:center;
-    /* margin: 0 auto; */
+    font-family: 'Roboto', sans-serif;
 }
 
 .userImage{

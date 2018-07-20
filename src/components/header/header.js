@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import ghlogo from '../../assets/img/github.png';
-import sflogo from '../../assets/img/shred-logo.png';
+import sflogo from '../../assets/img/shred-p-logo-01-01.png';
 import {authURL} from '../../lib/githubLogin.js';
 
 import * as utils from '../../lib/utils.js';
