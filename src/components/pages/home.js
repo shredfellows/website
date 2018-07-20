@@ -32,21 +32,6 @@ export class Home extends Component {
     this.saveAssignment = this.saveAssignment.bind(this);
   }
 
-  // componentDidMount(){
-  //   if(this.state.view==='submission'){
-      
-  //     let query = window.location.search;
-  //     let unparsedToken = query.replace(/\?|\=/g,' ').split(' ')[2];
-  //     console.log({unparsedToken});
-  //     let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
-  //     let {assignment, topic, user} = parsedToken;
-  //     console.log('ready to click tab');
-  //     // setTimeout(this.getAssignment(topic, assignment), 5000);
-      
-  //     //this.getAssignment(topic, assignment)
-  //   }
-  // }
-
 
 
 /**
@@ -68,8 +53,9 @@ export class Home extends Component {
         cookies.remove('Token');
       }
       cookies.save('Token',user);
-
     }
+
+    
     let payload = {
       model: 'github'
     }
@@ -89,8 +75,18 @@ export class Home extends Component {
       
       let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
       let {topic, assignment, user} = parsedToken;
-      
       this.getAssignment(topic, assignment)
+    }
+
+    if(view==='assignment'){
+      let token = cookies.load('Token');
+      if(token){
+        this.setState({view:'assignment'});
+        let topicAndAssignment = query.replace(/\?|\=/g,' ').split(' ')[2];
+        let topic = topicAndAssignment.split('.')[0];
+        let assignment = topicAndAssignment.split('.')[1];
+        this.getAssignment(topic, assignment);
+      }
     }
   }
 
