@@ -9,6 +9,7 @@ import Sidebar from '../sidebar/sidebar.js';
 import * as api from '../../lib/api.js';
 import * as actions from '../../store/actions/users.js';
 import * as assignmentActions from '../../store/actions/assignment.js';
+import * as permissionActions from '../../store/actions/permissions.js';
 
 import './home.css';
 
@@ -32,6 +33,9 @@ export class Home extends Component {
     this.saveAssignment = this.saveAssignment.bind(this);
   }
 
+  // componentWillReceiveProps(){
+  //   console.log(this.props);
+  // }
 
 
 /**
@@ -39,6 +43,7 @@ export class Home extends Component {
  * @param: github token
  */
   async componentWillMount() {
+    console.log(this.props);
     
     let query = window.location.search;
     let view = query.replace(/\?|\=/g,' ').split(' ')[1];
@@ -67,6 +72,9 @@ export class Home extends Component {
     let token = cookies.load('Token'); 
     
     if (token) {
+      console.log('setting state!');
+      
+      this.props.loggedInStatus(true);
       let profile = await api.login(token);
       this.props.addUser(profile);
     }
@@ -155,17 +163,32 @@ export class Home extends Component {
           <RingLoader className="spinner" size={160} color={'#ff0000'} />
         </div>
       )};
-
-    return (
-
-      <React.Fragment>
-      <div className="Home">
-        <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
-        <Workspace singleTopic={this.state.singleTopic} assignment={this.state.assignment}/>
-      </div>
-      </React.Fragment>
-
-    );
+    
+    if(!this.props.loggedIn){
+      return(
+        <div>Please register with GitHub</div>
+      )
+    }
+    if(Object.keys(this.props.assignment).length === 0){
+      return(
+        <React.Fragment>
+          <div className="Home">
+          <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
+          <div className="welcomeBack">Welcome Back.</div>
+          </div>
+        </React.Fragment>
+      )
+    }
+    else if (this.props.loggedIn){
+      return(
+        <React.Fragment>
+        <div className="Home">
+          <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
+          <Workspace singleTopic={this.state.singleTopic} assignment={this.state.assignment}/>
+        </div>
+        </React.Fragment>
+      )
+    }
 
 }
 }
@@ -173,12 +196,14 @@ export class Home extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   assignment: state.assignment,
+  loggedIn: state.loggedIn,
 });
 
 const mapDispatchToprops = (dispatch, getState) => ({
   addUser: payload => dispatch(actions.addUser(payload)),
   addAssignment: payload => dispatch(actions.addAssignment(payload)),
   setCurrentAssignment: payload => dispatch(assignmentActions.setCurrentAssignment(payload)),
+  loggedInStatus: payload => dispatch(permissionActions.loggedInStatus(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToprops)(Home);
