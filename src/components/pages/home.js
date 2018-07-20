@@ -157,6 +157,8 @@ export class Home extends Component {
  */
   render() {
     let topics = this.state.topics || {};
+    let name = this.props.user && this.props.user.name;
+    name = name? name.split(' ')[0]:''
     if(this.props.loadingStatus===true){
       return (
         <div className='sweet-loading'>
@@ -174,7 +176,8 @@ export class Home extends Component {
         <React.Fragment>
           <div className="Home">
           <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
-          <div className="welcomeBack">Welcome Back.</div>
+          <div className="welcomeBack">Welcome Back, {name}!</div>
+          <img src={this.props.user.profileImage} alt="Profile" />
           </div>
         </React.Fragment>
       )
