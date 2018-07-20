@@ -135,12 +135,13 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,11 +153,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -164,10 +161,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,18 +172,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,6 +196,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,34 +226,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { connect } from 'react-redux';
-// import * as actions from './store/actions/auth.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLessThan} from '@fortawesome/free-solid-svg-icons';
+import {faGreaterThan} from '@fortawesome/free-solid-svg-icons';
+&nbsp;
 &nbsp;
 import './rotator.css';
 import List from '../../lib/linked-list.js';
 import uuid from 'uuid';
 &nbsp;
+/**
+ * Component to create and render the rotator for the challenges.  The rotator is * comprised of a double linked list of the children of the component.  State *will always be the node in the linked list that is active.
+ */
 export class Rotator extends React.Component {
 <span class="fstat-no" title="function not covered" >  co</span>nstructor(props) {
 <span class="cstat-no" title="statement not covered" >    super(props);</span>
-    // Build a linked list out of the children of this component
- 
+&nbsp;
     let list = <span class="cstat-no" title="statement not covered" >List.fromArray(this.props.children);</span>
 &nbsp;
-    // this.state.current will always be the node in the link list that
-    // is active based on next/previous/select methods.  Simply changing
-    // that bit of state will render that node in the rotator.
     let current = <span class="cstat-no" title="statement not covered" >list.root;</span>
 <span class="cstat-no" title="statement not covered" >    this.state = { list, current };</span>
-&nbsp;
+ 
 <span class="cstat-no" title="statement not covered" >    this.next = this.next.bind(this);</span>
 <span class="cstat-no" title="statement not covered" >    this.previous = this.previous.bind(this);</span>
 <span class="cstat-no" title="statement not covered" >    this.select = this.select.bind(this);</span>
   }
-&nbsp;
-  /*
-    Get the next node in the linked list
-    If we're at the end, go back to the beginning (root)
-  */
+   
 <span class="fstat-no" title="function not covered" >  ne</span>xt() {
     let current = <span class="cstat-no" title="statement not covered" >this.state.current.next</span>
       ? this.state.current.next
@@ -272,10 +260,6 @@ export class Rotator extends React.Component {
 <span class="cstat-no" title="statement not covered" >    this.setState({ current });</span>
   }
 &nbsp;
-  /*
-    Get the previous node in the linked list
-    If we're at the beginning, go back to the end via findLast()
-  */
 <span class="fstat-no" title="function not covered" >  pr</span>evious() {
     let current = <span class="cstat-no" title="statement not covered" >this.state.current.prev</span>
       ? this.state.current.prev
@@ -284,9 +268,6 @@ export class Rotator extends React.Component {
 <span class="cstat-no" title="statement not covered" >    this.setState({ current });</span>
   }
 &nbsp;
-  /*
-    Select a specific node in the linked list
-  */
 <span class="fstat-no" title="function not covered" >  se</span>lect(e) {
     let idx = <span class="cstat-no" title="statement not covered" >parseInt(e.target.dataset.idx, 10);</span>
     let current = <span class="cstat-no" title="statement not covered" >this.state.list.findNth(idx);</span>
@@ -298,21 +279,25 @@ export class Rotator extends React.Component {
     let i = <span class="cstat-no" title="statement not covered" >0;</span>
     let current = <span class="cstat-no" title="statement not covered" >this.state.list.root;</span>
 <span class="cstat-no" title="statement not covered" >    while (current) {</span>
-<span class="cstat-no" title="statement not covered" >      pips.push(&lt;li key={uuid()} data-idx={i++} onClick={this.select} /&gt;);</span>
+<span class="cstat-no" title="statement not covered" >      pips.push(&lt;li key={uuid()} data-idx={i++} onClick={this.select}&gt;&lt;/li&gt;);</span>
 <span class="cstat-no" title="statement not covered" >      current = current.next;</span>
     }
     let currentValue = <span class="cstat-no" title="statement not covered" >this.state.current &amp;&amp; this.state.current.value;</span>
    
 <span class="cstat-no" title="statement not covered" >    return (</span>
       
-      &lt;div className="rotator deck"&gt;
+      &lt;div id="rotator" className="rotator deck"&gt;
         &lt;nav&gt;
           &lt;ul&gt;{pips}&lt;/ul&gt;
         &lt;/nav&gt;
         &lt;div className="card"&gt;
-          &lt;button onClick={this.previous}&gt;P&lt;/button&gt;
+          &lt;button onClick={this.previous}&gt;
+            &lt;FontAwesomeIcon icon={faLessThan}/&gt;
+          &lt;/button&gt;
           {currentValue}
-          &lt;button onClick={this.next}&gt;N&lt;/button&gt;
+          &lt;button onClick={this.next}&gt;
+            &lt;FontAwesomeIcon icon={faGreaterThan}/&gt;
+          &lt;/button&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     );
@@ -320,11 +305,11 @@ export class Rotator extends React.Component {
 }
 &nbsp;
 const mapStateToProps = <span class="fstat-no" title="function not covered" >st</span>ate =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-  // auth: state.auth,
+&nbsp;
 });
 &nbsp;
 const mapDispatchToprops = <span class="fstat-no" title="function not covered" >(d</span>ispatch, getState) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-  // switch: payload =&gt; dispatch(actions.switchUser(payload)),
+&nbsp;
 });
 &nbsp;
 export default connect(mapStateToProps, mapDispatchToprops)(Rotator);
@@ -334,7 +319,7 @@ export default connect(mapStateToProps, mapDispatchToprops)(Rotator);
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 20 2018 11:08:09 GMT-0700 (PDT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 20 2018 12:42:50 GMT-0700 (PDT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

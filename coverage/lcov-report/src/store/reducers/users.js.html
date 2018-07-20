@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/components/sidebar/sidebar.js</title>
+    <title>Code coverage report for src/store/reducers/users.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../../index.html">All files</a> / <a href="index.html">src/components/sidebar</a> sidebar.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/store/reducers</a> users.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">22.22% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>1/4</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
-        <span class="quiet">Branches</span>
-        <span class='fraction'>1/2</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
-        <span class="quiet">Functions</span>
-        <span class='fraction'>1/4</span>
+        <span class='fraction'>4/18</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">33.33% </span>
-        <span class="quiet">Lines</span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.33% </span>
+        <span class="quiet">Functions</span>
         <span class='fraction'>1/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/16</span>
       </div>
     </div>
     <p class="quiet">
@@ -74,63 +74,75 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import './sidebar.css';
-import uuid from 'uuid';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">let initialState = {};
 &nbsp;
-export default class Sidebar extends React.Component {
+// TODO: REFACTOR THESE AND DO THEM THE RIGHT WAY
 &nbsp;
-    render() {
+export default (state = initialState, action) =&gt; {
+  let { type, payload } = action;
 &nbsp;
-        return (
-            &lt;div id="sidebar" className="sidebar"&gt;
-            &lt;h2&gt;Challenges&lt;/h2&gt;
-            &lt;ul&gt;
-            {
-                this.props.topics &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >Object.keys(this.props.topics).map(<span class="fstat-no" title="function not covered" >(e</span>l, i) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >                &lt;li key={uuid()}&gt;{el}</span>
-                
-                    &lt;ul&gt;
-                        {Object.keys(this.props.topics[el]).map(<span class="fstat-no" title="function not covered" >(s</span>ubEl, j) =&gt; (
-<span class="cstat-no" title="statement not covered" >                            &lt;li key={uuid()}&gt;&lt;a onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >this.props.getAssign(el, subEl)}</span>&gt;{subEl}&lt;/a&gt;&lt;/li&gt;</span>
-                        ))}
-                    &lt;/ul&gt;
-                
-                &lt;/li&gt;
-                ))
-            }
-            &lt;/ul&gt;
-            &lt;/div&gt;
-        )
-}};</pre></td></tr>
+  switch (type) {
+&nbsp;
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'ADD_USER':</span>
+<span class="cstat-no" title="statement not covered" >      return Object.assign({}, state, payload);</span>
+    
+<span class="branch-1 cbranch-no" title="branch not covered" >    case 'ADD_ASSIGNMENT':</span>
+      let assignments = <span class="cstat-no" title="statement not covered" >state.assignments;</span>
+<span class="cstat-no" title="statement not covered" >      assignments.push(payload);</span>
+<span class="cstat-no" title="statement not covered" >      return Object.assign({}, state, {assignments});</span>
+&nbsp;
+<span class="branch-2 cbranch-no" title="branch not covered" >    case 'ADD_CODE_TO_USER':</span>
+      let {assignmentName, code} = <span class="cstat-no" title="statement not covered" >payload;</span>
+      let assignment = <span class="cstat-no" title="statement not covered" >state.assignments.filter(<span class="fstat-no" title="function not covered" >si</span>ngle =&gt; <span class="cstat-no" title="statement not covered" >single.assignmentName === assignmentName)</span>[0];</span>
+<span class="cstat-no" title="statement not covered" >      assignment.code = code;</span>
+<span class="cstat-no" title="statement not covered" >      return Object.assign({}, state, assignment.code);</span>
+    
+<span class="branch-3 cbranch-no" title="branch not covered" >    case 'ADD_NOTE_TO_USER':</span>
+      let { assignName, notes } = <span class="cstat-no" title="statement not covered" >payload;</span>
+      let singleAssignment = <span class="cstat-no" title="statement not covered" >state.assignments.filter(<span class="fstat-no" title="function not covered" >si</span>ngle =&gt; <span class="cstat-no" title="statement not covered" >single.assignmentName === assignName)</span>[0];</span>
+<span class="cstat-no" title="statement not covered" >      singleAssignment.notes = notes;</span>
+<span class="cstat-no" title="statement not covered" >      return Object.assign({}, state, singleAssignment);</span>
+      
+    default:
+      return state;
+  }
+};</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->

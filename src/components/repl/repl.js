@@ -12,7 +12,7 @@ import * as userActions from '../../store/actions/users.js';
 /**
  * Component to render the Repl and submit the user's code to the database.
  */
-export class Repl extends React.Component {
+class Repl extends React.Component {
     constructor(props){
         super(props)
         this.state={code:this.props.challenges[this.props.id]}

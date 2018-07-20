@@ -12,7 +12,7 @@ describe('readme tests', () => {
   //  const wrapper = shallow(<Readme />)
     let mountedReadMe = Enzyme.mount(<Readme />)
 
-    const expected = {content: ''};
+    const expected = { content: '', "noteBoxOpen": false};
     expect(mountedReadMe.state()).toEqual(expected)
   })
 

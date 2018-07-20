@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Rotator from '../../../../src/components/rotator/rotator.js'
 
 import createStore from '../../../../src/store/';
-//const store = createStore();
+// const store = createStore();
 function testFunction () {
   console.log(`called by ${this}`);
 }

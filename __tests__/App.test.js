@@ -13,7 +13,7 @@ describe('App tests', () => {
   test('testing App initial state', async done => {
 
     let mountedApp = Enzyme.mount(<App />)
-    const expected = {loading:true};
+    const expected = { loading: true, "user": {}};
     setImmediate(() => {
       expect(mountedApp.state()).toEqual(expected);
       done();
