@@ -1,22 +1,44 @@
 import React from 'react';
+import uuid from 'uuid';
+import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
+import cookies from 'react-cookies';
+import copy from 'copy-to-clipboard';
+
 import './workspace.css';
+
 import Video from '../video/video.js';
 import Repl from '../repl/repl.js';
 import Readme from '../readme/readme.js';
 import Output from '../output/output.js';
 import Rotator from '../rotator/rotator.js'
+import Notes from '../notes/notes.js';
+
 import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
-import uuid from 'uuid';
-import { connect } from 'react-redux';
-// import * as actions from '../../store/actions/code.js'
+
+
+/** 
+ * Component to run code in the coderunner to check for errors.  Renders it to the 
+ * page.
+ */
 
 export class Workspace extends React.Component {
     constructor(props) {
         super(props);
-        this.state={output:''}
+        this.state={
+            output:'', 
+            urlToCopy: '',
+            student: false,
+        }
+        
         this.runCode=this.runCode.bind(this);
-        this.submitAssignment=this.submitAssignment.bind(this);
+        this.generateLink=this.generateLink.bind(this);
+    }
+
+    componentDidMount() {
+        let student = (window.location.search) ? true : false;
+        this.setState({ student });
     }
 
     async runCode(input){
@@ -49,8 +71,21 @@ export class Workspace extends React.Component {
         this.setState({output});
     }
 
-    submitAssignment(user,data){
-        console.log(user,data);
+    generateLink(e){
+        let topic = this.props.storeAssignment.assignmentName.split('/')[0];
+        let assign = this.props.storeAssignment.assignmentName.split('/')[1];
+        console.log("TOPIC/ASSIGN", topic, assign);
+        let user = cookies.load('Token');
+        let secret = 'johnisbald'; 
+        let token = jwt.sign({topic: topic, assignment: assign, user: user}, secret);
+        let urlToCopy = `http://shredfellows.ccs.net/?submission=${token}`
+        this.setState({urlToCopy});
+    }
+
+    copyLink = (e) => {
+        e.preventDefault();
+        let urlToCopy = this.state.urlToCopy;
+        return copy(urlToCopy);
     }
 
     render() {
@@ -66,21 +101,38 @@ export class Workspace extends React.Component {
 
         return (
             <div className="workspace">
-                <div className="row"> 
+                <div id="workspace-overlay"></div>
+                <div className="content video"> 
                     <Video videoUrl={this.props.assignment.video}/>
-                    {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                </div>
+                {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                <div className="content"> 
                     <Rotator>
                         {challenges.map((challenge, i) =>
                             <Repl key={uuid()} id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} challengeLinks={challenge} runCode={this.runCode} />
                         )}
                     </Rotator>
-                    )}
                 </div>
-                <div className="row">
+                )}
+                <div className="content readme">
                     <Readme readmeDoc={this.props.assignment.readme}/>
+                </div>
+                <Notes />
+                <div className="content output">
                     <Output output={this.state.output} />
                 </div>
-                <button onClick={()=>this.submitAssignment(this.props.users,this.props.challenges)}>Submit Assignment</button>
+                {renderIf(this.state.urlToCopy.length,
+                    <form id="submission-url">
+                        Here's your submission url:<br />
+                        <input type="text" value={this.state.urlToCopy}></input>
+                        <button onClick={(e) => this.copyLink(e)}>Copy</button>
+                    </form>
+                )}
+                {
+                    renderIf((this.state.student && !this.state.urlToCopy.length),
+                        <button onClick={()=>this.generateLink()}>Copy Submission Link</button>
+                    )
+                }
             </div>
         )
 }};
@@ -88,10 +140,9 @@ export class Workspace extends React.Component {
 const mapStateToProps = state => ({
     challenges: state.challenges,
     users: state.user,
+    storeAssignment: state.assignment,
   });
   
-//   const mapDispatchToprops = (dispatch, getState) => ({
-//     saveAssignment: payload => dispatch(actions.saveAssignment(payload)),
-//   });
+
   
   export default connect(mapStateToProps, null)(Workspace);

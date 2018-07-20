@@ -3,5 +3,25 @@
   height: 100%;
 }
 .repl form {
-  height: 49vh;
+  height: 100%;
+}
+
+.repl form > button {
+  background: #CC3625;
+  border: none;
+  border-radius: 3px;
+  box-shadow: -8px 6px 13px -7px rgba(0,0,0,0.5);
+  color: #f5f5f5;
+  float: right;
+  font-size: 1em;
+  margin: .5em .5em 0 .5em;
+  outline: none;
+
+  transition: all .1s ease;
+}
+.repl form > button:focus:active {
+  transform: scale(.95);
+}
+.repl form > button:nth-of-type(1) {
+  background: #00CC00;
 }

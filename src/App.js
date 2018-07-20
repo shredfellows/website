@@ -8,6 +8,9 @@ import * as api from './lib/api.js';
 import createStore from './store/';
 const store = createStore();
 
+/**
+ * Create and render the Application.
+ */
 class App extends Component {
   constructor(props){
     super(props)
@@ -21,6 +24,8 @@ class App extends Component {
   loadingStatus(status){
     this.setState({loading:status});
   }
+
+  
 
   //TODO: Change cookie splitting for token to be more robust (i.e., handle other cookies)
   

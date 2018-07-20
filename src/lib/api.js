@@ -2,9 +2,9 @@ import superagent from 'superagent';
 import cookies from 'react-cookies';
 import * as utils from './utils.js';
 
-const dev = false;
+const production = !!window.location.host.match(/ccs/);;
 
-let base = dev ? 'http://localhost:3000/api/v1' : 'http://api.shredfellows.ccs.net/api/v1';
+let base = production ? 'http://api.shredfellows.ccs.net/api/v1': 'http://localhost:3000/api/v1';
 
 export const get = async payload => {
     
@@ -70,7 +70,7 @@ export const put = async payload => {
         return data.body;
     }
     else {
-        //This isn't generic enough!!
+
         let code = { code: body }
 
         let data = await superagent.post(url)
@@ -83,7 +83,6 @@ export const put = async payload => {
 
 export const login = async payload => {
     let token = payload;
-    // let url = base.replace(/api\/v1\//,'')+'/login';
     let url = base.split('/api/v1')[0]+'/login';
     let data = await superagent.get(url)
         .set('Authorization', `Bearer ${token}`);

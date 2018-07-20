@@ -1,12 +1,16 @@
 
-
+/** 
+ * Constructor to create node for doubly linked list.
+ */
 class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
   }
 }
-
+/** 
+ * Constructor to create the double linked list for the rotator.
+ */
 export default class DoublyLinkedList {
   constructor() {
     this.root = null;
@@ -44,7 +48,9 @@ export default class DoublyLinkedList {
     }
     return count;
   }
-
+/**
+ * Add node to begining of linked list.
+ */
   prepend(value) {
     let node = new Node(value);
     node.next = this.root;
@@ -52,7 +58,9 @@ export default class DoublyLinkedList {
     this.root.prev = node;
     this.root = node;
   }
-
+/**
+ * Add node to end of linked list.
+ */
   append(value) {
     if (this.root === null) {
       this.root = new Node(value);
@@ -69,7 +77,9 @@ export default class DoublyLinkedList {
   }
 
 
-
+/**
+ * Remove nodes in linked list.
+ */
   removeHead() {
     let result = this.root;
     this.root = this.root.next;
@@ -81,20 +91,17 @@ export default class DoublyLinkedList {
 
   removeNextNode(current) {
     let result = current.next;
-
-    // point the current node to point to the
-    // node after the node we're removing.
     current.next = current.next.next;
 
-    // make sure a node exists before accessing .prev
     if (current.next && current.next.prev) {
-      // change the node that replaced the removed
-      // node so it points back now to the current node.
+
       current.next.prev = current;
     }
     return result;
   }
-
+/**
+ * Reverse linked list.
+ */
   reverse() {
     if (this.isEmpty()) {
       return;
@@ -117,7 +124,9 @@ export default class DoublyLinkedList {
     this.root = reversed;
     this.root.prev = null;
   }
-
+/**
+ * Find middle of linked list.
+ */
   findMiddle(list) {
     let slow = this.root;
     let fast = this.root;
@@ -127,7 +136,9 @@ export default class DoublyLinkedList {
     }
     return slow;
   }
-
+/**
+ * Find node in linked list.
+ */
   findNth(n) {
     var i = 0;
     let current = this.root;
@@ -145,14 +156,10 @@ export default class DoublyLinkedList {
     let result = this.root;
     let offset = this.root;
 
-    // Move one node forward so it's N steps ahead of the other.
     for (var i = 0; i < n; i++) {
       offset = offset.next;
     }
 
-    // Now walk them both taking steps together.
-    // When the offset hits the end then the
-    // result will be N from the end.
     while (offset.next) {
       result = result.next;
       offset = offset.next;
@@ -162,7 +169,6 @@ export default class DoublyLinkedList {
   }
 
   findLast() {
-    // start at the front, and walk to the end.
     let current = this.root;
     while (current.next) {
       current = current.next;

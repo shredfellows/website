@@ -9,10 +9,10 @@ import * as api from '../../lib/api.js';
 import * as codeActions from '../../store/actions/code.js';
 import * as userActions from '../../store/actions/users.js';
 
-/**
- * Component to render the Repl and submit the user's code to the database.
+/** 
+ * Component to render the repl and submit the user's code to the database.
  */
-export class Repl extends React.Component {
+class Repl extends React.Component {
     constructor(props){
         super(props)
         this.state={code:this.props.challenges[this.props.id]}
@@ -34,6 +34,7 @@ export class Repl extends React.Component {
 
     editorDidMount(editor, monaco) {
         editor.focus();
+        editor.layout();
     }
 
     onChange(newValue, e) {
@@ -42,7 +43,9 @@ export class Repl extends React.Component {
         payload[this.props.id]=this.state.code;
         this.props.submitCode(payload);
     }
-
+/**
+ * Save the code to the database.
+ */
     saveCodeToDB = async () => {
         let body = {};
         let regex = new RegExp(this.props.assignment.assignmentName, 'gi');
@@ -68,7 +71,10 @@ export class Repl extends React.Component {
 
 
     }
-
+/**
+ * Fetch the code challenges from github using cookies.
+ * @param - Github token (GHT)
+ */
     async componentWillMount(prevProps, prevState) {
         
         let url = this.props.challengeLinks;
@@ -117,28 +123,29 @@ export class Repl extends React.Component {
         e.preventDefault();
         this.saveCodeToDB();
     }
-
+/**
+ * Render the code box onto the page.  Monaco is the editor used.
+ */
     render() {
         const code = this.state.code;
         const options = {
-            selectOnLineNumbers: true
+            selectOnLineNumbers: true,
+            automaticLayout: true,
         };
 
         return (
             <div className="repl" >
                 <form>
                     <MonacoEditor
-                        width="800"
-                        height="100"
                         language="javascript"
-                        theme="vs-dark"
+                        theme=""
                         value={code}
                         options={options}
                         onChange={this.onChange}
                         editorDidMount={this.editorDidMount}
                     />
-                    <input type="submit" id="runCode" onClick={this.handleSubmit} placeholder="Run Code"/>
                     <button onClick={this.saveCode}>Save Code</button>
+                    <button id="runCode" onClick={this.handleSubmit}>Run Code</button>
                     
                 </form>
                 

@@ -1,3 +1,6 @@
+#output {
+  order: 4;
+}
 .output {
   white-space: pre-wrap;
 }

@@ -9,9 +9,9 @@ import * as userActions from '../../store/actions/users.js';
 import './notes.css';
 
 
-/**
- * Notes component to allow the user to take notes.  On the state is set to blank. 
- * The note is saved in the database for later retrevial.
+/** 
+ * Notes component to allow the user to take notes.  Initial state is set to a 
+ * blank string.  Note is saved into the database for later retrieval.
  */
 class Notes extends React.Component {
 
@@ -51,10 +51,9 @@ class Notes extends React.Component {
     console.log({assignmentArray});
     let assignmentNotes = assignmentArray && assignmentArray[0] && assignmentArray[0].notes;
     return (
-      <div className="notes">
+      <div id="notes" className="notes">
         <form onSubmit={this.handleSubmit}>
           <label>
-            Add Note:
           {
             utils.renderIf (
               assignmentNotes,
