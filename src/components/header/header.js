@@ -43,9 +43,9 @@ class Header extends Component {
         <FontAwesomeIcon id="hamburger" icon={faBars}/>
         <img alt="shred fellows logo" src={sflogo}/>
         <a href={authURL}>
-        <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
+          <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
           Login
-          </a>
+        </a>
       </header>
     );
   }
