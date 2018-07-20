@@ -46,7 +46,7 @@ export class Home extends Component {
     this.props.loading(false);
 
     let token = cookies.load('Token'); 
-    
+      console.log('TOKEN FROM LINE 48 of HOME', token);
     if (token) {
       let profile = await api.login(token);
       this.props.addUser(profile);
