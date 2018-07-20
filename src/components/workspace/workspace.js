@@ -18,9 +18,10 @@ import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
 
 
-
-// import * as actions from '../../store/actions/code.js'
-
+/** 
+ * Component to run code in the coderunner to check for errors.  Renders it to the 
+ * page.
+ */
 
 export class Workspace extends React.Component {
     constructor(props) {
@@ -142,8 +143,6 @@ const mapStateToProps = state => ({
     storeAssignment: state.assignment,
   });
   
-//   const mapDispatchToprops = (dispatch, getState) => ({
-//     saveAssignment: payload => dispatch(actions.saveAssignment(payload)),
-//   });
+
   
   export default connect(mapStateToProps, null)(Workspace);

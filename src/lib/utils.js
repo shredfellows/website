@@ -4,8 +4,9 @@ const cache = false;
 
 export const renderIf = (test, trueComponent = null, falseComponent = null) =>
   test ? trueComponent : falseComponent;
-
-// This implements localstorage for cache
+/**
+ * Implements localstorage for cache.
+ */
 export const fetchData = url => {
   return getCache(url)
     .then(data => data)
@@ -20,7 +21,9 @@ export const fetchData = url => {
     })
     .then(data => data);
 };
-
+/**
+ * Get information from cache.
+ */
 export const getCache = key => {
   return new Promise((resolve, reject) => {
     let data = cache && localStorage.getItem(key);
@@ -32,6 +35,9 @@ export const getCache = key => {
   });
 };
 
+/**
+ * Set information to cache.
+ */
 export const setCache = (key, value) => {
   return new Promise((resolve, reject) => {
     let safeValue = typeof value === 'string' ? value : JSON.stringify(value);

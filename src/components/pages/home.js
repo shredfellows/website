@@ -15,7 +15,7 @@ import './home.css';
 
 /**
  * Component to fetch the assignments and build the home page.  State is set to 
- * empty objects for the topics and assignments.
+ * empty objects for both topics and assignments.
  */
 
 export class Home extends Component {
@@ -33,13 +33,7 @@ export class Home extends Component {
     this.saveAssignment = this.saveAssignment.bind(this);
   }
 
-  // componentWillReceiveProps(){
-  //   console.log(this.props);
-  // }
-
-
-/**
- * Get the list of topics from github
+/**Get the list of topics from github
  * @param: github token
  */
   async componentWillMount() {
@@ -98,8 +92,7 @@ export class Home extends Component {
     }
   }
 
-/**
- * Get the list of assignments for each topic from github.  Creates a new 
+/**Get the list of assignments for each topic from github.  Creates a new 
  * assignment if one does not already exist.
  * @param: github token
  */
@@ -131,9 +124,8 @@ export class Home extends Component {
     
   }
 
-/**
- * Save the assignment to the user's profile.
- */
+/** Save the assignment to the user's profile.
+*/
   async saveAssignment() {
     let endpoint = 'assignment';
     let body = {

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/pages/home.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/pages/home.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
+import { RingLoader } from 'react-spinners';
+import { connect } from 'react-redux';
+import cookies from 'react-cookies';
+
+import Workspace from '../workspace/workspace.js';
+import Sidebar from '../sidebar/sidebar.js';
+
+import * as api from '../../lib/api.js';
+import * as actions from '../../store/actions/users.js';
+import * as assignmentActions from '../../store/actions/assignment.js';
+
+import './home.css';
+
+/**
+ * Component to fetch the assignments and build the home page.  State is set to 
+ * empty objects for both topics and assignments.
+ */
+
+export class Home extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      topics:{},
+      assignment:{},
+      singleTopic: {},
+    }
+    this.getAssignment = this.getAssignment.bind(this);
+    this.assignmentExists = this.assignmentExists.bind(this);
+    this.saveAssignment = this.saveAssignment.bind(this);
+  }
+
+/**Get the list of topics from github
+ * @param: github token
+ */
+  async componentWillMount() {
+    
+    let payload = {
+      model: 'github'
+    }
+
+    let topics = await api.get(payload);
+    this.setState({topics});
+    this.props.loading(false);
+
+    let token = cookies.load('Token'); 
+    
+    if (token) {
+      let profile = await api.login(token);
+      this.props.addUser(profile);
+    }
+  }
+
+/**Get the list of assignments for each topic from github.  Creates a new 
+ * assignment if one does not already exist.
+ * @param: github token
+ */
+
+  async getAssignment(topic, assgn){
+      
+    this.props.loading(true);
+      
+    let gitPayload = {
+      model: `github/${topic}.${assgn}`
+    }
+    
+    let assignment = await api.get(gitPayload);
+
+    this.setState({singleTopic: topic});
+    this.setState({assignment});
+
+    let assgnExists = this.assignmentExists();
+
+    if (assgnExists) {
+      this.props.setCurrentAssignment(assgnExists);
+    } else {
+      let newAssignment = await this.saveAssignment();
+      this.props.addAssignment(newAssignment);
+      this.props.setCurrentAssignment(newAssignment);
+    }
+
+    this.props.loading(false);
+    
+  }
+
+/** Save the assignment to the user's profile.
+*/
+  async saveAssignment() {
+    let endpoint = 'assignment';
+    let body = {
+      assignmentName: `${this.state.singleTopic}/${this.state.assignment.name}`,
+      profileId: `${this.props.user._id}`,
+    }
+    let payload = {endpoint, body};
+    let data = await api.post(payload);
+    return data;
+  }
+
+  assignmentExists() {
+    let assgnExists = this.props.user.assignments.filter(singleAssgn => {
+      return singleAssgn.assignmentName === `${this.state.singleTopic}/${this.state.assignment.name}`;
+    });
+    return !!assgnExists.length ? assgnExists[0] : false;
+  }
+
+/**
+ * Render the page with a spinner until the page loads.
+ */
+  render() {
+    let topics = this.state.topics || {};
+    if(this.props.loadingStatus===true){
+      return (
+        &lt;div className='sweet-loading'>
+          &lt;RingLoader className="spinner" size={160} color={'#ff0000'} />
+        &lt;/div>
+      )};
+
+    return (
+
+      &lt;React.Fragment>
+      &lt;div className="Home">
+        &lt;Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
+        &lt;Workspace singleTopic={this.state.singleTopic} assignment={this.state.assignment}/>
+      &lt;/div>
+      &lt;/React.Fragment>
+
+    );
+
+}
+}
+
+const mapStateToProps = state => ({
+  user: state.user,
+  assignment: state.assignment,
+});
+
+const mapDispatchToprops = (dispatch, getState) => ({
+  addUser: payload => dispatch(actions.addUser(payload)),
+  addAssignment: payload => dispatch(actions.addAssignment(payload)),
+  setCurrentAssignment: payload => dispatch(assignmentActions.setCurrentAssignment(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToprops)(Home);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="Home.html">Home</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Node.html">Node</a></li><li><a href="Repl.html">Repl</a></li><li><a href="Rotator.html">Rotator</a></li><li><a href="Workspace.html">Workspace</a></li></ul><h3>Global</h3><ul><li><a href="global.html#append">append</a></li><li><a href="global.html#componentWillMount">componentWillMount</a></li><li><a href="global.html#ENV">ENV</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#findMiddle">findMiddle</a></li><li><a href="global.html#findNth">findNth</a></li><li><a href="global.html#getCache">getCache</a></li><li><a href="global.html#isLocalhost">isLocalhost</a></li><li><a href="global.html#prepend">prepend</a></li><li><a href="global.html#removeHead">removeHead</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#reverse">reverse</a></li><li><a href="global.html#setCache">setCache</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 20 2018 09:20:43 GMT-0700 (PDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

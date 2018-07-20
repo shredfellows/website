@@ -6,9 +6,9 @@ import cookies from 'react-cookies'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
-/**
- * Component to fetch the Readme and render it onto the page.  Content is 
- *  inatlized to blank.
+/** 
+ * Component to fetch the Readme for the assignments and render it onto the page. 
+ * State is initalized to blank content.
  */
 
 export default class Readme extends React.Component {
@@ -21,7 +21,7 @@ export default class Readme extends React.Component {
     }
 
 /**
- *  Go to github and fetch the Readme.
+ * Go to github and fetch the Readme.
  * @param: github token (GHT)
  */
     async componentWillMount(prevProps, prevState) {

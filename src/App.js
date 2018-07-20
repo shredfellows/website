@@ -8,6 +8,9 @@ import * as api from './lib/api.js';
 import createStore from './store/';
 const store = createStore();
 
+/**
+ * Create and render the Application.
+ */
 class App extends Component {
   constructor(props){
     super(props)
