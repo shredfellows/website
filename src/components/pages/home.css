@@ -10,4 +10,23 @@
 .sweet-loading > div {
     margin: 0 auto;
 }
+
+.Home {
+    padding-top:150px;
+    margin:0 auto;
+}
+
+.welcomeBack {
+    text-align:center;
+    /* margin: 0 auto; */
+}
+
+.userImage{
+    display: block;
+   
+    margin:0 auto;
+    max-width:20%;
+    border-radius:50%;
+}
+
    

@@ -1,31 +1,64 @@
 import './readme.css';
-
 import React from 'react';
 import superagent from 'superagent';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
+import cookies from 'react-cookies'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+
+/**
+ * Component to fetch the Readme and render it onto the page.  Content is 
+ *  inatlized to blank.
+ */
 
 export default class Readme extends React.Component {
-
     constructor(props) {
         super(props);
-        this.state = {content: ''}
+        this.state = {
+            content: '',
+            noteBoxOpen: false,
+        }
     }
 
-    //Changed from componentWillUpdate after spinner was setup
+/**
+ *  Go to github and fetch the Readme.
+ * @param: github token (GHT)
+ */
     async componentWillMount(prevProps, prevState) {
+        let cookie = cookies.load('GHT'); 
         let url = this.props.readmeDoc;
         if (url && url.length) {
-            let data = await superagent.get(url);
+            let data = await superagent.get(url)
+                .set('Authorization', `Bearer ${cookie}`);
             let content = atob(data.body.content);
             this.setState({ content });
         } 
     }
-
+    handleNoteIconClick = (e) => {
+        e.preventDefault();
+        let boxOpen = this.state.noteBoxOpen;
+        let noteBox = document.getElementById('notes');
+        if (!boxOpen) {
+            noteBox.classList.add('notes-open-from-left');
+            this.setState({noteBoxOpen: true});
+        } else if (boxOpen) {
+            noteBox.classList.remove('notes-open-from-left');
+            this.setState({ noteBoxOpen: false });
+        }
+    }
+/**
+ * Render the Readme to the page.
+ */
     render() {
         return (
-            <div className="readme">
-                <ReactMarkdown source={this.state.content} />
+            <React.Fragment>
+            <div id="readme">
+                <FontAwesomeIcon id="edit-note" icon={faEdit} onClick={this.handleNoteIconClick}/>
+                <div className="readme">
+                    <ReactMarkdown source={this.state.content} />              
+                </div>
             </div>
+            </React.Fragment>
         )
     }
 };

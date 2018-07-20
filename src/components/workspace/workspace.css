@@ -1,17 +1,50 @@
 .workspace {
+    display:flex;
+    flex:1;
+    flex-wrap:wrap;
+    height: calc(100vh - 6em);
+    justify-content:space-around;
+    padding: .5em .25em;
     width: 100%;
-    height: 100%;
 }
-.workspace > div {
-    width: calc(100%/2);
-    border: solid 3px red;
+.workspace .content {
+    background:#fff;
+  box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+  height:calc(50% - .5em);
+  margin-bottom: .5em;
+  padding:1em;
+  width:calc(50% - .5em);
+}
+.workspace .content.video {
+    padding: 0;
+}
+.workspace .content.readme, .workspace .content.output {
+    overflow-y: scroll;
+}
+.workspace .content.output {
+    background: #111;
+    color: #33FF00;
 }
 
-.workspace .row {
-    display: flex;
-    width: 100%;
-    height: 50vh;
+#workspace-overlay {
+    background: #111111;
+    opacity: .8;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2;
 }
-.workspace .row > div {
-    flex: 50%;
+.cover-screen {
+    height: 100% !important;
+    width: 100% !important;
+}
+#submission-url {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: .8em;
+    text-align: center;
+    border: solid 1px rgba(10,10,10,.2);
+    padding: 1em;
+    border-radius: 3px;
+    background: white;
 }

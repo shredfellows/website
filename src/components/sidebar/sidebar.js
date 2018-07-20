@@ -7,8 +7,8 @@ export default class Sidebar extends React.Component {
     render() {
 
         return (
-            <div className="sidebar">
-            <h2>Topics</h2>
+            <div id="sidebar" className="sidebar">
+            <h2>Challenges</h2>
             <ul>
             {
                 this.props.topics && Object.keys(this.props.topics).map((el, i) => (
