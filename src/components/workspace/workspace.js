@@ -1,14 +1,18 @@
 import React from 'react';
+import uuid from 'uuid';
+import { connect } from 'react-redux';
+
 import './workspace.css';
+
 import Video from '../video/video.js';
 import Repl from '../repl/repl.js';
 import Readme from '../readme/readme.js';
 import Output from '../output/output.js';
 import Rotator from '../rotator/rotator.js'
+import Notes from '../notes/notes.js';
+
 import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
-import uuid from 'uuid';
-import { connect } from 'react-redux';
 // import * as actions from '../../store/actions/code.js'
 
 export class Workspace extends React.Component {
@@ -82,6 +86,7 @@ export class Workspace extends React.Component {
                 <div className="content readme">
                     <Readme readmeDoc={this.props.assignment.readme}/>
                 </div>
+                <Notes />
                 <div className="content output">
                     <Output output={this.state.output} />
                 </div>

@@ -137,8 +137,8 @@ export class Repl extends React.Component {
                         onChange={this.onChange}
                         editorDidMount={this.editorDidMount}
                     />
-                    <button id="runCode" onClick={this.handleSubmit}>Run Code</button>
                     <button onClick={this.saveCode}>Save Code</button>
+                    <button id="runCode" onClick={this.handleSubmit}>Run Code</button>
                     
                 </form>
                 
