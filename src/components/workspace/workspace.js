@@ -1,17 +1,24 @@
 import React from 'react';
-import './workspace.css';
-import Video from '../video/video.js';
-import Repl from '../repl/repl.js';
-import Readme from '../readme/readme.js';
-import Output from '../output/output.js';
-import Rotator from '../rotator/rotator.js'
-import * as api from '../../lib/api.js';
-import { renderIf } from '../../lib/utils';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import cookies from 'react-cookies';
 import copy from 'copy-to-clipboard';
+
+import './workspace.css';
+
+import Video from '../video/video.js';
+import Repl from '../repl/repl.js';
+import Readme from '../readme/readme.js';
+import Output from '../output/output.js';
+import Rotator from '../rotator/rotator.js'
+import Notes from '../notes/notes.js';
+
+import * as api from '../../lib/api.js';
+import { renderIf } from '../../lib/utils';
+
+
+
 // import * as actions from '../../store/actions/code.js'
 
 
@@ -78,18 +85,24 @@ export class Workspace extends React.Component {
 
         return (
             <div className="workspace">
-                <div className="row"> 
+                <div id="workspace-overlay"></div>
+                <div className="content video"> 
                     <Video videoUrl={this.props.assignment.video}/>
-                    {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                </div>
+                {renderIf(this.props.assignment && this.props.assignment.challenges, 
+                <div className="content"> 
                     <Rotator>
                         {challenges.map((challenge, i) =>
                             <Repl key={uuid()} id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} challengeLinks={challenge} runCode={this.runCode} />
                         )}
                     </Rotator>
-                    )}
                 </div>
-                <div className="row">
+                )}
+                <div className="content readme">
                     <Readme readmeDoc={this.props.assignment.readme}/>
+                </div>
+                <Notes />
+                <div className="content output">
                     <Output output={this.state.output} />
                 </div>
                 {renderIf(this.state.urlToCopy.length, 

@@ -18,14 +18,34 @@ class Header extends Component {
     this.state={loggedin: false}
   }
 
+  componentDidMount() {
+    document.body.addEventListener('click', this.handleBurgerClick);
+  }
+
+  handleBurgerClick = (e) => {
+    let hamburgerMenu = document.getElementById('hamburger');
+    let workspaceOverlay = document.getElementById('workspace-overlay');
+    let sidebar = document.getElementById('sidebar');
+
+    if (e.target === hamburgerMenu) {
+      sidebar.classList.add('open-from-left');
+      workspaceOverlay.classList.add('cover-screen');
+    } else if (e.target === workspaceOverlay){
+      sidebar.classList.remove('open-from-left');
+      workspaceOverlay.classList.remove('cover-screen');
+    }
+  }
+
   render() {
     
     return (
       <header className="header">
-        <FontAwesomeIcon icon={faBars}/>
+        <FontAwesomeIcon id="hamburger" icon={faBars}/>
         <img alt="shred fellows logo" src={sflogo}/>
-        <a href={authURL}>LOGIN OR SIGNUP</a>
-        <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
+        <a href={authURL}>
+          <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
+          Login
+        </a>
       </header>
     );
   }

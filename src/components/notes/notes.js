@@ -51,10 +51,9 @@ class Notes extends React.Component {
     console.log({assignmentArray});
     let assignmentNotes = assignmentArray && assignmentArray[0] && assignmentArray[0].notes;
     return (
-      <div className="notes">
+      <div id="notes" className="notes">
         <form onSubmit={this.handleSubmit}>
           <label>
-            Add Note:
           {
             utils.renderIf (
               assignmentNotes,

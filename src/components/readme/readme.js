@@ -3,8 +3,8 @@ import React from 'react';
 import superagent from 'superagent';
 import ReactMarkdown from 'react-markdown';
 import cookies from 'react-cookies'
-
-import Notes from '../notes/notes.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Component to fetch the Readme and render it onto the page.  Content is 
@@ -14,7 +14,10 @@ import Notes from '../notes/notes.js';
 export default class Readme extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {content: ''}
+        this.state = {
+            content: '',
+            noteBoxOpen: false,
+        }
     }
 
 /**
@@ -31,17 +34,29 @@ export default class Readme extends React.Component {
             this.setState({ content });
         } 
     }
+    handleNoteIconClick = (e) => {
+        e.preventDefault();
+        let boxOpen = this.state.noteBoxOpen;
+        let noteBox = document.getElementById('notes');
+        if (!boxOpen) {
+            noteBox.classList.add('notes-open-from-left');
+            this.setState({noteBoxOpen: true});
+        } else if (boxOpen) {
+            noteBox.classList.remove('notes-open-from-left');
+            this.setState({ noteBoxOpen: false });
+        }
+    }
 /**
  * Render the Readme to the page.
  */
     render() {
         return (
             <React.Fragment>
-            <div className="readme">
-                <ReactMarkdown source={this.state.content} />              
-            </div>
-            <div className="notes">
-                <Notes/>
+            <div id="readme">
+                <FontAwesomeIcon id="edit-note" icon={faEdit} onClick={this.handleNoteIconClick}/>
+                <div className="readme">
+                    <ReactMarkdown source={this.state.content} />              
+                </div>
             </div>
             </React.Fragment>
         )
