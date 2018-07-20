@@ -22,6 +22,8 @@ class App extends Component {
     this.setState({loading:status});
   }
 
+  
+
   //TODO: Change cookie splitting for token to be more robust (i.e., handle other cookies)
   
 
