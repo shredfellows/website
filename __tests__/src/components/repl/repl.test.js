@@ -8,13 +8,13 @@ import Repl from '../../../../src/components/repl/repl.js'
 Enzyme.configure({adapter: new Adapter()});
 
 describe('repl tests', () => {
-  // test('testing repl initial state', () => {
-  //
-  //   let mountedRepl = Enzyme.mount(<Repl/>)
-  //
-  //   const expected = {code: ''};
-  //   expect(mountedRepl.state()).toEqual(expected)
-  // });
+  test('testing repl initial state', () => {
+
+    let mountedRepl = Enzyme.shallow(<Repl/>)
+
+    const expected = {code: undefined};
+    expect(mountedRepl.state()).toEqual(expected);
+  });
 
   test(`does the repl component have the "repl" class`, () => {
      const wrapper = shallow(<Repl challenges={[]} runCode={null}><form></form></Repl>);

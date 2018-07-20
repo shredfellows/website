@@ -1,4 +1,4 @@
-//import 'jsdom-global/register';
+// import 'jsdom-global/register';
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme, { shallow, render, mount } from 'enzyme';

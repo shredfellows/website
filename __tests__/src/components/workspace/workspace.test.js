@@ -8,20 +8,20 @@ Enzyme.configure({adapter: new Adapter()});
 
 describe('workspace tests', () => {
 
-  test('render workspace', () => {
+  test('rendering workspace', () => {
     const wrapper = shallow(<Workspace assignment ="{}" />);
     expect(wrapper).toHaveLength(1);
-
-  test('render workspace', () => {
-      const mountedWorkspace = mount(<Workspace />);
-      console.log(mountedWorkspace)
-      expect(mountedWorkspace.props('class')).toEqual('workspace');
+})
+  test('checking number of workspace properties', () => {
+      const wrapper = shallow(<Workspace assignment ="{}"/>);
+      let testVar = wrapper.props();
+      let varKeys = Object.keys(testVar);
+      expect(varKeys.length).toEqual(2);
     });
 
   test(`does the workspace component have the "workspace" class`, () => {
      const wrapper = shallow(<Workspace assignment ="{}" />);
-     console.log(wrapper)
-     expect(wrapper.props().exists().toEqual('true'));
+
+     expect(wrapper.hasClass('workspace'));
    });
   });
-});
