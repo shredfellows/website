@@ -52,7 +52,7 @@ Standard JavaScript with React, ES6, SASS, CSS, HTML
 * Step 6. Choose login with your github account
 * Step 7. Choose a challenge from the menu and code away
 
-### User Flow:
+## User Flow:
 
 ### &nbsp; Assignments for students:
 
@@ -70,19 +70,33 @@ Standard JavaScript with React, ES6, SASS, CSS, HTML
   This prompts the GitHub login and displays the user's GitHub profile picture, and a sidebar menu with the assignments.
 ```
 
-## Assignment components:
+## Data Flow:
+
+### Assignment components:
 
 * README and Notes
 
 ```
   The "Readme" component fetches the README file from GitHub by URL
-  Same component renders the click event to op[en a note. 
-  Ones the Note icon is clicked, the "Note" component handles change and submit events so the note is saved to the specific assignment
+  Same component renders the click event to open a note. 
+  Once the Note icon is clicked, the "Note" component handles change and submit events so the note is saved to the specific assignment
+```
+* Video
+
+```
+  The "Video" component renders it by URL
 ```
 
+* Repl environment
+```
+Multiple components handle this part.
+  "Rotator" component displays the challenges, uses a doubly
+  linked list (the children of the component) structure from a .js file outside of the component, sets state to the active child in the list
 
+  "Workspace" component runs code in the coderunner to check for errors.  
+    Same component generates the assignment link an the copy link field for canvas users only.
 
-
+```
 
 ## Authors
 
