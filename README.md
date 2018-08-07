@@ -27,6 +27,7 @@ Standard JavaScript with React, ES6, SASS, CSS, HTML
 * eslint-plugin-react
 * extract-text-webpack-plugin
 * html-webpack-plugin
+* node
 * node-sass
 * react
 * react-dom
@@ -93,12 +94,12 @@ Multiple components handle this part.
   "Rotator" component displays the challenges, uses a doubly
   linked list (the children of the component) structure from a .js file outside of the component, sets state to the active child in the list
 
-  "Workspace" component runs code in the coderunner to check for errors.  
+  "Workspace" component runs code in the coderunner, with the "nel" module, to check for errors.  
     Same component generates the assignment link an the copy link field for canvas users only.
 
 ```
 
-## Authors
+## Authors (in alphabetical order)
 
 Khalil Ahmed, Jen Bach, Jason Burns, Timea Heidenreich, Ben Hurst, Justin Morris, Ovi Parasca, Michael Sklepowich
 
