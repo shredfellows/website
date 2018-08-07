@@ -88,7 +88,7 @@ Standard JavaScript with React, ES6, SASS, CSS, HTML
   The "Video" component renders it by URL
 ```
 
-* Repl environment
+* Repl environment ("monaco-editor" module)
 ```
 Multiple components handle this part.
   "Rotator" component displays the challenges, uses a doubly
@@ -96,6 +96,8 @@ Multiple components handle this part.
 
   "Workspace" component runs code in the coderunner, with the "nel" module, to check for errors.  
     Same component generates the assignment link an the copy link field for canvas users only.
+
+  The "Repl" component provides the environment to run and check code with the "monaco-editor" module
 
 ```
 
