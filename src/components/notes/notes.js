@@ -16,8 +16,8 @@ import './notes.css';
 class Notes extends React.Component {
 
   constructor(props) {
-    super(props)
-    this.state = { notes: '' }
+    super(props);
+    this.state = { notes: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -34,11 +34,11 @@ class Notes extends React.Component {
       body: {notes},
     };
 
-   let data = await api.put(payload);
+    let data = await api.put(payload);
    
-   let assignName = this.props.assignment.assignmentName;
-   let action = { assignName, notes };
-   this.props.addNoteToUser(action);
+    let assignName = this.props.assignment.assignmentName;
+    let action = { assignName, notes };
+    this.props.addNoteToUser(action);
   }
 
   onChange(e) {
@@ -54,17 +54,17 @@ class Notes extends React.Component {
       <div id="notes" className="notes">
         <form onSubmit={this.handleSubmit}>
           <label>
-          {
-            utils.renderIf (
-              assignmentNotes,
+            {
+              utils.renderIf (
+                assignmentNotes,
                 <textarea id="submitNotes" onChange={this.onChange} defaultValue={assignmentNotes}></textarea>,
                 <textarea id="submitNotes" onChange={this.onChange} placeholder="Take Notes Here"></textarea>
-            )
-          }
-          <input type="submit" />
+              )
+            }
+            <input type="submit" />
           </label>
         </form>
-      </div>)
+      </div>);
   }
 }
 
