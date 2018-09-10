@@ -32,12 +32,12 @@ class Repl extends React.Component {
     this.props.submitCode(payload);
   }
 
-  editorDidMount(editor, monaco) {
+  editorDidMount(editor) {
     editor.focus();
     editor.layout();
   }
 
-  onChange(newValue, e) {
+  onChange(newValue) {
     this.setState({code:newValue});
     let payload = {};
     payload[this.props.id]=this.state.code;
@@ -75,7 +75,7 @@ class Repl extends React.Component {
  * Fetch the code challenges from github using cookies.
  * @param - Github token (GHT)
  */
-    async componentWillMount(prevProps, prevState) {
+    async componentWillMount() {
         
       let url = this.props.challengeLinks;
       let cookie = cookies.load('GHT');
@@ -160,7 +160,7 @@ const mapStateToProps = state => ({
   assignment: state.assignment,
 });
   
-const mapDispatchToprops = (dispatch, getState) => ({
+const mapDispatchToprops = (dispatch) => ({
   submitCode: payload => dispatch(codeActions.addCode(payload)),
   addCodeToUser: payload => dispatch(userActions.addCodeToUser(payload)),
 

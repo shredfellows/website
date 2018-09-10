@@ -1,6 +1,5 @@
 import React from 'react';
 import './sidebar.css';
-import uuid from 'uuid';
 
 /** 
  * Component for the menu of topics and assignments.
@@ -15,11 +14,11 @@ export default class Sidebar extends React.Component {
         <ul>
           {
             this.props.topics && Object.keys(this.props.topics).map((el, i) => (
-              <li key={uuid()}>{el}
+              <li key={i}>{el}
                 
                 <ul>
                   {Object.keys(this.props.topics[el]).map((subEl, j) => (
-                    <li key={uuid()}><a onClick={() => this.props.getAssign(el, subEl)}>{subEl}</a></li>
+                    <li key={j*.82}><a onClick={() => this.props.getAssign(el, subEl)}>{subEl}</a></li>
                   ))}
                 </ul>
                 

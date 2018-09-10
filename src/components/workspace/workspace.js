@@ -123,7 +123,7 @@ export class Workspace extends React.Component {
           </div>
           {renderIf(this.state.urlToCopy.length,
             <form id="submission-url">
-                        Here's your submission url:<br />
+              {'Here\'s your submission url:'}<br />
               <input type="text" value={this.state.urlToCopy}></input>
               <button onClick={(e) => this.copyLink(e)}>Copy</button>
             </form>

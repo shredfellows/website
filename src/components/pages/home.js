@@ -37,16 +37,15 @@ export class Home extends Component {
  * @param: github token
  */
   async componentWillMount() {
-    console.log(this.props);
     
     let query = window.location.search;
-    let view = query.replace(/\?|\=/g,' ').split(' ')[1];
+    let view = query.replace(/\?|=/g,' ').split(' ')[1];
     if(view==='submission'){
       this.setState({view:'submission'});
-      let unparsedToken = query.replace(/\?|\=/g,' ').split(' ')[2];
+      let unparsedToken = query.replace(/\?|=/g,' ').split(' ')[2];
      
       let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
-      let {topic, assignment, user} = parsedToken;
+      let {topic, assignment, user} = parsedToken; //eslint-disable-line
       let token = cookies.load('Token'); 
       if(token){
         cookies.remove('Token');
@@ -73,10 +72,10 @@ export class Home extends Component {
       this.props.addUser(profile);
     }
     if(this.state.view==='submission'){
-      let unparsedToken = query.replace(/\?|\=/g,' ').split(' ')[2];
+      let unparsedToken = query.replace(/\?|=/g,' ').split(' ')[2];
       
       let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
-      let {topic, assignment, user} = parsedToken;
+      let {topic, assignment, user} = parsedToken; //eslint-disable-line
       this.getAssignment(topic, assignment);
     }
 
@@ -84,7 +83,7 @@ export class Home extends Component {
       let token = cookies.load('Token');
       if(token){
         this.setState({view:'assignment'});
-        let topicAndAssignment = query.replace(/\?|\=/g,' ').split(' ')[2];
+        let topicAndAssignment = query.replace(/\?|=/g,' ').split(' ')[2];
         let topic = topicAndAssignment.split('.')[0];
         let assignment = topicAndAssignment.split('.')[1];
         this.getAssignment(topic, assignment);
@@ -195,7 +194,7 @@ const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
 });
 
-const mapDispatchToprops = (dispatch, getState) => ({
+const mapDispatchToprops = (dispatch) => ({
   addUser: payload => dispatch(actions.addUser(payload)),
   addAssignment: payload => dispatch(actions.addAssignment(payload)),
   setCurrentAssignment: payload => dispatch(assignmentActions.setCurrentAssignment(payload)),

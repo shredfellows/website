@@ -24,7 +24,7 @@ export default class Readme extends React.Component {
  * Go to github and fetch the Readme.
  * @param: github token (GHT)
  */
-  async componentWillMount(prevProps, prevState) {
+  async componentWillMount() {
     let cookie = cookies.load('GHT'); 
     let url = this.props.readmeDoc;
     if (url && url.length) {
