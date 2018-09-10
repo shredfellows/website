@@ -54,7 +54,7 @@ export class Workspace extends React.Component {
         let errors = '';
 
         if (solution['console.log']) {
-            for (let i = 0; i < solution['console.log'].length; i++) {
+        for (let i = 0; i < solution['console.log'].length; i++) {
                 consoleLogs = consoleLogs + solution['console.log'][i] + `\r`;
             }
         }
