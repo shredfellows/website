@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import superagent from 'superagent';
 
 import * as utils from '../../lib/utils.js';
 import * as api from '../../lib/api.js';
@@ -34,7 +33,7 @@ class Notes extends React.Component {
       body: {notes},
     };
 
-    let data = await api.put(payload);
+    await api.put(payload);
    
     let assignName = this.props.assignment.assignmentName;
     let action = { assignName, notes };
@@ -74,7 +73,7 @@ const mapStateToProps = state => ({
   assignment: state.assignment,
 });
 
-const mapDispatchToprops = (dispatch, getState) => ({
+const mapDispatchToprops = (dispatch) => ({
   addNoteToUser: payload => dispatch(userActions.addNoteToUser(payload)),
 });
 
