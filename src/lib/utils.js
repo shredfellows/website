@@ -10,7 +10,7 @@ export const renderIf = (test, trueComponent = null, falseComponent = null) =>
 export const fetchData = url => {
   return getCache(url)
     .then(data => data)
-    .catch(err => {
+    .catch(err => { // eslint-disable-line
       return superagent
         .get(url)
         .then(result => {
@@ -39,6 +39,7 @@ export const getCache = key => {
  * Set information to cache.
  */
 export const setCache = (key, value) => {
+  // eslint-disable-next-line
   return new Promise((resolve, reject) => {
     let safeValue = typeof value === 'string' ? value : JSON.stringify(value);
     localStorage.setItem(key, safeValue);
