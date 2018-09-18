@@ -10,24 +10,53 @@
     "err": true,
     "req": true,
     "res": true,
-    "next": true
+    "next": true,
+    "__API_URI__": false,
+    "__TITLE__": false,
+    "__DEBUG__": false
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "parser": "babel-eslint",
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "module": true,
+      "jsx": true
+    }
   },
   "rules": {
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
     "no-console": "off",
+    "no-unused-vars": "error",
     "indent": [
       "error",
-      2
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "react/prop-types": [
+      0
     ],
     "quotes": [
       "error",
       "single",
       {
         "allowTemplateLiterals": true
+      }
+    ],
+    "space-infix-ops": [
+      "error",
+      {
+        "int32Hint": false
       }
     ],
     "comma-dangle": [
@@ -38,5 +67,8 @@
       "error",
       "always"
     ]
-  }
+  },
+  "plugins": [
+    "react"
+  ]
 }
