@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Header from './components/header/header.js';
+import Header from "./components/header/header.js";
 import { Provider } from 'react-redux';
-import Home from './components/pages/home.js';
+import Home from "./components/pages/home.js";
 import { BrowserRouter} from 'react-router-dom';
+import * as api from './lib/api.js';
 
 import createStore from './store/';
 const store = createStore();
@@ -12,11 +13,11 @@ const store = createStore();
  */
 class App extends Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state={
       loading:true,
       user:{},
-    };
+    }
     this.loadingStatus=this.loadingStatus.bind(this);
   }
 
@@ -33,12 +34,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <React.Fragment>
-          <Header loading={this.loadingStatus} />
-          <BrowserRouter>
-            <main>
-              <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
-            </main>
-          </BrowserRouter>
+        <Header loading={this.loadingStatus} />
+        <BrowserRouter>
+          <main>
+            <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
+          </main>
+        </BrowserRouter>
         </React.Fragment>
       </Provider>
     );

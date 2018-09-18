@@ -7,26 +7,26 @@ import uuid from 'uuid';
  */
 export default class Sidebar extends React.Component {
 
-  render() {
+    render() {
 
-    return (
-      <div id="sidebar" className="sidebar">
-        <h2>Challenges</h2>
-        <ul>
-          {
-            this.props.topics && Object.keys(this.props.topics).map((el) => (
-              <li key={uuid()}>{el}
+        return (
+            <div id="sidebar" className="sidebar">
+            <h2>Challenges</h2>
+            <ul>
+            {
+                this.props.topics && Object.keys(this.props.topics).map((el, i) => (
+                <li key={uuid()}>{el}
                 
-                <ul>
-                  {Object.keys(this.props.topics[el]).map((subEl) => (
-                    <li key={uuid()}><a onClick={() => this.props.getAssign(el, subEl)}>{subEl}</a></li>
-                  ))}
-                </ul>
+                    <ul>
+                        {Object.keys(this.props.topics[el]).map((subEl, j) => (
+                            <li key={uuid()}><a onClick={() => this.props.getAssign(el, subEl)}>{subEl}</a></li>
+                        ))}
+                    </ul>
                 
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    );
-  }}
+                </li>
+                ))
+            }
+            </ul>
+            </div>
+        )
+}};
