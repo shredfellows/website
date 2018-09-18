@@ -20,16 +20,16 @@ require('dotenv').config();
 class Header extends Component {
   constructor(props){
     super(props);
-    this.state={
+    this.state = {
       loggedin: false,
       student: false,
       text: '',
       imgSrc: '',
-    }
+    };
   }
 
   componentDidUpdate() {
-    console.log("HEADER__STATE___", this.state);
+    console.log('HEADER__STATE___', this.state);
   }
 
   componentWillMount() {
@@ -38,7 +38,7 @@ class Header extends Component {
     if (this.state.loggedIn) {
       console.log('IM HERE');
       imgSrc = this.props.user.profileImage;
-      text = 'Logout'
+      text = 'Logout';
     } else {
       imgSrc = ghlogo;
       text = 'Login';
@@ -53,7 +53,7 @@ class Header extends Component {
     this.setState({student});
   }
 
-  handleBurgerClick = (e) => {
+  handleBurgerClick = e => {
     let hamburgerMenu = document.getElementById('hamburger');
     let workspaceOverlay = document.getElementById('workspace-overlay');
     let sidebar = document.getElementById('sidebar');
@@ -70,12 +70,12 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-      {
-        utils.renderIf(
-          !this.state.student,
-          <FontAwesomeIcon id="hamburger" icon={faBars}/>
-        )
-      }
+        {
+          utils.renderIf(
+            !this.state.student,
+            <FontAwesomeIcon id="hamburger" icon={faBars}/>
+          )
+        }
         <img alt="shred fellows logo" src={sflogo}/>
         <a href={authURL}>
           <img className="gh-logo" alt="github octocat logo" src={this.state.imgSrc} />
