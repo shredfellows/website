@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan} from '@fortawesome/free-solid-svg-icons';
 import {faGreaterThan} from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ import uuid from 'uuid';
  *  children of the component.  State will always be the node in the linked list 
  * that is active.
  */
-export class Rotator extends React.Component {
+export default class Rotator extends React.Component {
   constructor(props) {
     super(props);
 
@@ -80,13 +80,3 @@ export class Rotator extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToprops = (dispatch, getState) => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToprops)(Rotator);
