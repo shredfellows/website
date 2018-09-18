@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import uuid from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan} from '@fortawesome/free-solid-svg-icons';
 import {faGreaterThan} from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +7,6 @@ import {faGreaterThan} from '@fortawesome/free-solid-svg-icons';
 
 import './rotator.css';
 import List from '../../lib/linked-list.js';
-import uuid from 'uuid';
 
 /** 
  * Component to create and render the rotator for the challenges.  The rotator is
@@ -15,7 +14,7 @@ import uuid from 'uuid';
  *  children of the component.  State will always be the node in the linked list 
  * that is active.
  */
-export class Rotator extends React.Component {
+export default class Rotator extends React.Component {
   constructor(props) {
     super(props);
 
@@ -81,12 +80,3 @@ export class Rotator extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToprops = (dispatch, getState) => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToprops)(Rotator);

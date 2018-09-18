@@ -48,7 +48,7 @@ export default class DoublyLinkedList {
     }
     return count;
   }
-/**
+  /**
  * Add node to begining of linked list.
  */
   prepend(value) {
@@ -58,7 +58,7 @@ export default class DoublyLinkedList {
     this.root.prev = node;
     this.root = node;
   }
-/**
+  /**
  * Add node to end of linked list.
  */
   append(value) {
@@ -77,7 +77,7 @@ export default class DoublyLinkedList {
   }
 
 
-/**
+  /**
  * Remove nodes in linked list.
  */
   removeHead() {
@@ -99,7 +99,7 @@ export default class DoublyLinkedList {
     }
     return result;
   }
-/**
+  /**
  * Reverse linked list.
  */
   reverse() {
@@ -124,10 +124,10 @@ export default class DoublyLinkedList {
     this.root = reversed;
     this.root.prev = null;
   }
-/**
+  /**
  * Find middle of linked list.
  */
-  findMiddle(list) {
+  findMiddle() {
     let slow = this.root;
     let fast = this.root;
     while (fast && fast.next) {
@@ -136,7 +136,7 @@ export default class DoublyLinkedList {
     }
     return slow;
   }
-/**
+  /**
  * Find node in linked list.
  */
   findNth(n) {
