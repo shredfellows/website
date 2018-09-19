@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './components/header/header.js';
 import { Provider } from 'react-redux';
 import Home from './components/pages/home.js';
@@ -10,24 +10,22 @@ const store = createStore();
 /**
  * Create and render the Application.
  */
-class App extends Component {
+export default class App extends React.Component {
+
   constructor(props){
     super(props);
+
     this.state = {
       loading:true,
       user:{},
     };
+
     this.loadingStatus = this.loadingStatus.bind(this);
   }
 
   loadingStatus(status){
     this.setState({loading:status});
   }
-
-  
-
-  //TODO: Change cookie splitting for token to be more robust (i.e., handle other cookies)
-  
 
   render() {
     return (
@@ -44,5 +42,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
