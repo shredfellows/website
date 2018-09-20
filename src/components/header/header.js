@@ -61,7 +61,7 @@ class Header extends React.Component {
       <header className="header">
         {
           utils.renderIf(
-            !this.state.student,
+            !this.state.student && this.props.loggedIn,
             <FontAwesomeIcon id="hamburger" icon={faBars}/>
           )
         }
