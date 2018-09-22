@@ -20,6 +20,7 @@
 .header img {
     margin-left: 1em;
     width: 200px;
+
 }
 .header a {
     color: #f5f5f5;
@@ -30,6 +31,9 @@
     text-align: center;
     vertical-align: middle;
     width: 75px;
+}
+.header a > img {
+    border-radius: 50%;
 }
 .header .gh-logo {
     height: 2.5em;
