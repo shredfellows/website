@@ -1,9 +1,8 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route} from 'react-router-dom';
-import Landing from './components/pages/landing.js';
-import Home from './components/pages/home.js';
 import Header from './components/header/header.js';
+import { Provider } from 'react-redux';
+import Home from './components/pages/home.js';
+import { BrowserRouter} from 'react-router-dom';
 
 import createStore from './store/';
 const store = createStore();
@@ -35,7 +34,6 @@ export default class App extends React.Component {
           <Header loading={this.loadingStatus} />
           <BrowserRouter>
             <main>
-              <Route exact path='/' component={Landing}/>
               <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
             </main>
           </BrowserRouter>
