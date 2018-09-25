@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route} from 'react-router-dom';
-import Landing from './components/pages/landing.js';
+import Landing from './components/landing/landing.js';
 import Home from './components/pages/home.js';
 import Header from './components/header/header.js';
 
@@ -31,15 +31,15 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <React.Fragment>
-          <Header loading={this.loadingStatus} />
-          <BrowserRouter>
+        <BrowserRouter>
+          <React.Fragment>
+            <Route exact path='/' component={Landing} />
+            <Header loading={this.loadingStatus} />
             <main>
-              <Route exact path='/' component={Landing}/>
               <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
             </main>
-          </BrowserRouter>
-        </React.Fragment>
+          </React.Fragment>
+        </BrowserRouter>
       </Provider>
     );
   }
