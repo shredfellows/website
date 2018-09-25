@@ -5,7 +5,28 @@ section.landing-overlay {
   width: 100vw;
 }
 
-section.landing-overlay > img {
+section.landing-overlay > .login-container {
+  display: flex;
+  flex-direction: column;
   margin: auto;
+}
+section.landing-overlay > .login-container > img {
   width: 200px;
 }
+section.landing-overlay > .login-container > a {
+  background: #444;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  box-shadow: -8px 6px 13px -7px rgba(0,0,0,0.5);
+  color: white;
+  display: flex;
+  padding: .5em;
+  text-decoration: none;
+}
+section.landing-overlay > .login-container > a > p {
+  flex: 1;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+
