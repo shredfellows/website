@@ -21,6 +21,10 @@ export default class Landing extends React.Component {
           <p>or</p>
           <Form />
         </div>
+        <footer>
+          <a href="#forgot-password">Forgot Password?</a>
+          <a href="#Sign-up">Sign Up</a>
+        </footer>
       </section>
     );
   }
