@@ -6,6 +6,8 @@ import './landing.css';
 
 import sflogo from '../../assets/img/shred-logo-landing.png';
 
+import Form from '../form/form.js';
+
 export default class Landing extends React.Component {
   render() {
     return(
@@ -16,7 +18,8 @@ export default class Landing extends React.Component {
             <FontAwesomeIcon icon={faGithub}/>
             <p>Login with GitHub</p>
           </a>
-          <p>- or - </p>
+          <p>or</p>
+          <Form />
         </div>
       </section>
     );

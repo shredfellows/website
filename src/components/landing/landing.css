@@ -18,7 +18,7 @@ section.landing-overlay > .login-container > a {
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 3px;
   box-shadow: -8px 6px 13px -7px rgba(0,0,0,0.5);
-  color: white;
+  color: #cfcfcf;
   display: flex;
   padding: .5em;
   text-decoration: none;
@@ -29,6 +29,12 @@ section.landing-overlay > .login-container > a:hover {
 section.landing-overlay > .login-container > a > p {
   flex: 1;
   font-family: sans-serif;
+  text-align: center;
+}
+section.landing-overlay > .login-container > p {
+  color: #cfcfcf;
+  font-family: sans-serif;
+  margin: 1em;
   text-align: center;
 }
 
