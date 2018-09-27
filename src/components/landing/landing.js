@@ -30,7 +30,7 @@ export default class Landing extends React.Component {
             <p>Login with GitHub</p>
           </a>
           <p>or</p>
-          <Form handler={this.handleSubmit}/>
+          <Form className="login-form" handler={this.handleSubmit}/>
         </div>
         <footer>
           <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Forgot Password?</a>

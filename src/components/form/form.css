@@ -1,8 +1,8 @@
-form {
+form.login-form {
   display: flex;
   flex-direction: column;
 }
-form div {
+form.login-form div {
   align-items: center;
   background: white;
   border-radius: 3px;
@@ -11,18 +11,18 @@ form div {
   margin-bottom: .5em;
   padding: .5em;
 }
-form div:focus-within {
+form.login-form div:focus-within {
   outline: inherit;
 }
-form div:first-child {
+form.login-form div:first-child {
   margin-top: 0;
 }
-form input {
+form.login-form input {
   outline: none;
   border: none;
   margin-left: 1em; 
 }
-form input[type="submit"] {
+form.login-form input[type="submit"] {
   background: #ff4a35;
   border: none;
   border-radius: 3px;
@@ -30,7 +30,7 @@ form input[type="submit"] {
   margin: 0;
   padding: 1em;
 }
-form input[type="submit"]:hover {
+form.login-form input[type="submit"]:hover {
   background: #cc3b2a;
   cursor: pointer;
 }
