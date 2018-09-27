@@ -28,7 +28,7 @@ export default class Form extends React.Component {
 
   render() {
     return(
-      <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+      <form className="login-form" onSubmit={this.handleSubmit} onChange={this.handleChange}>
         <div>
           <FontAwesomeIcon icon={faEnvelope}/>
           <input name="email" type="text" placeholder="email"/>
