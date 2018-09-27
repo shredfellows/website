@@ -23,7 +23,7 @@ export default class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.hanlder(this.state);
+    this.props.handler(this.state);
   }
 
   render() {

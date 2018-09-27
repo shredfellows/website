@@ -11,6 +11,15 @@ import { authURL } from '../../lib/githubLogin.js';
 import Form from '../form/form.js';
 
 export default class Landing extends React.Component {
+
+  handleSubmit = formData => { // eslint-disable-line
+    alert('Basic Authentication is a TODO and not functional just yet. Try signing in with GitHub.');
+  }
+
+  alertResponse = response => {
+    alert(response);
+  }
+
   render() {
     return(
       <section className="landing-overlay">
@@ -21,11 +30,11 @@ export default class Landing extends React.Component {
             <p>Login with GitHub</p>
           </a>
           <p>or</p>
-          <Form />
+          <Form handler={this.handleSubmit}/>
         </div>
         <footer>
-          <a href="#forgot-password">Forgot Password?</a>
-          <a href="#Sign-up">Sign Up</a>
+          <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Forgot Password?</a>
+          <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Sign Up</a>
         </footer>
       </section>
     );
