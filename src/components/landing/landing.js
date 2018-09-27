@@ -1,4 +1,6 @@
 import React from 'react';
+import cookies from 'react-cookies';
+import { Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -11,7 +13,7 @@ import { authURL } from '../../lib/githubLogin.js';
 import Form from '../form/form.js';
 
 export default class Landing extends React.Component {
-
+  
   handleSubmit = formData => { // eslint-disable-line
     alert('Basic Authentication is a TODO and not functional just yet. Try signing in with GitHub.');
   }
@@ -21,6 +23,13 @@ export default class Landing extends React.Component {
   }
 
   render() {
+
+    let token = cookies.load('Token');
+    
+    if (token) {
+      return <Redirect to='/dashboard' />;
+    }
+
     return(
       <section className="landing-overlay">
         <div className="login-container">
@@ -38,5 +47,6 @@ export default class Landing extends React.Component {
         </footer>
       </section>
     );
+
   }
 }
