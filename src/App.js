@@ -1,8 +1,9 @@
 import React from 'react';
-import Header from './components/header/header.js';
 import { Provider } from 'react-redux';
-import Home from './components/pages/home.js';
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Route} from 'react-router-dom';
+
+import Landing from './components/landing/landing.js';
+import Dashboard from './components/dashboard/dashboard.js';
 
 import createStore from './store/';
 const store = createStore();
@@ -12,32 +13,15 @@ const store = createStore();
  */
 export default class App extends React.Component {
 
-  constructor(props){
-    super(props);
-
-    this.state = {
-      loading:true,
-      user:{},
-    };
-
-    this.loadingStatus = this.loadingStatus.bind(this);
-  }
-
-  loadingStatus(status){
-    this.setState({loading:status});
-  }
-
   render() {
     return (
       <Provider store={store}>
-        <React.Fragment>
-          <Header loading={this.loadingStatus} />
-          <BrowserRouter>
-            <main>
-              <Home loading={this.loadingStatus} loadingStatus={this.state.loading}/>  
-            </main>
-          </BrowserRouter>
-        </React.Fragment>
+        <BrowserRouter>
+          <React.Fragment>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/dashboard' component={Dashboard} />
+          </React.Fragment>
+        </BrowserRouter>
       </Provider>
     );
   }
