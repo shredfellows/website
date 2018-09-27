@@ -6,6 +6,8 @@ import './landing.css';
 
 import sflogo from '../../assets/img/shred-logo-landing.png';
 
+import { authURL } from '../../lib/githubLogin.js';
+
 import Form from '../form/form.js';
 
 export default class Landing extends React.Component {
@@ -14,7 +16,7 @@ export default class Landing extends React.Component {
       <section className="landing-overlay">
         <div className="login-container">
           <img alt="shred fellows logo" src={sflogo} />
-          <a href="#">
+          <a href={authURL}>
             <FontAwesomeIcon icon={faGithub}/>
             <p>Login with GitHub</p>
           </a>
