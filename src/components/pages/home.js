@@ -33,15 +33,17 @@ export class Home extends Component {
     this.saveAssignment = this.saveAssignment.bind(this);
   }
 
+  _isMounted = false;
+
   /**Get the list of topics from github
  * @param: github token
  */
   async componentWillMount() {
-    console.log(this.props);
     
     let query = window.location.search;
     let view = query.replace(/\?|=/g,' ').split(' ')[1];
-    if(view === 'submission'){
+
+    if (view === 'submission') {
       this.setState({view:'submission'});
       let unparsedToken = query.replace(/\?|=/g,' ').split(' ')[2];
      
@@ -49,7 +51,8 @@ export class Home extends Component {
       //eslint-disable-next-line
       let {topic, assignment, user} = parsedToken;
       let token = cookies.load('Token'); 
-      if(token){
+
+      if (token) {
         cookies.remove('Token');
       }
       cookies.save('Token',user);
@@ -61,19 +64,21 @@ export class Home extends Component {
     };
 
     let topics = await api.get(payload);
-    this.setState({topics});
-    this.props.loading(false);
+
+    if (this._isMounted) {
+      this.setState({topics});
+      this.props.loading(false);
+    }
+
 
     let token = cookies.load('Token'); 
-    console.log('TOKEN FROM LINE 48 of HOME', token);
-    if (token) {
-      console.log('setting state!');
-      
-      this.props.loggedInStatus(true);
+    
+    if (token) {      
       let profile = await api.login(token);
       this.props.addUser(profile);
     }
-    if(this.state.view === 'submission'){
+
+    if (this.state.view === 'submission') {
       let unparsedToken = query.replace(/\?|=/g,' ').split(' ')[2];
       
       let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
@@ -82,9 +87,9 @@ export class Home extends Component {
       this.getAssignment(topic, assignment);
     }
 
-    if(view === 'assignment'){
+    if (view === 'assignment') {
       let token = cookies.load('Token');
-      if(token){
+      if (token) {
         this.setState({view:'assignment'});
         let topicAndAssignment = query.replace(/\?|=/g,' ').split(' ')[2];
         let topic = topicAndAssignment.split('.')[0];
@@ -100,7 +105,7 @@ export class Home extends Component {
  */
 
   async getAssignment(topic, assgn){
-    console.log('PARAMATERS', topic, assgn);
+    
     this.props.loading(true);
       
     let gitPayload = {
@@ -111,7 +116,7 @@ export class Home extends Component {
 
     this.setState({singleTopic: topic});
     this.setState({assignment});
-    console.log('ASSIGNEMTN IN HOME', this.state.assignment);
+    
     let assgnExists = this.assignmentExists();
 
     if (assgnExists) {
@@ -146,14 +151,25 @@ export class Home extends Component {
     return assgnExists && assgnExists.length ? assgnExists[0] : false;
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   /**
  * Render the page with a spinner until the page loads.
  */
   render() {
+
     let topics = this.state.topics || {};
+    
     let name = this.props.user && this.props.user.name;
     name = name ? name.split(' ')[0] : '';
-    if(this.props.loadingStatus === true){
+
+    if (this.props.loadingStatus === true) {
       return (
         <div className='sweet-loading'>
           <RingLoader className="spinner" size={160} color={'#ff0000'} />

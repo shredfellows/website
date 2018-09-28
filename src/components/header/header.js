@@ -3,12 +3,14 @@ import './header.css';
 import React from 'react';
 import {connect} from 'react-redux';
 import cookies from 'react-cookies';
+import {Redirect} from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-import ghlogo from '../../assets/img/github.png';
 import sflogo from '../../assets/img/shred-p-logo-01-01.png';
+
+import * as permissionActions from '../../store/actions/permissions.js';
 
 import * as utils from '../../lib/utils.js';
 
@@ -49,36 +51,30 @@ class Header extends React.Component {
   }
 
   logout = () => {
-    cookies.remove('Token', { domain: '.shredfellows.ccs.net' });
-    cookies.remove('GHT', { domain: '.shredfellows.ccs.net' });
-    window.location = '';
+    cookies.remove('Token');
+    cookies.remove('GHT');
+    this.props.loggedInStatus(false);
   }
 
   render() {
+    
+    if (!this.props.loggedIn) {
+      return <Redirect to={'/'} />;
+    }
 
     return (
       <header className="header">
         {
           utils.renderIf(
-            !this.state.student && this.props.loggedIn,
+            !this.state.student,
             <FontAwesomeIcon id="hamburger" icon={faBars}/>
           )
         }
         <img alt="shred fellows logo" src={sflogo}/>
-        {
-          utils.renderIf(
-            this.props.loggedIn, 
-            <a onClick={this.logout}>
-              <img className="gh-logo gh-profile-logo" alt="github profile logo" src={this.props.user.profileImage}/>
-              {'Logout'}
-            </a>,
-            <a href=''>
-              <img className="gh-logo" alt="github octocat logo" src={ghlogo} />
-              {'Login'}
-            </a>
-          )
-        }
-        
+        <a onClick={this.logout}>
+          <img className="gh-logo gh-profile-logo" alt="github profile logo" src={this.props.user.profileImage}/>
+          {'Logout'}
+        </a>
       </header>
     );
   }
@@ -90,4 +86,8 @@ const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
 });
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = dispatch => ({
+  loggedInStatus: payload => dispatch(permissionActions.loggedInStatus(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
