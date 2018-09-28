@@ -11,7 +11,6 @@ export const get = async payload => {
   let url = base + '/' + Object.values(payload).join('/');
   let token = cookies.load('Token');
 
-  console.log({payload});
   if (payload.model === 'github') {
     let data = await utils.fetchData(url);
     return data;

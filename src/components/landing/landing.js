@@ -1,10 +1,13 @@
 import React from 'react';
 import cookies from 'react-cookies';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import './landing.css';
+
+import * as permissionActions from '../../store/actions/permissions.js';
 
 import sflogo from '../../assets/img/shred-logo-landing.png';
 
@@ -12,7 +15,17 @@ import { authURL } from '../../lib/githubLogin.js';
 
 import Form from '../form/form.js';
 
-export default class Landing extends React.Component {
+
+
+class Landing extends React.Component {
+
+  componentWillMount() {
+    let token = cookies.load('Token');
+
+    if (token) {
+      this.props.loggedInStatus(true);
+    }
+  }
   
   handleSubmit = formData => { // eslint-disable-line
     alert('Basic Authentication is a TODO and not functional just yet. Try signing in with GitHub.');
@@ -23,10 +36,8 @@ export default class Landing extends React.Component {
   }
 
   render() {
-
-    let token = cookies.load('Token');
     
-    if (token) {
+    if (this.props.loggedIn) {
       return <Redirect to='/dashboard' />;
     }
 
@@ -50,3 +61,15 @@ export default class Landing extends React.Component {
 
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user,
+  assignment: state.assignment,
+  loggedIn: state.loggedIn,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loggedInStatus: payload => dispatch(permissionActions.loggedInStatus(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);
