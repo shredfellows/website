@@ -9,7 +9,7 @@ import './landing.css';
 
 import * as permissionActions from '../../store/actions/permissions.js';
 
-import sflogo from '../../assets/img/shred-logo-landing.png';
+import sflogo from '../../assets/img/shred-logo-landing_fff.png';
 
 import { authURL } from '../../lib/githubLogin.js';
 
