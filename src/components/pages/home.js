@@ -3,6 +3,7 @@ import { RingLoader } from 'react-spinners';
 import { connect } from 'react-redux';
 import cookies from 'react-cookies';
 import jwt from 'jsonwebtoken';
+
 import Workspace from '../workspace/workspace.js';
 import Sidebar from '../sidebar/sidebar.js';
 
@@ -28,9 +29,6 @@ export class Home extends Component {
       singleTopic: {},
       view:{},
     };
-    this.getAssignment = this.getAssignment.bind(this);
-    this.assignmentExists = this.assignmentExists.bind(this);
-    this.saveAssignment = this.saveAssignment.bind(this);
   }
 
   _isMounted = false;
@@ -104,7 +102,7 @@ export class Home extends Component {
  * @param: github token
  */
 
-  async getAssignment(topic, assgn){
+  getAssignment = async (topic, assgn) => {
     
     this.props.loading(true);
       
@@ -133,7 +131,7 @@ export class Home extends Component {
 
   /** Save the assignment to the user's profile.
 */
-  async saveAssignment() {
+  saveAssignment = async () => {
     let endpoint = 'assignment';
     let body = {
       assignmentName: `${this.state.singleTopic}/${this.state.assignment.name}`,
@@ -144,7 +142,7 @@ export class Home extends Component {
     return data;
   }
 
-  assignmentExists() {
+  assignmentExists = () => {
     let assgnExists = this.props.user && this.props.user.assignments && this.props.user.assignments.filter(singleAssgn => {
       return singleAssgn.assignmentName === `${this.state.singleTopic}/${this.state.assignment.name}`;
     });
