@@ -7,15 +7,12 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import Form from '../form/form.js';
 
-
 import { authURL } from '../../lib/githubLogin.js';
 import * as permissionActions from '../../store/actions/permissions.js';
 
 import sflogo from '../../assets/img/shred-logo-landing_fff.png';
 
 import './landing.css';
-
-
 
 
 class Landing extends React.Component {
