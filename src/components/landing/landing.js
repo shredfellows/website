@@ -5,19 +5,26 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
-import './landing.css';
-
-import * as permissionActions from '../../store/actions/permissions.js';
-
-import sflogo from '../../assets/img/shred-logo-landing.png';
-
-import { authURL } from '../../lib/githubLogin.js';
-
 import Form from '../form/form.js';
 
+import { authURL } from '../../lib/githubLogin.js';
+import * as permissionActions from '../../store/actions/permissions.js';
+
+import sflogo from '../../assets/img/shred-logo-landing_fff.png';
+
+import './landing.css';
 
 
 class Landing extends React.Component {
+
+  state = {
+    offsetX: 0,
+    offsetY: 0,
+  }
+  
+  // componentDidUpdate() {
+  //   console.log('__STATE__', this.state);
+  // }
 
   componentWillMount() {
     let token = cookies.load('Token');
@@ -35,14 +42,32 @@ class Landing extends React.Component {
     alert(response);
   }
 
+  handleMouseMove = e => {
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
+    let screenWidth = screen.width;
+    let screenHeight = screen.height;
+
+    let offsetX = (mouseX - (screenWidth / 2)) / -100;
+    let offsetY = (mouseY - (screenHeight / 2)) / -100;
+
+    this.setState({offsetX: offsetX, offsetY: offsetY});
+  }
+
   render() {
     
     if (this.props.loggedIn) {
       return <Redirect to='/dashboard' />;
     }
 
+    const silhouette3DStyle = {
+      transform: `translate3d(${this.state.offsetX}px, ${this.state.offsetY}px, 0)`,
+    };
+
     return(
-      <section className="landing-overlay">
+      <section onMouseMove={this.handleMouseMove} className="landing-overlay">
+        <div className="silhouette-back"></div>
+        <div style={silhouette3DStyle} className="silhouette-front"></div>
         <div className="login-container">
           <img alt="shred fellows logo" src={sflogo} />
           <a href={authURL}>
