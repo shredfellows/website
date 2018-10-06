@@ -20,6 +20,8 @@ class Landing extends React.Component {
   state = {
     offsetX: 0,
     offsetY: 0,
+
+    signup: false,
   }
   
   // componentDidUpdate() {
@@ -34,6 +36,10 @@ class Landing extends React.Component {
     }
   }
   
+  signup = () => {
+    this.setState({signup: !this.state.signup});
+  }
+
   handleSubmit = formData => { // eslint-disable-line
     alert('Basic Authentication is a TODO and not functional just yet. Try signing in with GitHub.');
   }
@@ -72,14 +78,14 @@ class Landing extends React.Component {
           <img alt="shred fellows logo" src={sflogo} />
           <a href={authURL}>
             <FontAwesomeIcon icon={faGithub}/>
-            <p>Login with GitHub</p>
+            <p>{this.state.signup ? 'Sign Up with Github' : 'Login with Github'}</p>
           </a>
           <p>or</p>
-          <Form handler={this.handleSubmit}/>
+          <Form signup={this.state.signup} handler={this.handleSubmit}/>
         </div>
         <footer>
           <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Forgot Password?</a>
-          <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Sign Up</a>
+          <a onClick={this.signup}>{this.state.signup ? 'Login' : 'Sign Up' }</a>
         </footer>
       </section>
     );

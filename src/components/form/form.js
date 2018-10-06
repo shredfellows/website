@@ -6,7 +6,8 @@ import './form.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-
+import {faUserNinja} from '@fortawesome/free-solid-svg-icons';
+ 
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -27,8 +28,18 @@ export default class Form extends React.Component {
   }
 
   render() {
+    let signup = this.props.signup;
+
     return(
       <form className="login-form" onSubmit={this.handleSubmit} onChange={this.handleChange}>
+        {
+          signup ? 
+            <div>
+              <FontAwesomeIcon icon={faUserNinja} />
+              <input name="username" type="text" placeholder="username" />
+            </div>
+            : null
+        }
         <div>
           <FontAwesomeIcon icon={faEnvelope}/>
           <input name="email" type="text" placeholder="email"/>
@@ -37,6 +48,15 @@ export default class Form extends React.Component {
           <FontAwesomeIcon icon={faLock} />
           <input name="password" type="password" placeholder="password"/>
         </div>
+        {
+          signup ? 
+            <div>
+              <FontAwesomeIcon icon={faLock} />
+              <input name="confirmPassword" type="password" placeholder="confirm" />
+            </div>
+            : null
+
+        }
         <input type="submit"/>
       </form>
     );
