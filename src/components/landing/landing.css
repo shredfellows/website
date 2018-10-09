@@ -105,6 +105,7 @@ section.landing-overlay > footer {
 }
 section.landing-overlay > footer > a {
   color: #fff;
+  cursor: pointer;
   flex: 1;
   font-family: sans-serif;
   font-size: .8em;
