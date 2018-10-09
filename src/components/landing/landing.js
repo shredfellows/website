@@ -40,7 +40,8 @@ class Landing extends React.Component {
     this.setState({signup: !this.state.signup});
   }
 
-  handleSubmit = formData => { // eslint-disable-line
+  handleSubmit = formData => {
+    console.log('FORM DATA', formData);
     alert('Basic Authentication is a TODO and not functional just yet. Try signing in with GitHub.');
   }
 

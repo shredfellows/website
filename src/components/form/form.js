@@ -13,11 +13,18 @@ export default class Form extends React.Component {
     super(props);
 
     this.state = {
+      username: '',
       email:'',
       password: '',
+      confirmPassword: '',
     };
   }
   
+  shouldComponentUpdate(nextProps, nextState) {
+    if ( this.state.email === nextState.email && this.props.signup === nextProps.signup) { return false; }
+    return true;
+  }
+
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value });
   }
