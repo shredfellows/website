@@ -4,12 +4,13 @@ section.landing-overlay {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
   position: relative;
   width: 100vw;
 }
 section.landing-overlay:before {
   content:'';
-  background: #111;
+  background: #415A77;
   bottom: 0;
   height: 100vh;
   left: 0;
@@ -19,13 +20,8 @@ section.landing-overlay:before {
   width: 100vw;
   z-index: 1;
 }
-section.landing-overlay .silhouette-front {
-  background-image: url('../../assets/img/seattle-silhouette-front-black-2.png');
-  background-position-x: center;
-  background-position-y: 20px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  
+
+section.landing-overlay .silhouette-front {  
   bottom: 0;
   content: '';
   height: 100vh;
@@ -37,18 +33,18 @@ section.landing-overlay .silhouette-front {
   z-index: 3;
 
   /* DROP SHADOW */
-  -webkit-filter: drop-shadow(4px -4px 2px rgba(0,0,0,0.5));
+  -webkit-filter: drop-shadow(2px -1px 2px rgba(0,0,0,0.5));
     filter: drop-shadow;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=4, OffY=-4, Color='#444')";
-    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=4, OffY=-4, Color='#444')";
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=-1, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=-1, Color='#444')";
 }
-section.landing-overlay .silhouette-back {
-  background-image: url('../../assets/img/seattle-silhouette-back-red.png');
-  background-position-x: center, 20px;
-  background-position-y: 25px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  
+section.landing-overlay .silhouette-front > img {
+  bottom: -1px;
+  left: -64px;
+  position: absolute;
+  width: 167%;
+}
+section.landing-overlay .silhouette-back {  
   bottom: 0;
   content: '';
   height: 100vh;
@@ -58,6 +54,13 @@ section.landing-overlay .silhouette-back {
   top: 0;
   width: 100vw;
   z-index: 2;
+}
+
+section.landing-overlay .silhouette-back > img {
+  bottom: 0;
+  left: -64px;
+  position: absolute;
+  width: 167%;
 }
 
 section.landing-overlay > .login-container {
@@ -97,13 +100,12 @@ section.landing-overlay > .login-container > p {
   margin: 1em;
   text-align: center;
 }
-section.landing-overlay > footer {
+section.landing-overlay > .login-container > footer {
+  align-items: center;
   display: flex;
-  margin: auto;
-  width: 30%;
-  z-index: 5;
+  margin-top: 1em;
 }
-section.landing-overlay > footer > a {
+section.landing-overlay > .login-container > footer > a {
   color: #fff;
   cursor: pointer;
   flex: 1;

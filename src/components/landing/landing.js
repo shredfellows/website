@@ -10,7 +10,10 @@ import Form from '../form/form.js';
 import { authURL } from '../../lib/githubLogin.js';
 import * as permissionActions from '../../store/actions/permissions.js';
 
+/* IMAGES */
 import sflogo from '../../assets/img/shred-logo-landing_fff.png';
+import silhouetteFront from '../../assets/img/seattle-silhouette-front-black-long.png';
+import silhouetteBack from '../../assets/img/seattle-silhouette-back-red.png';
 
 import './landing.css';
 
@@ -54,8 +57,8 @@ class Landing extends React.Component {
     let screenWidth = screen.width;
     let screenHeight = screen.height;
 
-    let offsetX = (mouseX - (screenWidth / 2)) / -100;
-    let offsetY = (mouseY - (screenHeight / 2)) / -100;
+    let offsetX = mouseX - (screenWidth / 2);
+    let offsetY = (mouseY - (screenHeight / 2)) / -200;
 
     this.setState({offsetX: offsetX, offsetY: offsetY});
   }
@@ -65,15 +68,32 @@ class Landing extends React.Component {
     if (this.props.loggedIn) {
       return <Redirect to='/dashboard' />;
     }
+    
+    /* Next block determines speed and depth of 3D effect for
+    *  Front Silhouette and Back Silhouette   
+    */
+
+    let frontLeftPosition = (this.state.offsetX / -200);
+    let backLeftPosition = (this.state.offsetX / 300);
+    let bottomPosition = this.state.offsetY > 0 ? this.state.offsetY : 0;
 
     const silhouette3DStyle = {
-      transform: `translate3d(${this.state.offsetX}px, ${this.state.offsetY}px, 0)`,
+      front: {
+        transform: `translate3d(${frontLeftPosition - 64}px, ${bottomPosition}px, 0)`,
+      },
+      back: {
+        transform: `translate3d(${backLeftPosition}px, ${bottomPosition}px, 0)`,
+      },
     };
 
     return(
       <section onMouseMove={this.handleMouseMove} className="landing-overlay">
-        <div className="silhouette-back"></div>
-        <div style={silhouette3DStyle} className="silhouette-front"></div>
+        <div className="silhouette-back">
+          <img style={silhouette3DStyle.back} src={silhouetteBack} />
+        </div>
+        <div className="silhouette-front">
+          <img style={silhouette3DStyle.front} src={silhouetteFront} />
+        </div>
         <div className="login-container">
           <img alt="shred fellows logo" src={sflogo} />
           <a href={authURL}>
@@ -82,11 +102,11 @@ class Landing extends React.Component {
           </a>
           <p>or</p>
           <Form signup={this.state.signup} handler={this.handleSubmit}/>
+          <footer>
+            <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Forgot Password?</a>
+            <a onClick={this.signup}>{this.state.signup ? 'Login' : 'Sign Up'}</a>
+          </footer>
         </div>
-        <footer>
-          <a href="" onClick={() => this.alertResponse('This Feature is underway.')}>Forgot Password?</a>
-          <a onClick={this.signup}>{this.state.signup ? 'Login' : 'Sign Up' }</a>
-        </footer>
       </section>
     );
 

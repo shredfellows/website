@@ -23,7 +23,7 @@ form.login-form input {
   margin-left: 1em; 
 }
 form.login-form input[type="submit"] {
-  background: #ff4a35;
+  background: #415A77;
   border: none;
   border-radius: 3px;
   color: #fff;
@@ -31,6 +31,6 @@ form.login-form input[type="submit"] {
   padding: 1em;
 }
 form.login-form input[type="submit"]:hover {
-  background: #cc3b2a;
+  background: #34485f;
   cursor: pointer;
 }
