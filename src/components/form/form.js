@@ -62,7 +62,6 @@ export default class Form extends React.Component {
               <input name="confirmPassword" type="password" placeholder="confirm" />
             </div>
             : null
-
         }
         <input type="submit"/>
       </form>
