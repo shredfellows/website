@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../header/header.js';
-import Home from '../pages/home.js';
+import Home from '../home/home.js';
 
 export default class Dashboard extends React.Component {
   

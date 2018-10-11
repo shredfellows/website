@@ -13,3 +13,7 @@
   right: 0;
   top: 0;
 }
+
+#edit-note:hover {
+  cursor: pointer;
+}

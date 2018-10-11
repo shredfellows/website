@@ -72,3 +72,7 @@
 .rotator .card > button:focus:active {
   transform: scale(.95);
 }
+
+.rotator-button:hover {
+  cursor: pointer;
+}
