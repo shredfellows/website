@@ -71,7 +71,7 @@ class Header extends React.Component {
           )
         }
         <img alt="shred fellows logo" src={sflogo}/>
-        <a onClick={this.logout}>
+        <a className="logout" onClick={this.logout}>
           <img className="gh-logo gh-profile-logo" alt="github profile logo" src={this.props.user.profileImage}/>
           {'Logout'}
         </a>

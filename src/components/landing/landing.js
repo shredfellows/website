@@ -26,10 +26,6 @@ class Landing extends React.Component {
 
     signup: false,
   }
-  
-  // componentDidUpdate() {
-  //   console.log('__STATE__', this.state);
-  // }
 
   componentWillMount() {
     let token = cookies.load('Token');
@@ -67,7 +63,8 @@ class Landing extends React.Component {
   render() {
     
     if (this.props.loggedIn) {
-      return <Redirect to='/dashboard' />;
+      let query = window.location.search;
+      return <Redirect to={`/dashboard/${query}`} />;
     }
     
     /* Next block determines speed and depth of 3D effect for

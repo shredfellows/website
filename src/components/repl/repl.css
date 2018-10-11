@@ -25,3 +25,7 @@
 .repl form > button:nth-of-type(1) {
   background: #00CC00;
 }
+
+.submit-button:hover {
+  cursor:pointer;
+}

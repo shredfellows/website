@@ -35,6 +35,7 @@ export class Home extends Component {
 
   /**Get the list of topics from github
  * @param: github token
+ * @async
  */
   async componentWillMount() {
     

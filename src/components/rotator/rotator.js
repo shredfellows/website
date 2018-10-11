@@ -67,11 +67,11 @@ export default class Rotator extends React.Component {
           <ul>{pips}</ul>
         </nav>
         <div className="card">
-          <button onClick={this.previous}>
+          <button className="rotator-button" onClick={this.previous}>
             <FontAwesomeIcon icon={faLessThan}/>
           </button>
           {currentValue}
-          <button onClick={this.next}>
+          <button className="rotator-button" onClick={this.next}>
             <FontAwesomeIcon icon={faGreaterThan}/>
           </button>
         </div>
