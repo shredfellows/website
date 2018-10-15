@@ -49,11 +49,13 @@ export class Home extends Component {
       let parsedToken = jwt.verify(unparsedToken, 'johnisbald');
       //eslint-disable-next-line
       let {topic, assignment, user} = parsedToken;
+      
       let token = cookies.load('Token'); 
 
       if (token) {
         cookies.remove('Token');
       }
+      
       cookies.save('Token',user);
     }
 
