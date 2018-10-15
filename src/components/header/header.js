@@ -51,8 +51,8 @@ class Header extends React.Component {
   }
 
   logout = () => {
-    cookies.remove('Token', { domain: process.env.COOKIE_DOMAIN });
-    cookies.remove('GHT', { domain: process.env.COOKIE_DOMAIN });
+    cookies.remove('Token', { domain: process.env.REACT_APP_COOKIE_DOMAIN });
+    cookies.remove('GHT', { domain: process.env.REACT_APP_COOKIE_DOMAIN });
     this.props.loggedInStatus(false);
   }
 
