@@ -5,6 +5,13 @@ import superagent from 'superagent';
 import cookies from 'react-cookies';
 import { connect } from 'react-redux';
 
+// Components
+import ReplModal from '../replModal/replModal.js';
+
+// Font Awesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand} from '@fortawesome/free-solid-svg-icons';
+
 import * as api from '../../lib/api.js';
 import * as codeActions from '../../store/actions/code.js';
 import * as userActions from '../../store/actions/users.js';
@@ -15,7 +22,11 @@ import * as userActions from '../../store/actions/users.js';
 class Repl extends React.Component {
   constructor(props){
     super(props);
-    this.state = {code:this.props.challenges[this.props.id]};
+    this.state = {
+      code: this.props.challenges[this.props.id],
+      replExpanded: false,
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -123,9 +134,15 @@ class Repl extends React.Component {
       e.preventDefault();
       this.saveCodeToDB();
     }
-  /**
- * Render the code box onto the page.  Monaco is the editor used.
- */
+
+    expandRepl = e => {
+      e.preventDefault();
+      this.setState({replExpanded: !this.state.replExpanded});
+    }
+  
+    /**
+  * Render the code box onto the page.  Monaco is the editor used.
+  */
     render() {
       const code = this.state.code;
       const options = {
@@ -134,22 +151,37 @@ class Repl extends React.Component {
       };
 
       return (
-        <div className="repl" >
-          <form>
-            <MonacoEditor
-              language="javascript"
-              theme=""
-              value={code}
-              options={options}
-              onChange={this.onChange}
-              editorDidMount={this.editorDidMount}
-            />
-            <button className="submit-button" onClick={this.saveCode}>Save Code</button>
-            <button className="submit-button" id="runCode" onClick={this.handleSubmit}>Run Code</button>
-                    
-          </form>
-                
-        </div>
+        <React.Fragment>
+          <div className="repl" >
+            <form>
+              <MonacoEditor
+                language="javascript"
+                theme=""
+                value={code}
+                options={options}
+                onChange={this.onChange}
+                editorDidMount={this.editorDidMount}
+              />
+              <button className="submit-button" onClick={this.saveCode}>Save Code</button>
+              <button className="submit-button" id="runCode" onClick={this.handleSubmit}>Run Code</button>    
+              <button className="expand" onClick={this.expandRepl}>
+                <FontAwesomeIcon icon={faExpand} />
+              </button>                
+            </form>
+          </div>
+          {
+            this.state.replExpanded ? 
+              <ReplModal 
+                code={code} 
+                options={options} 
+                onChange={this.onChange} 
+                editorDidMount={this.editorDidMount}
+                saveCode={this.saveCode}
+                handleSubmit={this.handleSubmit}
+              /> :
+              null
+          }
+        </React.Fragment>
       );
     }}
 
