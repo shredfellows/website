@@ -1,8 +1,8 @@
 import './readme.css';
 import React from 'react';
-import superagent from 'superagent';
-import ReactMarkdown from 'react-markdown';
-import cookies from 'react-cookies';
+// import superagent from 'superagent';
+// import ReactMarkdown from 'react-markdown';
+// import cookies from 'react-cookies';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,16 +24,16 @@ export default class Readme extends React.Component {
  * Go to github and fetch the Readme.
  * @param: github token (GHT)
  */
-  async componentWillMount() {
-    let cookie = cookies.load('GHT'); 
-    let url = this.props.readmeDoc;
-    if (url && url.length) {
-      let data = await superagent.get(url)
-        .set('Authorization', `Bearer ${cookie}`);
-      let content = atob(data.body.content);
-      this.setState({ content });
-    } 
-  }
+  // async componentWillMount() {
+  //   let cookie = cookies.load('GHT'); 
+  //   let url = this.props.readmeDoc;
+  //   if (url && url.length) {
+  //     let data = await superagent.get(url)
+  //       .set('Authorization', `Bearer ${cookie}`);
+  //     let content = atob(data.body.content);
+  //     this.setState({ content });
+  //   } 
+  // }
     handleNoteIconClick = e => {
       e.preventDefault();
       let boxOpen = this.state.noteBoxOpen;
@@ -50,12 +50,13 @@ export default class Readme extends React.Component {
  * Render the Readme to the page.
  */
     render() {
+      
       return (
         <React.Fragment>
           <div id="readme">
             <FontAwesomeIcon id="edit-note" icon={faEdit} onClick={this.handleNoteIconClick}/>
             <div className="readme">
-              <ReactMarkdown source={this.state.content} />              
+              <iframe src={this.props.readmeDoc} />
             </div>
           </div>
         </React.Fragment>

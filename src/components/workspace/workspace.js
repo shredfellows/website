@@ -98,7 +98,8 @@ export class Workspace extends React.Component {
       catch(e){
         console.log(e);
       }
-
+      console.log('assignment!!', this.props.assignment);
+      console.log(this.props.singleTopic);
       return (
         <div className="workspace">
           <div id="workspace-overlay"></div>
@@ -115,6 +116,7 @@ export class Workspace extends React.Component {
             </div>
           )}
           <div className="content readme">
+
             <Readme readmeDoc={this.props.assignment.readme}/>
           </div>
           <Notes />
