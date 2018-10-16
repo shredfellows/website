@@ -3,12 +3,12 @@ import './header.css';
 import React from 'react';
 import {connect} from 'react-redux';
 import cookies from 'react-cookies';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-import sflogo from '../../assets/img/shred-p-logo-01-01.png';
+import sflogo from '../../assets/img/shred-logo.png';
 
 import * as permissionActions from '../../store/actions/permissions.js';
 
@@ -52,6 +52,10 @@ class Header extends React.Component {
     }
   }
 
+  handleLogoClick = () => {
+    return <Redirect to={'/'} />;
+  }
+
   logout = () => {
     cookies.remove('Token', { domain: process.env.REACT_APP_COOKIE_DOMAIN });
     cookies.remove('GHT', { domain: process.env.REACT_APP_COOKIE_DOMAIN });
@@ -74,7 +78,9 @@ class Header extends React.Component {
             </div>
           )
         }
-        <img alt="shred fellows logo" src={sflogo}/>
+        <Link className="logo" to={'/'}>
+          <img alt="shred fellows logo" src={sflogo}/>
+        </Link>
         <a className="logout" onClick={this.logout}>
           <img className="gh-logo gh-profile-logo" alt="github profile logo" src={this.props.user.profileImage}/>
           {'Logout'}

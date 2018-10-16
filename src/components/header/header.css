@@ -6,10 +6,12 @@
     position: relative;
     z-index: 100;
 }
-.header > div, .header > img {
+.header > div, .header > img, .header > a {
     display: inline-block;
     vertical-align: middle;
 }
+
+
 
 .header #hamburger-container {
     position: relative;
@@ -34,12 +36,12 @@
 .header > div > svg:hover {
     cursor: pointer;
 }
-.header img {
+.header a.logo > img {
     margin-left: 1em;
     width: 200px;
-
 }
-.header a {
+
+.header a.logout {
     color: #f5f5f5;
     float: right;
     font-family: 'Roboto', sans-serif;
@@ -49,7 +51,7 @@
     vertical-align: middle;
     width: 75px;
 }
-.header a > img {
+.header a.logout > img {
     border-radius: 50%;
 }
 .header .gh-logo {
