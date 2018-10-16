@@ -188,8 +188,12 @@ export class Home extends Component {
           <div className="Home">
             <div id="workspace-overlay"></div>
             <Sidebar loading={this.props.loading} topics={topics} getAssign={this.getAssignment}/>
-            <div className="welcomeBack">Welcome Back, {name}!</div>
-            <img className="userImage" src={this.props.user.profileImage} alt="Profile" />
+            <div className="welcome-container">
+              <h1>Get ready to shred!</h1>
+              <img className="userImage" src={this.props.user.profileImage} alt="Profile" />
+              <h2 className="welcomeBack">Welcome Back, {name}!</h2>
+              <h2>Click the sidebar to find your challenge.</h2>
+            </div>
           </div>
         </React.Fragment>
       );
