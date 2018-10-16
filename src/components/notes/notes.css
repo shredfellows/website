@@ -8,6 +8,7 @@
   position: absolute;
   top: calc(50% + 1.75em);
   width: 0;
+  z-index: 100;
 
   transition: all .3s ease;
 

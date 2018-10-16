@@ -8,8 +8,8 @@
     width: 100%;
 }
 .workspace .content {
-    background:#fff;
-  box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+    /* box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3; */
+  background:#fff;
   height:calc(50% - .5em);
   margin-bottom: .5em;
   padding:1em;
