@@ -37,11 +37,13 @@ class Header extends React.Component {
   }
 
   handleBurgerClick = e => {
-    let hamburgerMenu = document.getElementById('hamburger');
+    let hamburgerMenu = document.getElementById('hamburger-container');
     let workspaceOverlay = document.getElementById('workspace-overlay');
     let sidebar = document.getElementById('sidebar');
-
+    console.log(hamburgerMenu);
+    console.log('target', e.target);
     if (e.target === hamburgerMenu) {
+      // console.log(hamburgerMenu);
       sidebar.classList.add('open-from-left');
       workspaceOverlay.classList.add('cover-screen');
     } else if (e.target === workspaceOverlay){
@@ -67,7 +69,9 @@ class Header extends React.Component {
         {
           utils.renderIf(
             !this.state.student,
-            <FontAwesomeIcon id="hamburger" icon={faBars}/>
+            <div id="hamburger-container">
+              <FontAwesomeIcon id="hamburger" icon={faBars}/>
+            </div>
           )
         }
         <img alt="shred fellows logo" src={sflogo}/>
