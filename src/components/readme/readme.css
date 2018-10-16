@@ -1,6 +1,17 @@
 #readme {
+  height: 100%;
   order: 3;
   position: relative;
+  width: 100%;
+}
+.readme {
+  width: 100%;
+  height: 100%;
+}
+.readme iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
 }
 #readme > svg {
   background: #339af0;
