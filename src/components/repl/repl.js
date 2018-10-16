@@ -89,7 +89,7 @@ class Repl extends React.Component {
           .set('Authorization', `Bearer ${cookie}`);
             
         let content = atob(data.body.content);
-        code = '/*' + content + '*/';
+        code = content;
     
         this.setState({code});
 
