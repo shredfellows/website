@@ -135,7 +135,7 @@ class Repl extends React.Component {
       this.saveCodeToDB();
     }
 
-    expandRepl = e => {
+    toggleReplModal = e => {
       e.preventDefault();
       this.setState({replExpanded: !this.state.replExpanded});
     }
@@ -164,7 +164,7 @@ class Repl extends React.Component {
               />
               <button className="submit-button" onClick={this.saveCode}>Save Code</button>
               <button className="submit-button" id="runCode" onClick={this.handleSubmit}>Run Code</button>    
-              <button className="expand" onClick={this.expandRepl}>
+              <button className="expand" onClick={this.toggleReplModal}>
                 <FontAwesomeIcon icon={faExpand} />
               </button>                
             </form>
@@ -178,6 +178,7 @@ class Repl extends React.Component {
                 editorDidMount={this.editorDidMount}
                 saveCode={this.saveCode}
                 handleSubmit={this.handleSubmit}
+                toggle={this.toggleReplModal}
               /> :
               null
           }

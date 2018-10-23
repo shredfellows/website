@@ -1,6 +1,10 @@
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
+// Font Awesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCompress } from '@fortawesome/free-solid-svg-icons';
+
 // Components
 import '../repl/repl.js';
 
@@ -23,9 +27,9 @@ export default class ReplModal extends React.Component {
               />
               <button className="submit-button" onClick={this.props.saveCode}>Save Code</button>
               <button className="submit-button" id="runCode" onClick={this.props.handleSubmit}>Run Code</button>
-              {/* <button className="expand" onClick={this.expandRepl}>
-                <FontAwesomeIcon icon={faExpand} />
-              </button> */}
+              <button className="expand" onClick={this.props.toggle}>
+                <FontAwesomeIcon icon={faCompress} />
+              </button>
             </form>
           </div>
         </div>
