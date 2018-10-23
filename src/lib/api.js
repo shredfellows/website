@@ -10,15 +10,19 @@ export const get = async payload => {
     
   let url = base + '/' + Object.values(payload).join('/');
   let token = cookies.load('Token');
-
+  console.log(payload);
   if (payload.model === 'github') {
+    
     let data = await utils.fetchData(url);
+    console.log('data from api.get', data);
     return data;
   }
   else if (token) {
+    
     let token = document.cookie.split('Token=')[1];
     let data = await superagent.get(url)
       .set('Authorization', `Bearer ${token}`);
+    console.log('data from api.get', data);
     return data.body;
   }
 
