@@ -10,11 +10,11 @@ export const get = async payload => {
     
   let url = base + '/' + Object.values(payload).join('/');
   let token = cookies.load('Token');
-  console.log(payload);
+
   if (payload.model === 'github') {
     
     let data = await utils.fetchData(url);
-    console.log('data from api.get', data);
+
     return data;
   }
   else if (token) {
@@ -22,14 +22,14 @@ export const get = async payload => {
     let token = document.cookie.split('Token=')[1];
     let data = await superagent.get(url)
       .set('Authorization', `Bearer ${token}`);
-    console.log('data from api.get', data);
+
     return data.body;
   }
 
 };
 
 export const post = async payload => {
-  console.log({payload});
+
   let {endpoint, body} = payload;
   let url = base + '/' + endpoint;
 
@@ -58,7 +58,6 @@ export const post = async payload => {
 };
 export const put = async payload => {
 
-  console.log({ payload });
   let { endpoint, body } = payload;
   let url = base + '/' + endpoint;
 

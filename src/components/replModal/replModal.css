@@ -1,0 +1,30 @@
+section.repl-modal {
+  background: rgba(255,255,255, 0.8);
+  display: flex;
+  height: 100%;
+  left: 0;
+  padding: 2em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 300;
+}
+div.modal-container {
+  display: flex;
+  height: 100%;
+  margin: auto;
+  width: 100%;
+}
+div.modal-container > .repl {
+  flex: 1;
+}
+
+div.modal-container > .repl form {
+  height: 100%;
+}
+div.modal-container > .output {
+  background: black;
+  color: #33FF00;
+  flex: 1;
+  padding: 2em;
+}

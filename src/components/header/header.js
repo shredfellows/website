@@ -40,10 +40,8 @@ class Header extends React.Component {
     let hamburgerMenu = document.getElementById('hamburger-container');
     let workspaceOverlay = document.getElementById('workspace-overlay');
     let sidebar = document.getElementById('sidebar');
-    console.log(hamburgerMenu);
-    console.log('target', e.target);
+
     if (e.target === hamburgerMenu) {
-      // console.log(hamburgerMenu);
       sidebar.classList.add('open-from-left');
       workspaceOverlay.classList.add('cover-screen');
     } else if (e.target === workspaceOverlay){

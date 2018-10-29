@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import cookies from 'react-cookies';
@@ -7,6 +6,7 @@ import copy from 'copy-to-clipboard';
 
 import './workspace.css';
 
+// Components
 import Video from '../video/video.js';
 import Repl from '../repl/repl.js';
 import Readme from '../readme/readme.js';
@@ -27,7 +27,7 @@ export class Workspace extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      output:'', 
+      output:'Hello', 
       urlToCopy: '',
       student: false,
     };
@@ -35,7 +35,9 @@ export class Workspace extends React.Component {
     this.runCode = this.runCode.bind(this);
     this.generateLink = this.generateLink.bind(this);
   }
-
+  // componentDidUpdate() {
+  //   console.log('__WORKSPACE__', this.state.output);
+  // }
   componentDidMount() {
     let student = (window.location.search) ? true : false;
     this.setState({ student });
@@ -74,7 +76,6 @@ export class Workspace extends React.Component {
   generateLink(){
     let topic = this.props.storeAssignment.assignmentName.split('/')[0];
     let assign = this.props.storeAssignment.assignmentName.split('/')[1];
-    console.log('TOPIC/ASSIGN', topic, assign);
     let user = cookies.load('Token');
     let secret = 'johnisbald'; 
     let token = jwt.sign({topic: topic, assignment: assign, user: user}, secret);
@@ -91,6 +92,7 @@ export class Workspace extends React.Component {
     render() {
       let challenges = [];
       let challengesKeys = [];
+      
       try {
         challenges = Object.values(this.props.assignment.challenges);
         challengesKeys = Object.keys(this.props.assignment.challenges);
@@ -98,8 +100,7 @@ export class Workspace extends React.Component {
       catch(e){
         console.log(e);
       }
-      console.log('assignment!!', this.props.assignment);
-      console.log(this.props.singleTopic);
+
       return (
         <div className="workspace">
           <div id="workspace-overlay"></div>
@@ -110,7 +111,13 @@ export class Workspace extends React.Component {
             <div className="content"> 
               <Rotator>
                 {challenges.map((challenge, i) =>
-                  <Repl key={uuid()} id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} challengeLinks={challenge} runCode={this.runCode} />
+                  <Repl 
+                    key={challengesKeys[i]} 
+                    id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} 
+                    challengeLinks={challenge} 
+                    runCode={this.runCode} 
+                    output={this.state.output}
+                  />
                 )}
               </Rotator>
             </div>

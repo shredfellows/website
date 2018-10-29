@@ -47,7 +47,6 @@ class Notes extends React.Component {
 
   render() {
     let assignmentArray = this.props.user && this.props.user.assignments && this.props.user.assignments.filter(single => single.assignmentName === this.props.assignment.assignmentName);
-    console.log({assignmentArray});
     let assignmentNotes = assignmentArray && assignmentArray[0] && assignmentArray[0].notes;
     return (
       <div id="notes" className="notes">
