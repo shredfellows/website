@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import cookies from 'react-cookies';
@@ -7,6 +6,7 @@ import copy from 'copy-to-clipboard';
 
 import './workspace.css';
 
+// Components
 import Video from '../video/video.js';
 import Repl from '../repl/repl.js';
 import Readme from '../readme/readme.js';
@@ -27,7 +27,7 @@ export class Workspace extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      output:'', 
+      output:'Hello', 
       urlToCopy: '',
       student: false,
     };
@@ -110,7 +110,13 @@ export class Workspace extends React.Component {
             <div className="content"> 
               <Rotator>
                 {challenges.map((challenge, i) =>
-                  <Repl key={uuid()} id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} challengeLinks={challenge} runCode={this.runCode} />
+                  <Repl 
+                    key={challengesKeys[i]} 
+                    id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} 
+                    challengeLinks={challenge} 
+                    runCode={this.runCode} 
+                    output={this.state.output}
+                  />
                 )}
               </Rotator>
             </div>

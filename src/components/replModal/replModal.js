@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompress } from '@fortawesome/free-solid-svg-icons';
 
 // Components
-import '../repl/repl.js';
+import Output from '../output/output.js';
 
 import './replModal.css';
 
@@ -31,6 +31,9 @@ export default class ReplModal extends React.Component {
                 <FontAwesomeIcon icon={faCompress} />
               </button>
             </form>
+          </div>
+          <div className="output">
+            <Output output={this.props.output} />
           </div>
         </div>
       </section>

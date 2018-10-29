@@ -16,10 +16,15 @@ div.modal-container {
   width: 100%;
 }
 div.modal-container > .repl {
-  height: 100%;
-  width: 100%;
+  flex: 1;
 }
 
 div.modal-container > .repl form {
   height: 100%;
+}
+div.modal-container > .output {
+  background: black;
+  color: #33FF00;
+  flex: 1;
+  padding: 2em;
 }
