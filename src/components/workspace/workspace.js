@@ -35,7 +35,9 @@ export class Workspace extends React.Component {
     this.runCode = this.runCode.bind(this);
     this.generateLink = this.generateLink.bind(this);
   }
-
+  // componentDidUpdate() {
+  //   console.log('__WORKSPACE__', this.state.output);
+  // }
   componentDidMount() {
     let student = (window.location.search) ? true : false;
     this.setState({ student });
@@ -74,7 +76,6 @@ export class Workspace extends React.Component {
   generateLink(){
     let topic = this.props.storeAssignment.assignmentName.split('/')[0];
     let assign = this.props.storeAssignment.assignmentName.split('/')[1];
-    console.log('TOPIC/ASSIGN', topic, assign);
     let user = cookies.load('Token');
     let secret = 'johnisbald'; 
     let token = jwt.sign({topic: topic, assignment: assign, user: user}, secret);
@@ -91,6 +92,7 @@ export class Workspace extends React.Component {
     render() {
       let challenges = [];
       let challengesKeys = [];
+      
       try {
         challenges = Object.values(this.props.assignment.challenges);
         challengesKeys = Object.keys(this.props.assignment.challenges);
@@ -98,8 +100,7 @@ export class Workspace extends React.Component {
       catch(e){
         console.log(e);
       }
-      console.log('assignment!!', this.props.assignment);
-      console.log(this.props.singleTopic);
+
       return (
         <div className="workspace">
           <div id="workspace-overlay"></div>

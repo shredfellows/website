@@ -31,9 +31,9 @@ class Repl extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log('REPL__STATE__', this.state);
-  }
+  // componentDidUpdate() {
+  //   console.log('REPL__STATE__', this.state);
+  // }
 
   handleSubmit(e){
     e.preventDefault();
