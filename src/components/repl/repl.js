@@ -179,7 +179,6 @@ class Repl extends React.Component {
                 saveCode={this.saveCode}
                 handleSubmit={this.handleSubmit}
                 toggle={this.toggleReplModal}
-                output={this.props.output}
               /> :
               null
           }

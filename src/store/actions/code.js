@@ -5,3 +5,10 @@ export const addCode = payload => {
   };
 };
 
+export const addOutput = payload => {
+  return {
+    type: 'ADD_OUTPUT',
+    payload: payload,
+  };
+};
+
