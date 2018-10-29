@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import MonacoEditor from 'react-monaco-editor';
 
 // Font Awesome Icons
@@ -10,7 +11,7 @@ import Output from '../output/output.js';
 
 import './replModal.css';
 
-export default class ReplModal extends React.Component {
+class ReplModal extends React.Component {
   render() {
     return (
       <section className="repl-modal">
@@ -37,7 +38,12 @@ export default class ReplModal extends React.Component {
           </div>
         </div>
       </section>
-      
     );
   }
 } 
+
+const mapStateToProps = state => ({
+  output: state.challenges.output,
+});
+
+export default connect(mapStateToProps)(ReplModal);

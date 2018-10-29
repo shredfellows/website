@@ -17,6 +17,9 @@ import Notes from '../notes/notes.js';
 import * as api from '../../lib/api.js';
 import { renderIf } from '../../lib/utils';
 
+// Dispatchers
+import * as codeActions from '../../store/actions/code.js';
+
 
 /** 
  * Component to run code in the coderunner to check for errors.  Renders it to the 
@@ -26,8 +29,7 @@ import { renderIf } from '../../lib/utils';
 export class Workspace extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      output:'Hello', 
+    this.state = { 
       urlToCopy: '',
       student: false,
     };
@@ -60,17 +62,20 @@ export class Workspace extends React.Component {
         consoleLogs = consoleLogs + solution['console.log'][i] + `\r`;
       }
     }
+
     if (solution['error']) {
       errors += solution['error']['ename'] + ': ' + solution['error']['evalue'] + `\r`;
       let traceback = '\nat ' + solution['error']['traceback'][0] + '\n';
       for (let i = 1; i < solution['error']['traceback'].length; i++) {
         traceback = traceback + solution['error']['traceback'][i] + '\n';
       }
-            
       errors += traceback;
     }
+    
     let output = consoleLogs + '\r' + errors + '\r< ' + solution['return'];
-    this.setState({output});
+
+    // add to redux store
+    this.props.addOutput({output});
   }
 
   generateLink(){
@@ -115,8 +120,7 @@ export class Workspace extends React.Component {
                     key={challengesKeys[i]} 
                     id={`${this.props.singleTopic}/${this.props.assignment.name}/${challengesKeys[i]}`} 
                     challengeLinks={challenge} 
-                    runCode={this.runCode} 
-                    output={this.state.output}
+                    runCode={this.runCode}
                   />
                 )}
               </Rotator>
@@ -128,7 +132,7 @@ export class Workspace extends React.Component {
           </div>
           <Notes />
           <div className="content output">
-            <Output output={this.state.output} />
+            <Output output={this.props.output} />
           </div>
           {renderIf(this.state.urlToCopy.length,
             <form id="submission-url">
@@ -148,10 +152,15 @@ export class Workspace extends React.Component {
 
 const mapStateToProps = state => ({
   challenges: state.challenges,
+  output: state.challenges.output,
   users: state.user,
   storeAssignment: state.assignment,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addOutput: payload => dispatch(codeActions.addOutput(payload)),
 });
   
 
   
-export default connect(mapStateToProps, null)(Workspace);
+export default connect(mapStateToProps, mapDispatchToProps)(Workspace);
